@@ -38,7 +38,6 @@ npm run lint
 npm run build
 ```
 
-
 # Folder Structure
 
 ```
