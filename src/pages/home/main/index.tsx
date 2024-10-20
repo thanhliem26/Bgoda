@@ -1,11 +1,11 @@
-import AdminUserScreen from 'features/home/index';
+import HomeScreen from 'features/home/main/presentation/screen/index';
 import HelmetComponent from 'shared/components/helmet'
 
 function HomePage() {
 
   return (
     <HelmetComponent title="Bgoda">
-      <AdminUserScreen />
+      <HomeScreen />
     </HelmetComponent>
   )
 }

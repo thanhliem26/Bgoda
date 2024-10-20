@@ -1,4 +1,4 @@
-import { FC, Fragment, lazy, LazyExoticComponent, Suspense } from 'react'
+import { FC, lazy, LazyExoticComponent, Suspense } from 'react'
 import {
   createBrowserRouter,
   Outlet,
@@ -9,6 +9,7 @@ import LoadingScreen from 'shared/components/loading-screen'
 import DoNotAllow from 'pages/403';
 import NotFound from 'pages/404'
 import DashboardLayout from 'layouts/layout/DashboardLayout';
+import DashboardHomeLayout from 'layouts/layout/DashboardHomeLayout';
 
 const Loadable = (Component: LazyExoticComponent<FC>) => (props: any) => {
   return (
@@ -20,33 +21,31 @@ const Loadable = (Component: LazyExoticComponent<FC>) => (props: any) => {
 
 const AdminUserPage = Loadable(lazy(() => import('../pages/admin/user')))
 
-const MainPage = Loadable(lazy(() => import('../pages/home/index')))
+const MainPage = Loadable(lazy(() => import('../pages/home/main/index')))
+
+const LoginPage = Loadable(lazy(() => import('../pages/home/login/index')))
+
+const RegisterPage = Loadable(lazy(() => import('../pages/home/register/index')))
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Fragment><Outlet /></Fragment>,
+    element: <DashboardHomeLayout><Outlet /></DashboardHomeLayout>,
     children: [
       {
         index: true,
         element: <MainPage />
       },
+      {
+       path: "/login",
+        element: <LoginPage />
+      },
+      {
+        path: "/register",
+         element: <RegisterPage />
+       },
     ]
   },
-  // {
-  //   path: "/login",
-  //   element: <PublicLayout />,
-  //   children: [
-  //     {
-  //       index: true,
-  //       element: <SingInPage />
-  //     },
-  //     {
-  //       path: "sing-up",
-  //       element: <SingUpPage />,
-  //     },
-  //   ]
-  // },
   {
     path: '/admin',
     element: (

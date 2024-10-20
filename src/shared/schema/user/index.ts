@@ -25,3 +25,10 @@ export type UpdateUserArguments = {
 export type DeleteUserArguments = {
     id: string
 }
+
+export type RegisterUserArguments = {
+    email: string
+    password: string
+    name: string
+    re_password: string
+}

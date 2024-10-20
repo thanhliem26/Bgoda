@@ -1,7 +1,7 @@
+import { Flex } from 'antd'
 import styled from 'styled-components'
 
-const FlexBox = styled.div`
-  width: 100%;
+const FlexBox = styled(Flex)`
   display: flex;
 `
 
