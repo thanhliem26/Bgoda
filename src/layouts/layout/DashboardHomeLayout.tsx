@@ -1,7 +1,6 @@
 import LayoutHeader from 'layouts/layout-parts/LayoutHeader'
-import React, { ReactNode } from 'react'
 import { Outlet } from 'react-router-dom'
-import { Box, FlexBox } from 'shared/styles'
+import { Box } from 'shared/styles'
 import styled from 'styled-components'
 
 

@@ -6,6 +6,12 @@ import { User } from "shared/schema/user"
 export const columns = (
   actions: TOptionItem<User>[],
 ): TableProps<User>['columns'] => [
+  {
+    title: 'Email',
+    dataIndex: 'email',
+    key: 'email',
+    width: 300
+  },
     {
       title: 'Name',
       dataIndex: 'name',
@@ -16,15 +22,21 @@ export const columns = (
       width: 300,
     },
     {
-      title: 'Age',
-      dataIndex: 'age',
-      key: 'age',
+      title: 'Date of birth',
+      dataIndex: 'dob',
+      key: 'dob',
       width: 200,
     },
     {
       title: 'Address',
       dataIndex: 'address',
       key: 'address',
+      width: 300
+    },
+    {
+      title: 'Phone',
+      dataIndex: 'phone',
+      key: 'phone',
       width: 300
     },
     {

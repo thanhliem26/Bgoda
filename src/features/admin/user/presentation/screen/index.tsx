@@ -7,7 +7,6 @@ import {
 import SearchInput from "shared/components/table/components/SearchInput";
 import ButtonBase from "shared/components/AppButton";
 import TableBase from "shared/components/table";
-import { MenuProps, message } from "antd";
 import useTeamTable from "../../hooks/useUserTable";
 import useActionTable from "../../hooks/useActionTable";
 import CreateUserModal from "../page-sections/CreateUserModal";
@@ -16,6 +15,7 @@ import DeleteUserModal from "../page-sections/DeleteUserModal";
 import useBuildActionsTableUser from "../../hooks/useBuildActionTableUser";
 import useBuildColumnTable from "shared/components/table/hooks/useBuildColumnTable";
 import { columns } from "../../shared/constants";
+import DetailUserModal from "../page-sections/DetailUserModal";
 
 const AdminUser = () => {
   const useActionTableReturn = useActionTable()
@@ -25,6 +25,8 @@ const AdminUser = () => {
     setOpenEdit,
     openDelete,
     setOpenDelete,
+    openDetail, 
+    setOpenDetail,
     rowId } = useActionTableReturn
 
   const { actions } = useBuildActionsTableUser(useActionTableReturn)
@@ -59,6 +61,7 @@ const AdminUser = () => {
       {openCreate && <CreateUserModal open={openCreate} setOpen={setOpenCreate} />}
       {openEdit && <UpdateUserModal open={openEdit} setOpen={setOpenEdit} id={rowId.current} />}
       {openDelete && <DeleteUserModal open={openDelete} setOpen={setOpenDelete} id={rowId.current} />}
+      {openDetail && <DetailUserModal open={openDetail} setOpen={setOpenDetail} id={rowId.current} />}
     </Box>
   )
 }

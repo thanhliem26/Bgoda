@@ -1,4 +1,4 @@
-import { H3, H5, Span, Tiny } from 'shared/styles/Typography'
+import { H3, Span, Tiny } from 'shared/styles/Typography'
 import {
   ContainerWrapper,
   FormContainer,
@@ -6,14 +6,10 @@ import {
 } from '../../shared/style'
 import { Box, FlexBox, FormControl, HelperTextForm } from 'shared/styles'
 import { Controller } from 'react-hook-form'
-import AppTextField from 'shared/components/form/AppTextField'
 import useCreateUser from '../../hooks/useCreateUser'
 import InputBase from 'shared/components/input'
 import AppButton from 'shared/components/AppButton'
 import { Link } from 'react-router-dom'
-import {
-  UnlockOutlined
-} from '@ant-design/icons';
 
 function Register() {
   const { onSubmit, control, isPending, isValid } = useCreateUser({

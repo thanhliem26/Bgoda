@@ -1,4 +1,4 @@
-import { Input, InputProps, Skeleton } from "antd"
+import { DatePicker, DatePickerProps, Skeleton } from "antd"
 import { FC } from "react"
 import { Box } from "shared/styles";
 import { Span } from "shared/styles/Typography";
@@ -18,6 +18,10 @@ const Wrapper = styled(Box)`
     pointer-events: none;
   }
 
+  & .ant-picker {
+    width: 100%;
+  }
+
   input:focus + .floating-label,
   input:not(:placeholder-shown) + .floating-label {
     top: 10px;
@@ -29,27 +33,29 @@ const Wrapper = styled(Box)`
   }
 `;
 
-interface IAppTextFieldProps extends Omit<InputProps, 'placeholder'> {
+interface IAppDatePickerProps extends DatePickerProps {
   loading?: boolean
   label?: string
 }
 
-const AppTextField: FC<IAppTextFieldProps> = (props) => {
-  const { loading = false, label, required, ...inputProps } = props
+const AppDatePicker: FC<IAppDatePickerProps> = (props) => {
+  const { loading = false, label, required, value, ...inputProps } = props
 
   return loading ? (
     <Skeleton.Input active={false} size={'default'} />
   ) : (
     <Wrapper>
-       <Input
+       <DatePicker
         placeholder=" "
-        size="large"
+        style={{ padding: '12px 12px 8px' }} 
+        size="middle"
+        value={value}
         {...inputProps}
       />
-      <label className="floating-label">{label} {required && <Span style={{color: 'red'}}>*</Span>}</label>
+      {!value && <label className="floating-label">{label} {required && <Span style={{color: 'red'}}>*</Span>}</label>}
     </Wrapper>
 
   )
 }
 
-export default AppTextField
+export default AppDatePicker
