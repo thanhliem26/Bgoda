@@ -11,14 +11,12 @@ type AuthProviderProps = { children: ReactNode }
 
 interface IAuthContext {
   authState: AuthState
-  login: () => void
   logout: () => void
 }
 
 const AuthContext = createContext<IAuthContext>({
   authState: 'INIT',
   logout: () => {},
-  login: () => {},
 })
 
 type AuthState = 'INIT' | 'IS_AUTHENTICATED' | 'IS_NOT_AUTHENTICATED'
@@ -27,10 +25,7 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
   const { removeToken, getToken } = handleAuthLocalStorage()
 
   const [authState, setAuthState] = useState<AuthState>('INIT')
-  const login = () => {
-    // window.location.href = restApi.login
-    //api login
-  }
+  console.log("🚀 ~ authState:", authState)
 
   const logout = () => {
     removeToken()
@@ -41,6 +36,7 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
     ;(async () => {
       try {
         const token = getToken()
+        // console.log("🚀 ~ token:", token)
         if (
           token &&
           token?.accessToken &&
@@ -61,7 +57,6 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
     <AuthContext.Provider
       value={{
         authState,
-        login,
         logout,
       }}
     >

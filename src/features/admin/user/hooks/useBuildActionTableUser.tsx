@@ -3,7 +3,9 @@ import { IuseUserActionTableReturn } from './useActionTable'
 import { useBuildActionsTable } from 'shared/components/table/hooks/useBuildActionTable'
 import { User } from 'shared/schema/user'
 import {
-  UserOutlined,
+  DeleteOutlined,
+  EditOutlined,
+  SearchOutlined,
 } from '@ant-design/icons'
 
 export enum ActionsTableUser {
@@ -15,9 +17,8 @@ export enum ActionsTableUser {
 function useBuildActionsTableUser({
   handleOpenEdit,
   handleOpenDelete,
+  handleOpenDetail
 }: IuseUserActionTableReturn) {
-
-  const navigate = useNavigate()
   const useBuildActionsTableReturn = useBuildActionsTable<
     ActionsTableUser,
     User
@@ -26,10 +27,10 @@ function useBuildActionsTableUser({
       detail: {
         key: ActionsTableUser.DETAIL,
         onClick: (id) => {
-          navigate(`/dashboard/team-detail/${id}`)
+          handleOpenDetail(id)
         },
         label: "Detail",
-        icon: <UserOutlined />,
+        icon: <SearchOutlined />,
       },
       edit: {
         key: ActionsTableUser.EDIT,
@@ -37,7 +38,7 @@ function useBuildActionsTableUser({
           handleOpenEdit(id)
         },
         label: "Edit",
-        icon: <UserOutlined />,
+        icon: <EditOutlined />,
       },
       delete: {
         key: ActionsTableUser.DELETE,
@@ -45,7 +46,7 @@ function useBuildActionsTableUser({
           handleOpenDelete(id)
         },
         label: "Delete",
-        icon: <UserOutlined />,
+        icon: <DeleteOutlined />,
       },
     },
   })

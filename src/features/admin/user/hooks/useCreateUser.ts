@@ -27,7 +27,7 @@ function useCreateUser(props: createTeamProps = {}) {
     onSuccess: onSuccess,
   })
 
-  const { handleSubmit, control, formState } = useFormReturn
+  const { handleSubmit, control, formState, setValue } = useFormReturn
 
   const isValid = !formState.isValid
   const { isPending, mutate } = useCreateReturn
@@ -45,6 +45,7 @@ function useCreateUser(props: createTeamProps = {}) {
     isValid,
     isPending,
     formState,
+    setValue
   }
 }
 

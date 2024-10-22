@@ -54,7 +54,7 @@ class RESTClientService {
             let finalUrl = url;
             const config = { ...requestOptions };
 
-            if (config.method === 'GET' && params) {
+            if ((config.method === 'GET' || config.method === 'DELETE') && params) {
                 const paramsClone = cloneDeep(params);
                 if(slash_id && paramsClone?.id) {
                     delete paramsClone['id'];

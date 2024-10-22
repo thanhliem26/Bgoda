@@ -14,4 +14,5 @@ export interface IUseCustomCommonTable {
     filters?: BaseRecord
     perPage?: number
     orderBy?: ISorting
+    variables?: BaseRecord
 }

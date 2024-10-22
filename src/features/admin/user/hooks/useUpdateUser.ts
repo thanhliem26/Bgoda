@@ -24,11 +24,14 @@ function useUpdateUser(props: UseUpdateUser) {
         queryKey: [queryKey],
         id,
         onSuccess,
-        formatDefaultValues(data) {
+        formatDefaultValues() {
 
             return {
                 email: 'teset',
-                password: 'ok'
+                password: 'ok',
+                name: '',
+                re_password: '',
+                role: ''
             }
         },
     })
@@ -42,7 +45,7 @@ function useUpdateUser(props: UseUpdateUser) {
         handleSubmit((value) => {
             console.log("🚀 ~ value:", value)
 
-              mutate(value)
+            mutate(value)
         })()
     }
 

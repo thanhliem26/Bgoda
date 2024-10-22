@@ -1,7 +1,7 @@
-import { Input, Skeleton } from "antd"
+import { Input, InputProps, Skeleton } from "antd"
 import { FC } from "react"
-import { InputBaseProps } from "shared/components/input"
 import { Box } from "shared/styles";
+import { Span } from "shared/styles/Typography";
 import styled from "styled-components";
 
 const Wrapper = styled(Box)`
@@ -29,23 +29,24 @@ const Wrapper = styled(Box)`
   }
 `;
 
-interface IAppTextFieldProps extends Omit<InputBaseProps, 'placeholder'> {
+interface IAppTextFieldProps extends Omit<InputProps, 'placeholder'> {
   loading?: boolean
   label?: string
 }
 
 const AppTextField: FC<IAppTextFieldProps> = (props) => {
-  const { loading = false, label, ...inputProps } = props
+  const { loading = false, label, required, ...inputProps } = props
+
   return loading ? (
     <Skeleton.Input active={false} size={'default'} />
   ) : (
     <Wrapper>
        <Input
         placeholder=" "
-        style={{ padding: '12px 12px 8px' }} 
+        size="large"
         {...inputProps}
       />
-      <label className="floating-label">{label}</label>
+      <label className="floating-label">{label} {required && <Span style={{color: 'red'}}>*</Span>}</label>
     </Wrapper>
 
   )
