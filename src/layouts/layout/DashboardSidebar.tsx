@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { Box, FlexBox } from 'shared/styles'
 import { navigation } from 'layouts/layout-parts/navigation'
 import Scrollbar from 'shared/components/ScrollBar'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import ProfilePopover from 'layouts/layout-parts/ProfileAvatar'
 
 const MenuSidebar = styled(Menu)`
@@ -178,8 +178,11 @@ const NavWrapper = styled(Box)`
 const TOP_HEADER_AREA = 70;
 
 const DashboardSidebar: React.FC = () => {
-  const onClick: MenuProps['onClick'] = (e) => {
-    console.log('click ', e)
+  const navigate = useNavigate();
+
+  const onClick: MenuProps['onClick'] = (event) => {
+    console.log('click ', event)
+    navigate(event.key);
   }
 
   return (

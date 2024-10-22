@@ -89,10 +89,11 @@ const useCustomTable = ({
   const { sortData, status, totalRecord } = useMemo(() => {
     if (data && isRight(data)) {
       const response = unwrapEither(data)
+      console.log("🚀 ~ response:", response)
 
       const status = response?.status;
       const totalRecord = response?.metadata?.count;
-      const sortData = response?.metadata?.rows;
+      const sortData = response as any[]
 
       return {
         status: status,

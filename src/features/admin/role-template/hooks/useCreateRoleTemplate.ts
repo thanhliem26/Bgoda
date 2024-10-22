@@ -3,44 +3,38 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import useService from "../domain/services"
 import { FormDataSchema, schema } from "../shared/constants/schema"
 import useCreateResource from "shared/hooks/crud-hook/useCreateResource"
-import { CreateUserArguments } from "shared/schema/user"
-import handleAuthLocalStorage from "services/auth-local-storage-service"
-import { useNavigate } from "react-router-dom"
+import { CreateRoleTemplateArguments } from "shared/schema/role-template"
 
-interface IUseLoginProps {
+interface createRoleTemplateProps {
   onSuccess?: (value: any) => void
 }
 
-function useLogin(props: IUseLoginProps = {}) {
-  const { saveToken } = handleAuthLocalStorage();
+function useCreateRoleTemplate(props: createRoleTemplateProps = {}) {
+  const { onSuccess } = props
 
-  const { loginUser, queryKey } = useService()
+  const { createRoleTemplate, queryKey } = useService()
   const { useCreateReturn, useFormReturn } = useCreateResource<
-    CreateUserArguments,
+    CreateRoleTemplateArguments,
     FormDataSchema
   >({
     mutationKey: [queryKey],
-    queryString: loginUser,
+    queryString: createRoleTemplate,
     defaultValues: {
-      email: '',
-      password: '',
+      name: '',
+      permission: []
     },
     resolver: yupResolver(schema),
-    onSuccess: (data) => {
-      const token = data;
-      saveToken({accessToken: token.toString()})
-
-      window.location.reload()
-    },
+    onSuccess: onSuccess,
   })
 
-  const { handleSubmit, control, formState } = useFormReturn
+  const { handleSubmit, control, formState, setValue } = useFormReturn
 
   const isValid = !formState.isValid
   const { isPending, mutate } = useCreateReturn
 
   function onSubmit() {
     handleSubmit((value) => {
+
       mutate(value)
     })()
   }
@@ -51,7 +45,8 @@ function useLogin(props: IUseLoginProps = {}) {
     isValid,
     isPending,
     formState,
+    setValue
   }
 }
 
-export default useLogin
+export default useCreateRoleTemplate

@@ -15,11 +15,7 @@ import {
 } from '@ant-design/icons';
 
 function Login() {
-  const { onSubmit, control, isPending } = useLogin({
-    onSuccess: () => {
-      // setOpen(false)
-    },
-  })
+  const { onSubmit, control, isPending } = useLogin();
 
   return (
     <ContainerWrapper>
