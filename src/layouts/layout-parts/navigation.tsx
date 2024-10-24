@@ -1,4 +1,5 @@
 import {
+  BoxPlotOutlined,
     SettingOutlined,
     UserOutlined,
   } from '@ant-design/icons'
@@ -58,7 +59,7 @@ export const navigation: IMenuSideBar[] = [
       label: 'SYSTEM',
       type: 'group',
       children: [
-        { key: 'room-type', label: 'Room type',  icon: <SettingOutlined />},
+        { key: 'room-type', label: 'Room type',  icon: <BoxPlotOutlined />},
         { key: 'service', label: 'Service',  icon: <SettingOutlined />},
         { key: 'role-template', label: 'Role template',  icon: <SettingOutlined />},
         { key: '', label: 'User',  icon: <UserOutlined />},
