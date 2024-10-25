@@ -1,7 +1,6 @@
 import IconScreen from "shared/components/utils/IconScreen"
 import { Box, FlexBox, WrapperContainer } from "shared/styles"
 import {
-  BoxPlotOutlined,
   PlusOutlined,
   SettingOutlined,
 } from '@ant-design/icons'
@@ -10,7 +9,7 @@ import ButtonBase from "shared/components/AppButton";
 import TableBase from "shared/components/table";
 import useRoomTypeTable from "../../hooks/useRoomTypeTable";
 import useActionTable from "../../hooks/useActionTable";
-import CreateRoomTypeModal from "../page-sections/CreateRoomTypeModal";
+import CreateServiceRoomModal from "../page-sections/CreateServiceRoomModal";
 import UpdateRoomTypeModal from "../page-sections/UpdateRoomTypeModal";
 import DeleteRoomTypeModal from "../page-sections/DeleteRoomTypeModal";
 import useBuildActionTableRoleTemplate from "../../hooks/useBuildActionTableRoleTemplate";
@@ -18,7 +17,7 @@ import useBuildColumnTable from "shared/components/table/hooks/useBuildColumnTab
 import { columns } from "../../shared/constants";
 import DetailRoomTypeModal from "../page-sections/DetailRoomTypeModal";
 
-const AdminRoomType = () => {
+const AdminServiceRoom = () => {
   const useActionTableReturn = useActionTable()
   const { openCreate,
     setOpenCreate,
@@ -41,7 +40,7 @@ const AdminRoomType = () => {
   return (
     <Box style={{ paddingTop: 16, paddingBottom: 32 }}>
       <Box>
-        <IconScreen textLabel={"Room type"} Icon={<BoxPlotOutlined />} />
+        <IconScreen textLabel={"Service room"} Icon={<SettingOutlined />} />
       </Box>
       <WrapperContainer style={{ marginTop: '20px' }}>
         <FlexBox style={{ justifyContent: 'space-between', padding: '12px', marginTop: '16px' }}>
@@ -50,7 +49,7 @@ const AdminRoomType = () => {
           </Box>
           <Box>
             <ButtonBase icon={<PlusOutlined />} onClick={() => setOpenCreate(true)}>
-              Add a new room type
+              Add a new service room
             </ButtonBase>
           </Box>
         </FlexBox>
@@ -59,7 +58,7 @@ const AdminRoomType = () => {
         </FlexBox>
       </WrapperContainer>
 
-      {openCreate && <CreateRoomTypeModal open={openCreate} setOpen={setOpenCreate} />}
+      {openCreate && <CreateServiceRoomModal open={openCreate} setOpen={setOpenCreate} />}
       {openEdit && <UpdateRoomTypeModal open={openEdit} setOpen={setOpenEdit} id={rowId.current} />}
       {openDelete && <DeleteRoomTypeModal open={openDelete} setOpen={setOpenDelete} id={rowId.current} />}
       {openDetail && <DetailRoomTypeModal open={openDetail} setOpen={setOpenDetail} id={rowId.current} />}
@@ -67,4 +66,4 @@ const AdminRoomType = () => {
   )
 }
 
-export default AdminRoomType
+export default AdminServiceRoom

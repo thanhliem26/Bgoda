@@ -31,7 +31,7 @@ const AdminUser = () => {
 
   const { actions } = useBuildActionTableRoleTemplate(useActionTableReturn)
 
-  const { useTableReturn } = useRoleTemplateTable({variables: {indexPage: 1}});
+  const { useTableReturn } = useRoleTemplateTable({});
   const { columnTable } = useBuildColumnTable({
     columns: columns,
     actions

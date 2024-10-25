@@ -1,0 +1,18 @@
+.select_icon {
+    :global {
+        & .ant-select-selection-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        & .ant-select-item-option-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            & svg {
+                font-size: 16px;
+            }
+        }
+    }
+}

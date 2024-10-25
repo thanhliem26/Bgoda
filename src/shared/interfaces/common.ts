@@ -2,6 +2,20 @@ export type BaseRecord = {
     [key: string]: any
 }
 
+export type SortTypeTable = "ascend" | "ascend"
+
+export type ResponseServer = {
+    message: string
+    metaData: BaseRecord
+    options: null | BaseRecord
+    status: number
+}
+
+export type ResponseOptionServer = {
+    name: string
+    roleLabel: string
+}
+
 export type Left<T> = {
     left: T
     right?: never

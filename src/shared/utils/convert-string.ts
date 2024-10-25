@@ -22,3 +22,4 @@ export const getPercentage = (value: number, total: number) => {
   const roundedPercentage = parseFloat(percentage.toFixed(2))
   return isNaN(roundedPercentage) ? 0 : roundedPercentage
 }
+

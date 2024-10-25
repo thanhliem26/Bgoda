@@ -60,7 +60,7 @@ export const navigation: IMenuSideBar[] = [
       type: 'group',
       children: [
         { key: 'room-type', label: 'Room type',  icon: <BoxPlotOutlined />},
-        { key: 'service', label: 'Service',  icon: <SettingOutlined />},
+        { key: 'service-room', label: 'Service room',  icon: <SettingOutlined />},
         { key: 'role-template', label: 'Role template',  icon: <SettingOutlined />},
         { key: '', label: 'User',  icon: <UserOutlined />},
       ],

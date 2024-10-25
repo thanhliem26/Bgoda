@@ -3,7 +3,8 @@ type TypePermission = "quản lí tài khoản" | "quản lí đặt phòng" | "
 export interface RoleTemplate {
     id: string
     name: string
-    permission: Array<TypePermission>
+    // permission: Array<TypePermission>
+    permission: string
     createdDate: string
     updatedDate: string
 }

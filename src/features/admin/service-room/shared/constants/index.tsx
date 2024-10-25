@@ -1,17 +1,19 @@
 import { TableProps } from "antd"
 import dayjs from "dayjs";
-import AppTag from "shared/components/AppTag";
-import { PermissionLabel, TypePermissionLabel } from "shared/components/autocomplete/permission-auto-complete";
 import { ActionGroupButtons } from "shared/components/table/components/ActionGroupButton";
 import { TOptionItem } from "shared/components/table/hooks/useBuildActionTable"
 import { RoleTemplate } from "shared/schema/role-template";
-import { FlexBox } from "shared/styles";
 import { Tiny } from "shared/styles/Typography";
-import { convertStringToArray } from "shared/utils/convert-string";
 
 export const columns = (
   actions: TOptionItem<RoleTemplate>[],
 ): TableProps<RoleTemplate>['columns'] => [
+  {
+    title: 'No',
+    dataIndex: 'id',
+    key: 'id',
+    width: 100
+  },
     {
       title: 'Name',
       dataIndex: 'name',
@@ -26,18 +28,11 @@ export const columns = (
       dataIndex: 'permission',
       key: 'permission',
       width: 200,
-      render: (_, rowData) => {
-
-        return <FlexBox>{convertStringToArray(rowData?.permission, ',').map((item, idx) => {
-          return <AppTag key={idx}>{PermissionLabel?.[item as TypePermissionLabel]}</AppTag>
-        })}</FlexBox>;
-      },
     },
     {
       title: 'Created date',
       dataIndex: 'createdDate',
       key: 'createdDate',
-      sorter: true,
       width: 300,
       render: (create_date) => {
         return <Tiny>{dayjs(create_date).format('HH:mm DD-MM-YYYY')}</Tiny>

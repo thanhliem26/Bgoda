@@ -52,31 +52,46 @@ const StyledTableWrapper = styled(Box)`
 `
 
 interface ICustomizeTable<T> extends Omit<TableProps<T>, 'dataSource'> {
-    columns: ColumnType<T>[]
-    useTableReturn: IuseCustomTableReturn
+  columns: ColumnType<T>[]
+  useTableReturn: IuseCustomTableReturn
 }
 
 const CustomizeTable = <T extends object>(props: ICustomizeTable<T>) => {
-  const { columns, useTableReturn, ...otherProps} = props;
+  const { columns, useTableReturn, ...otherProps } = props
 
   const columnData = useMemo(() => columns, [columns])
   const {
     sortData,
     // error,
-    // handleChangePage,
-    // handleChangePerPage,
-    // handleSorTable,
+    handleSorTable,
     // isLoading,
     // refetch,
     // status,
-    // totalRecord,
-    // variables
-  } = useTableReturn;
-  console.log("sortData", sortData)
-  
+    totalRecord,
+    handleChangePagination,
+    variables
+  } = useTableReturn
+  console.log('sortData', sortData)
   return (
     <StyledTableWrapper>
-      <Table columns={columnData} dataSource={sortData} {...otherProps} />
+      <Table
+        columns={columnData}
+        onChange={(pagination, filter, sorter) => {
+          //@ts-ignore
+          handleSorTable(sorter.field, sorter.order)
+        }}
+
+        dataSource={sortData}
+        pagination={{
+          showSizeChanger: true,
+          total: totalRecord,
+          current: variables.pagination.page,
+          onChange(page, pageSize) {
+            handleChangePagination(page, pageSize)
+          },
+        }}
+        {...otherProps}
+      />
     </StyledTableWrapper>
   )
 }
