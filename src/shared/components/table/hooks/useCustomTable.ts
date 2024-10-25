@@ -1,9 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { isRight, unwrapEither } from 'shared/utils/handleEither'
-import { BaseRecord } from 'shared/interfaces/common'
+import { BaseRecord, SortTypeTable } from 'shared/interfaces/common'
 import { ISearchData } from '../interfaces'
 import RESTClientService, { IRequestReturn } from 'services/axios-service'
+import { isEmpty } from 'lodash'
 interface IuseCustomTable {
   buildQuery: () => IRequestReturn
   search?: ISearchData
@@ -30,9 +31,8 @@ export interface IuseCustomTableReturn {
   isLoading: boolean
   error: Error | null
   sortData: any[]
-  handleChangePage: (page: number) => void
-  handleChangePerPage: (perPage: number) => void
-  handleSorTable: (id: string) => void
+  handleChangePagination: (page: number, perPage: number) => void
+  handleSorTable: (field: string, sort_type: SortTypeTable) => void
   status: number
   totalRecord: number
   refetch: () => void
@@ -81,7 +81,10 @@ const useCustomTable = ({
         //   page: pagination.page,
         //   perPage: pagination.perPage,
         // },
-        ...variables
+        // ...variables
+        ...search,
+        page: pagination.page,
+        perPage: pagination.perPage,
       }
     ),
   })
@@ -89,11 +92,10 @@ const useCustomTable = ({
   const { sortData, status, totalRecord } = useMemo(() => {
     if (data && isRight(data)) {
       const response = unwrapEither(data)
-      console.log("🚀 ~ response:", response)
 
       const status = response?.status;
-      const totalRecord = response?.metadata?.count;
-      const sortData = response as any[]
+      const totalRecord = response?.options?.totalRecords;
+      const sortData = response?.metaData as any[]
 
       return {
         status: status,
@@ -108,69 +110,35 @@ const useCustomTable = ({
     }
   }, [data, queryString.url, pagination])
 
-  function handleChangePage(page: number) {
-    setPagination((prev) => ({ ...prev, page: page }))
-  }
-
-  function handleChangePerPage(perPage: number) {
-    setPagination((prev) => ({
-      ...prev,
-      perPage: perPage,
-    }))
-  }
-
-
-  function handleSorTable(id: string) {
-    const sortDefault = orderBy?.field ? orderBy?.field : 'created_at'
-    setPagination((prev) => {
-      if (id === prev.orderBy.field) {
-        const isDescending = prev.orderBy.direction === 'DESC'
-        const fieldSort = isDescending ? orderBy?.field || sortDefault : id
-        let directionSort =
-          fieldSort === sortDefault
-            ? prev.orderBy.field === sortDefault
-              ? prev.orderBy.direction === 'ASC'
-                ? 'DESC'
-                : 'ASC'
-              : 'DESC'
-            : prev.orderBy.direction === 'ASC'
-              ? 'DESC'
-              : 'ASC'
-
-        const sortBy = {
-          direction: directionSort,
-          field: fieldSort,
-        } as ISorting
-        return {
-          ...prev,
-          orderBy: sortBy,
-        }
-      }
-
-      return {
+  function handleChangePagination(page: number, perPage: number) {
+    setPagination((prev) =>(
+      {
         ...prev,
-        orderBy: {
-          direction: 'ASC',
-          field: id,
-        },
+        page,
+        perPage
       }
-    })
+    ))
   }
 
-  // useEffect(() => {
-  //   if (isEmpty(sortData) && pagination.page > 1 && !isLoading) {
-  //     handleChangePage(pagination.page - 1)
-  //   }
-  // }, [sortData, pagination, isLoading])
+
+  function handleSorTable(field: string, sort_type: SortTypeTable) {
+  console.log("🚀 ~ field:", field, sort_type)
+
+  }
+
+  useEffect(() => {
+    if (isEmpty(sortData) && pagination.page > 1 && !isLoading) {
+      handleChangePagination(pagination.page - 1, pagination.perPage)
+    }
+  }, [sortData, pagination, isLoading])
 
   return {
     isLoading,
     error,
     sortData,
-    handleChangePage,
     handleSorTable,
     status,
-    handleChangePerPage,
+    handleChangePagination,
     refetch,
     totalRecord,
     variables: {

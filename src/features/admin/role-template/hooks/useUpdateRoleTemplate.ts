@@ -24,12 +24,13 @@ function useUpdateRoleTemplate(props: UseUpdateRoleTemplate) {
         queryKey: [queryKey],
         id,
         onSuccess,
-        formatDefaultValues() {
+        formatDefaultValues(data) {
+        console.log("🚀 ~ data:", data?.permission)
 
             return {
-                id: id,
-                name: '',
-                permission: []
+                id: data?.id,
+                name: data?.name ?? '',
+                permission: data?.permission ?? []
             }
         },
     })
@@ -41,8 +42,6 @@ function useUpdateRoleTemplate(props: UseUpdateRoleTemplate) {
 
     function onSubmit() {
         handleSubmit((value) => {
-            console.log("🚀 ~ value:", value)
-
             mutate(value)
         })()
     }

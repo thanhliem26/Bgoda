@@ -1,6 +1,6 @@
 import axiosService from 'configs/api';
 import { cloneDeep } from 'lodash';
-import { BaseRecord } from 'shared/interfaces/common';
+import { BaseRecord, ResponseServer } from 'shared/interfaces/common';
 import ErrorException, { CustomAxiosResponse } from 'shared/interfaces/response';
 import { makeLeft, makeRight } from 'shared/utils/handleEither';
 
@@ -79,7 +79,6 @@ class RESTClientService {
                 url: finalUrl,
             });
 
-            
             if (ErrorException.hasError(response)) {
                 const error = ErrorException.fromJson(response);
                 return makeLeft(error);
@@ -89,7 +88,7 @@ class RESTClientService {
             return makeRight(data);
         } catch (error: any) {
             console.log("🚀 ~ error:", error)
-            const data = (error?.response?.data ?? {}) as BaseRecord;
+            const data = (error?.response?.data ?? {}) as ResponseServer;
             const apiError = ErrorException.fromJson(data);
             return makeLeft(apiError);
         }

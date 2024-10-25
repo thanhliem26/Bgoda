@@ -6,7 +6,6 @@ import useCreateResource from "shared/hooks/crud-hook/useCreateResource"
 import { CreateUserArguments } from "shared/schema/user"
 import handleAuthLocalStorage from "services/auth-local-storage-service"
 import { useNavigate } from "react-router-dom"
-
 interface IUseLoginProps {
   onSuccess?: (value: any) => void
 }
@@ -27,7 +26,8 @@ function useLogin(props: IUseLoginProps = {}) {
     },
     resolver: yupResolver(schema),
     onSuccess: (data) => {
-      const token = data;
+      const { metaData } = data;
+      const token = metaData?.accessToken;
       saveToken({accessToken: token.toString()})
 
       window.location.reload()
@@ -55,3 +55,4 @@ function useLogin(props: IUseLoginProps = {}) {
 }
 
 export default useLogin
+

@@ -16,26 +16,32 @@ import useBuildActionTableRoleTemplate from "../../hooks/useBuildActionTableRole
 import useBuildColumnTable from "shared/components/table/hooks/useBuildColumnTable";
 import { columns } from "../../shared/constants";
 import DetailRoleTemplateModal from "../page-sections/DetailRoleTemplateModal";
+import { useState } from "react";
+import debounce from "shared/utils/debounce";
 
 const AdminUser = () => {
   const useActionTableReturn = useActionTable()
+  const [search, setSearch] = useState<string>('');
+
   const { openCreate,
     setOpenCreate,
     openEdit,
     setOpenEdit,
     openDelete,
     setOpenDelete,
-    openDetail, 
+    openDetail,
     setOpenDetail,
     rowId } = useActionTableReturn
 
   const { actions } = useBuildActionTableRoleTemplate(useActionTableReturn)
 
-  const { useTableReturn } = useRoleTemplateTable({variables: {indexPage: 1}});
+  const { useTableReturn } = useRoleTemplateTable({search: {searchName: search}});
   const { columnTable } = useBuildColumnTable({
     columns: columns,
     actions
   })
+
+  const handleSearch = debounce(setSearch, 500)
 
   return (
     <Box style={{ paddingTop: 16, paddingBottom: 32 }}>
@@ -45,7 +51,9 @@ const AdminUser = () => {
       <WrapperContainer style={{ marginTop: '20px' }}>
         <FlexBox style={{ justifyContent: 'space-between', padding: '12px', marginTop: '16px' }}>
           <Box style={{ width: '400px', maxWidth: '100%' }}>
-            <SearchInput placeholder="Search by name, email" />
+            <SearchInput placeholder="Search by name role template" onChange={(event) => {
+              handleSearch(event.target.value)
+            }} />
           </Box>
           <Box>
             <ButtonBase icon={<PlusOutlined />} onClick={() => setOpenCreate(true)}>

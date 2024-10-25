@@ -10,7 +10,7 @@ class ErrorException {
   }
 
   static hasError(json: BaseRecord): boolean {
-    if (json?.['status'] === 'error' || json?.['error'] || (json?.['errors'] && isArray(json?.['errors'])))
+    if (json?.['status'] === 500 || json?.['error'] || (json?.['errors'] && isArray(json?.['errors'])))
       return true
     return false
   }

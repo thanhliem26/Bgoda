@@ -25,6 +25,10 @@ const AdminUserPage = Loadable(lazy(() => import('../pages/admin/user')))
 
 const RoleTemplatePage = Loadable(lazy(() => import('../pages/admin/role-template')))
 
+const RoomTypePage = Loadable(lazy(() => import('../pages/admin/room-type')))
+
+const ServiceRoomPage = Loadable(lazy(() => import('../pages/admin/service-room')))
+
 const MainPage = Loadable(lazy(() => import('../pages/home/main/index')))
 
 const LoginPage = Loadable(lazy(() => import('../pages/home/login/index')))
@@ -70,6 +74,14 @@ const router = createBrowserRouter([
       {
         path: 'role-template',
         element: <RoleTemplatePage />
+      },
+      {
+        path: 'room-type',
+        element: <RoomTypePage />
+      },
+      {
+        path: 'service-room',
+        element: <ServiceRoomPage />
       }
     ],
   },

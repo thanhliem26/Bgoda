@@ -50,6 +50,7 @@ const AutoCompleteBase: FC<IAutoCompleteBaseProps> = (props) => {
                 showSearch
                 size="large"
                 allowClear
+                value={value}
                 {...inputProps}
             />
            {!value && <label className="floating-label">{label} {required && <Span style={{ color: 'red' }}>*</Span>}</label>} 
