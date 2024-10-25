@@ -39,7 +39,7 @@ function useGetResource<Response, FormData extends FieldValues>({
     
     if (data && isRight(data)) {
       setIsGetting(false)
-      return unwrapEither(data)?.metadata as Response
+      return unwrapEither(data)?.metaData as Response
     }
     setIsGetting(false)
     return undefined

@@ -27,7 +27,7 @@ const useService = () => {
 
     const getRoleTemplate = () => {
         return RESTClientService.buildRequest({
-            endpoint: '/v1/api/product',
+            endpoint: '/api/admin/roles',
             method: 'GET',
             slash_id: true
         })

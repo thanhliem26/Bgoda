@@ -79,7 +79,6 @@ class RESTClientService {
                 url: finalUrl,
             });
 
-            
             if (ErrorException.hasError(response)) {
                 const error = ErrorException.fromJson(response);
                 return makeLeft(error);

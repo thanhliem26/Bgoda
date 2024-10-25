@@ -82,6 +82,7 @@ const useCustomTable = ({
         //   perPage: pagination.perPage,
         // },
         // ...variables
+        ...search,
         page: pagination.page,
         perPage: pagination.perPage,
       }
@@ -93,7 +94,7 @@ const useCustomTable = ({
       const response = unwrapEither(data)
 
       const status = response?.status;
-      const totalRecord = response?.options?.totalPage;
+      const totalRecord = response?.options?.totalRecords;
       const sortData = response?.metaData as any[]
 
       return {

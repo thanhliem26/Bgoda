@@ -28,7 +28,7 @@ export const columns = (
       width: 200,
       render: (_, rowData) => {
 
-        return <FlexBox>{convertStringToArray(rowData?.permission, ',').map((item, idx) => {
+        return <FlexBox>{rowData?.permission.map((item, idx) => {
           return <AppTag key={idx}>{PermissionLabel?.[item as TypePermissionLabel]}</AppTag>
         })}</FlexBox>;
       },

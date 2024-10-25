@@ -23,4 +23,4 @@ export const PermissionLabel = {
     showroom_manage: 'Quản lí chi nhánh',
 }
 
-export type TypePermissionLabel = keyof typeof  PermissionLabel;
+export type TypePermissionLabel = keyof typeof PermissionLabel;

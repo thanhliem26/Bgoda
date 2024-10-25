@@ -71,7 +71,7 @@ const CustomizeTable = <T extends object>(props: ICustomizeTable<T>) => {
     handleChangePagination,
     variables
   } = useTableReturn
-  console.log('sortData', sortData)
+
   return (
     <StyledTableWrapper>
       <Table
