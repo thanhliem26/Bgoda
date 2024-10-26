@@ -1,9 +1,8 @@
 import AutoCompleteBase, { IAutoCompleteBaseProps } from '../auto-complete-base'
+import useGetOptions from './hooks/useGetOptions';
 
 const RoleAutoComplete = (props: IAutoCompleteBaseProps) => {
-    const options = [{ label: <span>Tourist</span>, value: 'tourist' },
-    { label: <span>System employee</span>, value: 'system_employee' },
-    { label: <span>admin</span>, value: 'admin' }]
+    const { options } = useGetOptions();
 
     return (
         <AutoCompleteBase options={options} {...props} />

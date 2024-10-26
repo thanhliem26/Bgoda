@@ -48,7 +48,7 @@ export const navigation: IMenuSideBar[] = [
       label: 'FUNCTION',
       type: 'group',
       children: [
-        { key: 'business_partner', label: 'Business partner',  icon: <SettingOutlined />},
+        { key: 'business-partner', label: 'Business partner',  icon: <SettingOutlined />},
         { key: 'room', label: 'Room',  icon: <SettingOutlined />},
         { key: 'booking', label: 'Booking',  icon: <SettingOutlined />},
         { key: 'discount', label: 'Discount',  icon: <SettingOutlined />},
