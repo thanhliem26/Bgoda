@@ -3,7 +3,7 @@ import { useState } from 'react'
 import AppButton from 'shared/components/AppButton'
 import AppTextArea from 'shared/components/form/AppTextArea'
 import ModalBase, { ModalFooter } from 'shared/components/modal'
-import { Box, FlexBox } from 'shared/styles'
+import { Box } from 'shared/styles'
 
 interface IDeleteRoomTypeModal {
   open: boolean

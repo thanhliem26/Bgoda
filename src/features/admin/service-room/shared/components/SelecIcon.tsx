@@ -1,12 +1,5 @@
 import { SelectProps } from 'antd';
-import React from 'react'
 import AutoCompleteBase, { IAutoCompleteBaseProps } from 'shared/components/autocomplete/auto-complete-base'
-import {
-  PlusOutlined,
-  SettingOutlined,
-} from '@ant-design/icons'
-import styled from 'styled-components';
-// const options: SelectProps['options'] = [];
 import style from '../styles/index.module.scss';
 import ConnectedTvIcon from '@mui/icons-material/ConnectedTv';
 import HeatPumpIcon from '@mui/icons-material/HeatPump';

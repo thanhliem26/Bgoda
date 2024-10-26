@@ -48,12 +48,11 @@ const useCustomTable = ({
   search,
   queryKey,
   orderBy,
-  variables
 }: IuseCustomTable): IuseCustomTableReturn => {
   const [pagination, setPagination] = useState<IPagination>({
     orderBy: orderBy || {
       direction: 'DESC',
-      field: 'created_at',
+      field: 'createdDate',
     },
     page: 1,
     perPage: perPage,
@@ -72,21 +71,23 @@ const useCustomTable = ({
     queryFn: async () =>
       RESTClientService.fetchREST(queryString
         , {
-        // orderBy: {
-        //   ...pagination.orderBy,
-        // },
-        // filter: filters,
-        // freeWord: search,
-        // pagination: {
-        //   page: pagination.page,
-        //   perPage: pagination.perPage,
-        // },
-        // ...variables
-        ...search,
-        page: pagination.page,
-        perPage: pagination.perPage,
-      }
-    ),
+          // orderBy: {
+          //   ...pagination.orderBy,
+          // },
+          // filter: filters,
+          // freeWord: search,
+          // pagination: {
+          //   page: pagination.page,
+          //   perPage: pagination.perPage,
+          // },
+          // ...variables
+          ...search,
+          page: pagination.page,
+          perPage: pagination.perPage,
+          sortType: pagination.orderBy.direction ?? 'DESC',
+          sortField: pagination.orderBy.field ?? 'createdDate'
+        }
+      ),
   })
 
   const { sortData, status, totalRecord } = useMemo(() => {
@@ -111,7 +112,7 @@ const useCustomTable = ({
   }, [data, queryString.url, pagination])
 
   function handleChangePagination(page: number, perPage: number) {
-    setPagination((prev) =>(
+    setPagination((prev) => (
       {
         ...prev,
         page,
@@ -122,7 +123,15 @@ const useCustomTable = ({
 
 
   function handleSorTable(field: string, sort_type: SortTypeTable) {
-  console.log("🚀 ~ field:", field, sort_type)
+    const sort = sort_type === 'ascend' ? 'ASC' : 'DESC';
+    
+    setPagination((prev) => ({
+      ...prev,
+      orderBy: {
+        direction: sort,
+        field: field
+      } as ISorting
+    }))
 
   }
 
