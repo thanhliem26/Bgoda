@@ -4,7 +4,7 @@ import { Box, FlexBox } from 'shared/styles'
 import { Span, Tiny } from 'shared/styles/Typography'
 import styled from 'styled-components'
 
-interface IDetailBusinessPartnerModal {
+interface IDetailRoleTemplateModal {
   open: boolean
   setOpen: (value: boolean) => void
   id: string
@@ -27,7 +27,7 @@ const TinyValue = styled(Tiny)`
     color: rgb(11, 14, 30);
 `
 
-function DetailBusinessPartnerModal({ open, setOpen }: IDetailBusinessPartnerModal) {
+function DetailRoleTemplateModal({ open, setOpen }: IDetailRoleTemplateModal) {
 
   return (
     <ModalBase title="Detail business partner" open={open} setOpen={setOpen}>
@@ -78,4 +78,4 @@ function DetailBusinessPartnerModal({ open, setOpen }: IDetailBusinessPartnerMod
   )
 }
 
-export default DetailBusinessPartnerModal
+export default DetailRoleTemplateModal

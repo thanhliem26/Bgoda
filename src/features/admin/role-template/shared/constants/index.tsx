@@ -7,7 +7,6 @@ import { TOptionItem } from "shared/components/table/hooks/useBuildActionTable"
 import { RoleTemplate } from "shared/schema/role-template";
 import { FlexBox } from "shared/styles";
 import { Tiny } from "shared/styles/Typography";
-import { convertStringToArray } from "shared/utils/convert-string";
 
 export const columns = (
   actions: TOptionItem<RoleTemplate>[],

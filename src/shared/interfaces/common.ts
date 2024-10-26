@@ -32,6 +32,7 @@ export enum MODLUE_QUERY_KEY {
     ADMIN_USER = 'admin_user',
     ADMIN_ROOM = 'admin_room',
     ADMIN_BUSINESS_PARTNER = 'admin_business_partner',
+    ADMIN_SYSTEM_EMPLOYEE = 'admin_system_employee',
     ROLE_TEMPLATE = 'role_template',
     PERMISSION = 'permission',
     LOGIN_USER = 'login',

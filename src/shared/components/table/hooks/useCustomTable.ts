@@ -48,7 +48,6 @@ const useCustomTable = ({
   search,
   queryKey,
   orderBy,
-  variables
 }: IuseCustomTable): IuseCustomTableReturn => {
   const [pagination, setPagination] = useState<IPagination>({
     orderBy: orderBy || {

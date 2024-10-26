@@ -1,6 +1,6 @@
 import axiosService from 'configs/api';
 import { cloneDeep } from 'lodash';
-import { BaseRecord, ResponseServer } from 'shared/interfaces/common';
+import { ResponseServer } from 'shared/interfaces/common';
 import ErrorException, { CustomAxiosResponse } from 'shared/interfaces/response';
 import { makeLeft, makeRight } from 'shared/utils/handleEither';
 

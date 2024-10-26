@@ -3,37 +3,42 @@ import useService from "../domain/services"
 import { yupResolver } from "@hookform/resolvers/yup"
 import useEditResource from "shared/hooks/crud-hook/useEditResource"
 import { FormDataSchemaUpdate, schemaUpdate } from "../shared/constants/schema"
-import { BusinessPartner, UpdateBusinessPartnerArguments } from "shared/schema/business-partner"
+import { Employee, UpdateEmployeeArguments } from "shared/schema/system-empoyee"
 
-type UseUpdateBusinessPartner = {
+type UseUpdateEmployee = {
     id: string | number
     onSuccess: (data: BaseRecord) => void
 }
 
-function useUpdateBusinessPartner(props: UseUpdateBusinessPartner) {
+function useUpdateEmployee(props: UseUpdateEmployee) {
     const { id, onSuccess } = props
-    const { updateBusinessPartner, getBusinessPartner, queryKey } = useService()
+    const { updateEmployee, getEmployee, queryKey } = useService()
     const { useEditReturn, useFormReturn, isGetting } = useEditResource<
-        BusinessPartner,
+        Employee,
         FormDataSchemaUpdate,
-        UpdateBusinessPartnerArguments
+        UpdateEmployeeArguments
     >({
         resolver: yupResolver(schemaUpdate),
-        editBuildQuery: updateBusinessPartner,
-        oneBuildQuery: getBusinessPartner,
+        editBuildQuery: updateEmployee,
+        oneBuildQuery: getEmployee,
         queryKey: [queryKey],
         id,
         onSuccess,
         formatDefaultValues(data) {
 
             return {
-                id: data?.id,
+                id: data?.id ?? '',
                 address: data?.address ?? '',
                 email: data?.email ?? '',
-                fullName: data?.companyName ?? '',
-                logo: data?.logo ?? '',
-                phoneNumber: data?.phoneNumber ?? '',
+                fullName: data?.fullName ?? '',
+                phoneNumber: data?.phoneNumber,
                 roleId: data?.roleId ?? null,
+                dob: data?.dob ?? null,
+                password: data?.password ?? '',
+                re_password: data?.password ?? '',
+                avatar: data?.avatar,
+                bankNumber: data?.bankNumber,
+                salary: data?.salary 
             }
         },
     })
@@ -48,17 +53,20 @@ function useUpdateBusinessPartner(props: UseUpdateBusinessPartner) {
     function onSubmit() {
         handleSubmit((value) => {
 
-            const payload: UpdateBusinessPartnerArguments = {
-                id: id as string,
-                address: value.address,
+            const payload: UpdateEmployeeArguments = {
+                address: value.address ?? '',
                 email: value.email,
-                name: value.fullName,
                 fullName: value.fullName,
-                logo: value.logo ?? '',
-                phoneNumber: value.phoneNumber,
+                name: value.fullName,
+                avatar: value.avatar ?? '',
+                password: value.password,
                 roleId: value.roleId ?? 0,
-            }
-
+                bankNumber: '',
+                dob: value.dob ?? new Date(),
+                phoneNumber: '',
+                salary: 0,
+        
+              }
             mutate(payload)
         })()
     }
@@ -74,4 +82,4 @@ function useUpdateBusinessPartner(props: UseUpdateBusinessPartner) {
     }
 }
 
-export default useUpdateBusinessPartner
+export default useUpdateEmployee

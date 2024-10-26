@@ -2,40 +2,40 @@ import RESTClientService from 'services/axios-service'
 import { MODLUE_QUERY_KEY } from 'shared/interfaces/common'
 
 const useService = () => {
-    const queryKey = MODLUE_QUERY_KEY.ROLE_TEMPLATE
+    const queryKey = MODLUE_QUERY_KEY.ADMIN_SYSTEM_EMPLOYEE
 
-    const getAllBusinessPartner = () => {
+    const getAllEmployee = () => {
         return RESTClientService.buildRequest({
-            endpoint: '/api/admin/accounts/business-partners',
+            endpoint: '/api/admin/accounts/system-employees',
             method: 'GET',
         })
     }
 
-    const createBusinessPartner = () => {
+    const createEmployee = () => {
         return RESTClientService.buildRequest({
-            endpoint: '/api/admin/accounts/business-partners',
+            endpoint: '/api/admin/accounts/employees',
             method: 'POST',
         })
     }
 
-    const updateBusinessPartner = () => {
+    const updateEmployee = () => {
         return RESTClientService.buildRequest({
-            endpoint: '/api/admin/accounts/business-partners',
+            endpoint: '/api/admin/accounts/system-employees',
             method: 'PUT',
         })
     }
 
-    const getBusinessPartner = () => {
+    const getEmployee = () => {
         return RESTClientService.buildRequest({
-            endpoint: '/api/admin/accounts/business-partners',
+            endpoint: '/api/admin/accounts/system-employees',
             method: 'GET',
             slash_id: true
         })
     }
 
-    const deleteBusinessPartner = () => {
+    const deleteEmployee = () => {
         return RESTClientService.buildRequest({
-            endpoint: 'api/admin/accounts/business-partner',
+            endpoint: '/api/admin/accounts/employees',
             method: 'DELETE',
             slash_id: true
         })
@@ -43,11 +43,11 @@ const useService = () => {
 
     return {
         queryKey,
-        getAllBusinessPartner,
-        createBusinessPartner,
-        updateBusinessPartner,
-        getBusinessPartner,
-        deleteBusinessPartner
+        getAllEmployee,
+        createEmployee,
+        updateEmployee,
+        getEmployee,
+        deleteEmployee
     }
 }
 

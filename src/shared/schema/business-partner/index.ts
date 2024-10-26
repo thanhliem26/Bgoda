@@ -8,6 +8,7 @@ export interface BusinessPartner {
     name: string
     roleId: number
     email: string
+    roleName: string
     createdDate: string
     updatedDate: string
 }
@@ -15,6 +16,7 @@ export interface BusinessPartner {
 export type CreateBusinessPartnerArguments = {
     fullName: string
     email: string
+    name: string
     phoneNumber: string
     address: string
     logo: string
@@ -23,7 +25,9 @@ export type CreateBusinessPartnerArguments = {
 }
 
 export type UpdateBusinessPartnerArguments = {
+    id: string
     fullName: string
+    name: string
     email: string
     phoneNumber: string
     address: string

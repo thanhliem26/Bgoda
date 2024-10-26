@@ -23,3 +23,6 @@ export const getPercentage = (value: number, total: number) => {
   return isNaN(roundedPercentage) ? 0 : roundedPercentage
 }
 
+export const convertCurrency = (salary: number) => {
+  return `${salary}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}

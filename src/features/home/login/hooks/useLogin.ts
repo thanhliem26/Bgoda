@@ -5,7 +5,6 @@ import { FormDataSchema, schema } from "../shared/constants/schema"
 import useCreateResource from "shared/hooks/crud-hook/useCreateResource"
 import { CreateUserArguments } from "shared/schema/user"
 import handleAuthLocalStorage from "services/auth-local-storage-service"
-import { useNavigate } from "react-router-dom"
 interface IUseLoginProps {
   onSuccess?: (value: any) => void
 }

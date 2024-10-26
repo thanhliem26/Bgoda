@@ -31,6 +31,8 @@ const ServiceRoomPage = Loadable(lazy(() => import('../pages/admin/service-room'
 
 const BusinessPartnerPage = Loadable(lazy(() => import('../pages/admin/business-partner')))
 
+const SystemEmployeePage = Loadable(lazy(() => import('../pages/admin/system-employee')))
+
 const MainPage = Loadable(lazy(() => import('../pages/home/main/index')))
 
 const LoginPage = Loadable(lazy(() => import('../pages/home/login/index')))
@@ -88,6 +90,10 @@ const router = createBrowserRouter([
       {
         path: 'business-partner',
         element: <BusinessPartnerPage />
+      },
+      {
+        path: 'system-employee',
+        element: <SystemEmployeePage />
       },
     ],
   },

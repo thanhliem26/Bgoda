@@ -1,18 +1,18 @@
 import { TableProps } from "antd"
 import dayjs from "dayjs";
-import AppTag from "shared/components/AppTag";
 import { ActionGroupButtons } from "shared/components/table/components/ActionGroupButton";
 import { TOptionItem } from "shared/components/table/hooks/useBuildActionTable"
-import { BusinessPartner } from "shared/schema/business-partner";
+import { Employee } from "shared/schema/system-empoyee";
 import { Tiny } from "shared/styles/Typography";
+import { convertCurrency } from "shared/utils/convert-string";
 
 export const columns = (
-  actions: TOptionItem<BusinessPartner>[],
-): TableProps<BusinessPartner>['columns'] => [
+  actions: TOptionItem<Employee>[],
+): TableProps<Employee>['columns'] => [
     {
-      title: 'Company name',
-      dataIndex: 'companyName',
-      key: 'companyName',
+      title: 'Name',
+      dataIndex: 'fullName',
+      key: 'fullName',
       render: (text) => {
         return <b>{text}</b>;
       },
@@ -22,18 +22,27 @@ export const columns = (
       title: 'Email',
       dataIndex: 'email',
       key: 'email',
-      width: 300,
+      width: 200,
       render: (email) => {
         return <Tiny>{email}</Tiny>
       },
     },
     {
       title: 'Role',
-      dataIndex: 'roleName',
-      key: 'roleName',
+      dataIndex: 'roleId',
+      key: 'roleId',
       width: 200,
       render: (role) => {
-        return <AppTag color="green">{role}</AppTag>
+        return <Tiny>{role}</Tiny>
+      },
+    },
+    {
+      title: 'Salary',
+      dataIndex: 'salary',
+      key: 'salary',
+      width: 200,
+      render: (salary) => {
+        return <Tiny>{convertCurrency(salary)} VND</Tiny>
       },
     },
     {
@@ -50,7 +59,7 @@ export const columns = (
       dataIndex: 'createdDate',
       key: 'createdDate',
       sorter: true,
-      width: 200,
+      width: 300,
       render: (create_date) => {
         return <Tiny>{dayjs(create_date).format('HH:mm DD-MM-YYYY')}</Tiny>
       }

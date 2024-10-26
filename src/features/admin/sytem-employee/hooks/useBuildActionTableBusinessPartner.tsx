@@ -5,7 +5,7 @@ import {
   EditOutlined,
   SearchOutlined,
 } from '@ant-design/icons'
-import { BusinessPartner } from 'shared/schema/business-partner'
+import { Employee } from 'shared/schema/system-empoyee'
 
 export enum ActionsTableRoleTemplate {
   DELETE = 'delete',
@@ -20,7 +20,7 @@ function useBuildActionsTableBusinessPartner({
 }: IuseUserActionTableReturn) {
   const useBuildActionsTableReturn = useBuildActionsTable<
     ActionsTableRoleTemplate,
-    BusinessPartner
+    Employee
   >({
     actions: {
       detail: {

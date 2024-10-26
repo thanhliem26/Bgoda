@@ -3,8 +3,6 @@ import { useMemo } from 'react'
 import { isRight, unwrapEither } from 'shared/utils/handleEither'
 import useService from '../services'
 import RESTClientService from 'services/axios-service'
-import { BaseRecord } from 'shared/interfaces/common'
-import { capitalizeFirstLetter } from 'shared/utils/convert-string'
 import { RoleTemplate } from 'shared/schema/role-template'
 
 const useGetOptions = () => {

@@ -3,50 +3,58 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import useService from "../domain/services"
 import { FormDataSchema, schema } from "../shared/constants/schema"
 import useCreateResource from "shared/hooks/crud-hook/useCreateResource"
-import { CreateBusinessPartnerArguments } from "shared/schema/business-partner"
+import { CreateEmployeeArguments } from "shared/schema/system-empoyee"
 
-interface IcreateBusinessPartnerProps {
+type createEmployeeProps = {
   onSuccess?: (value: any) => void
 }
 
-function useCreateBusinessPartner(props: IcreateBusinessPartnerProps = {}) {
+function useCreateSystemEmployee(props: createEmployeeProps = {}) {
   const { onSuccess } = props
 
-  const { createBusinessPartner, queryKey } = useService()
+  const { createEmployee, queryKey } = useService()
   const { useCreateReturn, useFormReturn } = useCreateResource<
-    CreateBusinessPartnerArguments,
+    CreateEmployeeArguments,
     FormDataSchema
   >({
     mutationKey: [queryKey],
-    queryString: createBusinessPartner,
+    queryString: createEmployee,
     defaultValues: {
       email: '',
       fullName: '',
       password: '',
       phoneNumber: '',
       re_password: '',
-      roleId: null
+      roleId: null,
+      address: '',
+      avatar: '',
+      bankNumber: '',
+      dob: null,
+      salary: 0
     },
     resolver: yupResolver(schema),
     onSuccess: onSuccess,
   })
 
   const { handleSubmit, control, formState, setValue } = useFormReturn
-  
+
   const isValid = !formState.isValid
   const { isPending, mutate } = useCreateReturn
 
   function onSubmit() {
     handleSubmit((value) => {
-      const payload: CreateBusinessPartnerArguments = {
-        address: value.address,
+      const payload: CreateEmployeeArguments = {
+        address: value.address ?? '',
         email: value.email,
-        name: value.fullName,
         fullName: value.fullName,
-        logo: value.logo ?? '',
+        name: value.fullName,
+        avatar: value.avatar ?? '',
         password: value.password,
-        phoneNumber: value.phoneNumber,
-        roleId: value.roleId ?? 0
+        roleId: value.roleId ?? 0,
+        bankNumber: value.bankNumber ?? '',
+        dob: value.dob ?? new Date(),
+        phoneNumber: value.phoneNumber ?? '',
+        salary: value.salary ?? 0,
       }
 
       mutate(payload)
@@ -63,4 +71,4 @@ function useCreateBusinessPartner(props: IcreateBusinessPartnerProps = {}) {
   }
 }
 
-export default useCreateBusinessPartner
+export default useCreateSystemEmployee
