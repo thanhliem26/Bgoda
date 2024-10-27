@@ -29,6 +29,6 @@ export const uploadImage = async (options: UploadRequestOption) => {
 
     }
     if(isRight(response)) {
-        onSuccess?.(unwrapEither(response))
+        onSuccess?.(unwrapEither(response)?.metaData?.url)
     }
 };

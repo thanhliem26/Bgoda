@@ -9,6 +9,8 @@ import AppNumberField from 'shared/components/form/AppNumberField'
 import RoleAutoComplete from 'shared/components/autocomplete/role-auto-complete'
 import AppDatePicker from 'shared/components/form/AppDatePicker'
 import dayjs from 'dayjs'
+import BankAutoComplete from 'shared/components/autocomplete/bank-auto-complete'
+import AppUpload from 'shared/components/AppUpload'
 
 interface IUpdateEmployeeModal {
   open: boolean
@@ -28,27 +30,54 @@ function UpdateSystemEmployeeModal({ open, setOpen, id }: IUpdateEmployeeModal) 
     <ModalBase title="Edit System employee" open={open} setOpen={setOpen}>
         <FlexBox style={{ flexDirection: 'column', gap: '16px' }}>
         <FlexBox>
-          <WrapperAvatar>
+        <WrapperAvatar>
             <Box className="image_wrapper">
               <label htmlFor="image_background">
-                <img src={'/static/avatar/avatar_support.jpg'} alt="avatar supporting" />
+                <img
+                  src={'/static/avatar/avatar_support.jpg'}
+                  alt="avatar supporting"
+                />
               </label>
             </Box>
             <Box className="avatar_upload">
-              <label htmlFor="image">
-                <img src={'/static/avatar/001-man.svg'} alt="avatar" />
-              </label>
-              {/* <UploadComponent
-                id="image"
-                name="avatar"
-                control={control}
-                // errors={errors}
-                className="remove__border"
-                setValue={setValue}
-                maxCount={1}
-                uploadSelf={true}
-              // onChange={(file) => handleChange(file, FileListAvatar, "avatar")}
-              /> */}
+              <FormControl style={{width: '100%', height: '100%'}}>
+                <Controller
+                  control={control}
+                  name="avatar"
+                  render={({ field, fieldState }) => (
+                    <FlexBox style={{ flexDirection: 'column', width: '100%', height: '100%' }}>
+                      <AppUpload
+                        value={field.value ?? ''}
+                        onChangeUpload={({ file }) => {
+                          field.onChange(file)
+                        }}
+                      >
+                        <label htmlFor="image">
+                          <img
+                            width={'100%'}
+                            src={
+                              field.value
+                                ? field.value
+                                : '/static/avatar/001-man.svg'
+                            }
+                            alt="avatar"
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              objectFit: 'cover',
+                              objectPosition: 'center',
+
+                            }}
+                          />
+                        </label>
+                      </AppUpload>
+                      <HelperTextForm>
+                        {fieldState.error?.message}
+                      </HelperTextForm>
+                    </FlexBox>
+                  )}
+                />
+              </FormControl>
             </Box>
           </WrapperAvatar>
         </FlexBox>
@@ -184,6 +213,24 @@ function UpdateSystemEmployeeModal({ open, setOpen, id }: IUpdateEmployeeModal) 
                 <FlexBox style={{ flexDirection: 'column' }}>
                   <AppNumberField
                     label="Bank number"
+                    value={field.value}
+                    onChange={field.onChange}
+                  />
+                  <HelperTextForm>{fieldState.error?.message}</HelperTextForm>
+                </FlexBox>
+              )}
+            />
+          </FormControl>
+
+          <FormControl>
+            <Controller
+              control={control}
+              name="bank"
+              render={({ field, fieldState }) => (
+                <FlexBox style={{ flexDirection: 'column' }}>
+                   <BankAutoComplete
+                    label="Bank"
+                    required
                     value={field.value}
                     onChange={field.onChange}
                   />

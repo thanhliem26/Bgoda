@@ -9,6 +9,7 @@ export interface Employee {
     dob: Date | null
     password: string
     bankNumber: string
+    bank: string
     salary: number
     name: string
     fullName: string
@@ -28,6 +29,7 @@ export type CreateEmployeeArguments = {
     bankNumber: string
     password: string
     roleId: number
+    bank: string
 }
 
 export type UpdateEmployeeArguments = {
@@ -42,4 +44,5 @@ export type UpdateEmployeeArguments = {
     salary: number
     bankNumber: string
     roleId: number
+    bank: string
 }

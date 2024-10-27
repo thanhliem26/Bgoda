@@ -21,6 +21,7 @@ export const schema = yup.object({
   salary: yup.number().nullable(),
   bankNumber: yup.string(),
   avatar: yup.string(),
+  bank: yup.string(),
   password: yup
     .string()
     .required(RULE_MESSAGES.MC1('password')),
@@ -58,6 +59,7 @@ export const schemaUpdate = yup.object({
     return true
   }),
   salary: yup.number().nullable(),
+  bank: yup.string(),
   bankNumber: yup.string(),
   avatar: yup.string(),
   roleId: yup.number().required(RULE_MESSAGES.MC1('Role')).nullable().test('is_null', function () {

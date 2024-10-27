@@ -14,7 +14,10 @@ interface ICreateBusinessPartnerModal {
   setOpen: (value: boolean) => void
 }
 
-function CreateBusinessPartnerModal({ open, setOpen }: ICreateBusinessPartnerModal) {
+function CreateBusinessPartnerModal({
+  open,
+  setOpen,
+}: ICreateBusinessPartnerModal) {
   const { onSubmit, control, isPending, isValid } = useCreateBusinessPartner({
     onSuccess: () => {
       setOpen(false)
@@ -28,30 +31,51 @@ function CreateBusinessPartnerModal({ open, setOpen }: ICreateBusinessPartnerMod
           <WrapperAvatar>
             <Box className="image_wrapper">
               <label htmlFor="image_background">
-                <img src={'/static/avatar/avatar_support.jpg'} alt="avatar supporting" />
+                <img
+                  src={'/static/avatar/avatar_support.jpg'}
+                  alt="avatar supporting"
+                />
               </label>
             </Box>
             <Box className="avatar_upload">
-              <AppUpload onChange={(info) => {
-                console.log("info", info)
-              }}>
-                <label htmlFor="image">
-                  <img src={'/static/avatar/001-man.svg'} alt="avatar" />
-                </label>
-              </AppUpload>
+              <FormControl style={{ width: '100%', height: '100%' }}>
+                <Controller
+                  control={control}
+                  name="logo"
+                  render={({ field, fieldState }) => (
+                    <FlexBox style={{ flexDirection: 'column', width: '100%', height: '100%' }}>
+                      <AppUpload
+                        value={field.value ?? ''}
+                        onChangeUpload={({ file }) => {
+                          field.onChange(file)
+                        }}
+                      >
+                        <label htmlFor="image">
+                          <img
+                            width={'100%'}
+                            src={
+                              field.value
+                                ? field.value
+                                : '/static/avatar/001-man.svg'
+                            }
+                            alt="avatar"
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              objectFit: 'cover',
+                              objectPosition: 'center',
 
-
-              {/* <UploadComponent
-                id="image"
-                name="avatar"
-                control={control}
-                // errors={errors}
-                className="remove__border"
-                setValue={setValue}
-                maxCount={1}
-                uploadSelf={true}
-              // onChange={(file) => handleChange(file, FileListAvatar, "avatar")}
-              /> */}
+                            }}
+                          />
+                        </label>
+                      </AppUpload>
+                      <HelperTextForm>
+                        {fieldState.error?.message}
+                      </HelperTextForm>
+                    </FlexBox>
+                  )}
+                />
+              </FormControl>
             </Box>
           </WrapperAvatar>
         </FlexBox>
@@ -86,7 +110,7 @@ function CreateBusinessPartnerModal({ open, setOpen }: ICreateBusinessPartnerMod
             justifyContent: 'center',
             alignContent: 'center',
             marginTop: 8,
-            gap: 16
+            gap: 16,
           }}
         >
           <FormControl>
@@ -106,14 +130,13 @@ function CreateBusinessPartnerModal({ open, setOpen }: ICreateBusinessPartnerMod
               )}
             />
           </FormControl>
-
         </FlexBox>
         <FlexBox
           style={{
             justifyContent: 'center',
             alignContent: 'center',
             marginTop: 8,
-            gap: 16
+            gap: 16,
           }}
         >
           <FormControl>
@@ -153,12 +176,13 @@ function CreateBusinessPartnerModal({ open, setOpen }: ICreateBusinessPartnerMod
           </FormControl>
         </FlexBox>
 
-
-        <FlexBox style={{
-          justifyContent: 'center',
-          alignContent: 'center',
-          marginTop: 8,
-        }}>
+        <FlexBox
+          style={{
+            justifyContent: 'center',
+            alignContent: 'center',
+            marginTop: 8,
+          }}
+        >
           <FormControl>
             <Controller
               control={control}
@@ -196,7 +220,7 @@ function CreateBusinessPartnerModal({ open, setOpen }: ICreateBusinessPartnerMod
                     required
                     value={field.value}
                     onChange={field.onChange}
-                    type='password'
+                    type="password"
                   />
                   <HelperTextForm>{fieldState.error?.message}</HelperTextForm>
                 </FlexBox>
@@ -223,7 +247,7 @@ function CreateBusinessPartnerModal({ open, setOpen }: ICreateBusinessPartnerMod
                     required
                     value={field.value}
                     onChange={field.onChange}
-                    type='password'
+                    type="password"
                   />
                   <HelperTextForm>{fieldState.error?.message}</HelperTextForm>
                 </FlexBox>
