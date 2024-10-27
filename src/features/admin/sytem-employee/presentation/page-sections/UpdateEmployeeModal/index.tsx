@@ -244,60 +244,6 @@ function UpdateSystemEmployeeModal({ open, setOpen, id }: IUpdateEmployeeModal) 
             />
           </FormControl>
         </FlexBox>
-
-        <FlexBox
-          style={{
-            justifyContent: 'center',
-            alignContent: 'center',
-            marginTop: 8,
-          }}
-        >
-          <FormControl>
-            <Controller
-              control={control}
-              name="password"
-              render={({ field, fieldState }) => (
-                <FlexBox style={{ flexDirection: 'column' }}>
-                  <AppTextField
-                    label="Password"
-                    required
-                    value={field.value}
-                    onChange={field.onChange}
-                    type='password'
-                  />
-                  <HelperTextForm>{fieldState.error?.message}</HelperTextForm>
-                </FlexBox>
-              )}
-            />
-          </FormControl>
-        </FlexBox>
-
-        <FlexBox
-          style={{
-            justifyContent: 'center',
-            alignContent: 'center',
-            marginTop: 8,
-          }}
-        >
-          <FormControl>
-            <Controller
-              control={control}
-              name="re_password"
-              render={({ field, fieldState }) => (
-                <FlexBox style={{ flexDirection: 'column' }}>
-                  <AppTextField
-                    label="Re password"
-                    required
-                    value={field.value}
-                    onChange={field.onChange}
-                    type='password'
-                  />
-                  <HelperTextForm>{fieldState.error?.message}</HelperTextForm>
-                </FlexBox>
-              )}
-            />
-          </FormControl>
-        </FlexBox>
       </FlexBox>
       <ModalFooter>
         <AppButton primary_shallow={true} onClick={() => setOpen(false)}>

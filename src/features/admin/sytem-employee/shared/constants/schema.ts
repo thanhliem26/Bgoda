@@ -18,7 +18,7 @@ export const schema = yup.object({
     }
     return true
   }),
-  salary: yup.number(),
+  salary: yup.number().nullable(),
   bankNumber: yup.string(),
   avatar: yup.string(),
   password: yup
@@ -57,14 +57,9 @@ export const schemaUpdate = yup.object({
     }
     return true
   }),
-  salary: yup.number(),
+  salary: yup.number().nullable(),
   bankNumber: yup.string(),
   avatar: yup.string(),
-  password: yup
-    .string()
-    .required(RULE_MESSAGES.MC1('password')),
-  re_password: yup.string().oneOf([yup.ref('password')], RULE_MESSAGES.MC7('password'))
-    .required(RULE_MESSAGES.MC1('password')),
   roleId: yup.number().required(RULE_MESSAGES.MC1('Role')).nullable().test('is_null', function () {
     const roleId = this.parent?.roleId
     if (!roleId) {

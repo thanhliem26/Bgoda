@@ -1,5 +1,6 @@
 import { TableProps } from "antd"
 import dayjs from "dayjs";
+import AppTag from "shared/components/AppTag";
 import { ActionGroupButtons } from "shared/components/table/components/ActionGroupButton";
 import { TOptionItem } from "shared/components/table/hooks/useBuildActionTable"
 import { Employee } from "shared/schema/system-empoyee";
@@ -11,8 +12,8 @@ export const columns = (
 ): TableProps<Employee>['columns'] => [
     {
       title: 'Name',
-      dataIndex: 'fullName',
-      key: 'fullName',
+      dataIndex: 'name',
+      key: 'name',
       render: (text) => {
         return <b>{text}</b>;
       },
@@ -29,11 +30,11 @@ export const columns = (
     },
     {
       title: 'Role',
-      dataIndex: 'roleId',
-      key: 'roleId',
+      dataIndex: 'roleName',
+      key: 'roleName',
       width: 200,
       render: (role) => {
-        return <Tiny>{role}</Tiny>
+        return <AppTag color="green">{role}</AppTag>
       },
     },
     {

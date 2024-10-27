@@ -1,14 +1,15 @@
-import useDeleteRoleTemplate from 'features/admin/room-type/hooks/useDeleteRoomType'
+import useDeleteServiceRoom from 'features/admin/service-room/hooks/useDeleteServiceRoom'
 import AppButton from 'shared/components/AppButton'
 import ModalBase, { ModalFooter } from 'shared/components/modal'
-interface IDeleteRoomTypeModal {
+
+interface IDeleteServiceRoomModal {
   open: boolean
   setOpen: (value: boolean) => void
   id: string
 }
 
-function DeleteRoomTypeModal({ open, setOpen, id }: IDeleteRoomTypeModal) {
-  const { onDelete, isPending } = useDeleteRoleTemplate({
+function DeleteServiceRoomModal({ open, setOpen, id }: IDeleteServiceRoomModal) {
+  const { onDelete, isPending } = useDeleteServiceRoom({
     onSuccess: () => {
       setOpen(false)
     },
@@ -16,7 +17,7 @@ function DeleteRoomTypeModal({ open, setOpen, id }: IDeleteRoomTypeModal) {
   })
 
   return (
-    <ModalBase title="Do you want to delete room type?" open={open} setOpen={setOpen}>
+    <ModalBase title="Do you want to delete service room?" open={open} setOpen={setOpen}>
       <ModalFooter>
         <AppButton primary_shallow={true} onClick={() => setOpen(false)}>
           Cancel
@@ -29,4 +30,4 @@ function DeleteRoomTypeModal({ open, setOpen, id }: IDeleteRoomTypeModal) {
   )
 }
 
-export default DeleteRoomTypeModal
+export default DeleteServiceRoomModal

@@ -6,36 +6,38 @@ const useService = () => {
 
     const getAllRoomType = () => {
         return RESTClientService.buildRequest({
-            endpoint: '/api/admin/roles',
+            endpoint: '/api/admin/rooms/room-types',
             method: 'GET',
         })
     }
 
     const createRoomType = () => {
         return RESTClientService.buildRequest({
-            endpoint: '/api/admin/room-type',
+            endpoint: '/api/admin/rooms/room-types',
             method: 'POST',
         })
     }
 
     const updateRoomType = () => {
         return RESTClientService.buildRequest({
-            endpoint: '/api/admin/room-type',
+            endpoint: '/api/admin/rooms/room-types',
             method: 'PUT',
         })
     }
 
     const getRoomType = () => {
         return RESTClientService.buildRequest({
-            endpoint: '/v1/api/room-type',
+            endpoint: '/api/admin/rooms/room-types',
             method: 'GET',
+            slash_id: true
         })
     }
 
     const deleteRoomType = () => {
         return RESTClientService.buildRequest({
-            endpoint: '/api/admin/room-type',
+            endpoint: '/api/admin/rooms/room-types',
             method: 'DELETE',
+            slash_id: true
         })
     }
 

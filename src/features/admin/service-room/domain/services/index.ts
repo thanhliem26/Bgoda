@@ -4,48 +4,50 @@ import { MODLUE_QUERY_KEY } from 'shared/interfaces/common'
 const useService = () => {
     const queryKey = MODLUE_QUERY_KEY.ROLE_TEMPLATE
 
-    const getAllRoomType = () => {
+    const getAllServiceRoom = () => {
         return RESTClientService.buildRequest({
-            endpoint: '/api/admin/roles',
+            endpoint: '/api/admin/services',
             method: 'GET',
         })
     }
 
-    const createRoomType = () => {
+    const createServiceRoom = () => {
         return RESTClientService.buildRequest({
-            endpoint: '/api/admin/room-type',
+            endpoint: '/api/admin/services',
             method: 'POST',
         })
     }
 
-    const updateRoomType = () => {
+    const updateServiceRoom = () => {
         return RESTClientService.buildRequest({
-            endpoint: '/api/admin/room-type',
+            endpoint: '/api/admin/services',
             method: 'PUT',
         })
     }
 
-    const getRoomType = () => {
+    const getServiceRoom = () => {
         return RESTClientService.buildRequest({
-            endpoint: '/v1/api/room-type',
+            endpoint: '/api/admin/services',
             method: 'GET',
+            slash_id: true
         })
     }
 
-    const deleteRoomType = () => {
+    const deleteServiceRoom = () => {
         return RESTClientService.buildRequest({
-            endpoint: '/api/admin/room-type',
+            endpoint: '/api/admin/services',
             method: 'DELETE',
+            slash_id: true
         })
     }
 
     return {
         queryKey,
-        getAllRoomType,
-        createRoomType,
-        updateRoomType,
-        getRoomType,
-        deleteRoomType
+        getAllServiceRoom,
+        createServiceRoom,
+        updateServiceRoom,
+        getServiceRoom,
+        deleteServiceRoom
     }
 }
 

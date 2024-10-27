@@ -30,7 +30,7 @@ function useCreateSystemEmployee(props: createEmployeeProps = {}) {
       avatar: '',
       bankNumber: '',
       dob: null,
-      salary: 0
+      salary: null
     },
     resolver: yupResolver(schema),
     onSuccess: onSuccess,

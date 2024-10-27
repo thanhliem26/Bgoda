@@ -5,7 +5,7 @@ import {
   EditOutlined,
   SearchOutlined,
 } from '@ant-design/icons'
-import { RoleTemplate } from 'shared/schema/role-template'
+import { ServiceRoom } from 'shared/schema/service-room'
 
 export enum ActionsTableRoleTemplate {
   DELETE = 'delete',
@@ -20,7 +20,7 @@ function useBuildActionsTableRoleTemplate({
 }: IuseUserActionTableReturn) {
   const useBuildActionsTableReturn = useBuildActionsTable<
     ActionsTableRoleTemplate,
-    RoleTemplate
+    ServiceRoom
   >({
     actions: {
       detail: {

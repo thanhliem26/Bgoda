@@ -1,4 +1,5 @@
-import useUpdateRoomType from 'features/admin/room-type/hooks/useUpdateRoomType'
+import useUpdateServiceRoom from 'features/admin/service-room/hooks/useUpdateServiceRoom'
+import SelectIcon from 'features/admin/service-room/shared/components/SelecIcon'
 import { Controller } from 'react-hook-form'
 import AppButton from 'shared/components/AppButton'
 import AppTextArea from 'shared/components/form/AppTextArea'
@@ -6,14 +7,14 @@ import AppTextField from 'shared/components/form/AppTextField'
 import ModalBase, { ModalFooter } from 'shared/components/modal'
 import { FlexBox, FormControl, HelperTextForm } from 'shared/styles'
 
-interface IUpdateRoomTypeModal {
+interface IUpdateServiceRoomModal {
   open: boolean
   setOpen: (value: boolean) => void
   id: string
 }
 
-function UpdateRoomTypeModal({ open, setOpen, id }: IUpdateRoomTypeModal) {
-  const { onSubmit, control, isPending, isValid } = useUpdateRoomType({
+function UpdateServiceRoomModal({ open, setOpen, id }: IUpdateServiceRoomModal) {
+  const { onSubmit, control, isPending, isValid } = useUpdateServiceRoom({
     onSuccess: () => {
       setOpen(false)
     },
@@ -21,13 +22,14 @@ function UpdateRoomTypeModal({ open, setOpen, id }: IUpdateRoomTypeModal) {
   })
 
   return (
-    <ModalBase title="Edit room type" open={open} setOpen={setOpen}>
-      <FlexBox style={{ flexDirection: 'column', gap: '16px' }}>
+    <ModalBase title="Edit service room" open={open} setOpen={setOpen}>
+       <FlexBox style={{ flexDirection: 'column', gap: '16px' }}>
         <FlexBox
           style={{
             justifyContent: 'center',
             alignContent: 'center',
             marginTop: 8,
+            gap: 16
           }}
         >
           <FormControl>
@@ -42,6 +44,19 @@ function UpdateRoomTypeModal({ open, setOpen, id }: IUpdateRoomTypeModal) {
                     value={field.value}
                     onChange={field.onChange}
                   />
+                  <HelperTextForm>{fieldState.error?.message}</HelperTextForm>
+                </FlexBox>
+              )}
+            />
+          </FormControl>
+
+          <FormControl>
+            <Controller
+              control={control}
+              name="icon"
+              render={({ field, fieldState }) => (
+                <FlexBox style={{ flexDirection: 'column', width: 'auto', minWidth: '100px' }}>
+                  <SelectIcon value={field.value} onChange={field.onChange}/>
                   <HelperTextForm>{fieldState.error?.message}</HelperTextForm>
                 </FlexBox>
               )}
@@ -87,4 +102,4 @@ function UpdateRoomTypeModal({ open, setOpen, id }: IUpdateRoomTypeModal) {
   )
 }
 
-export default UpdateRoomTypeModal
+export default UpdateServiceRoomModal
