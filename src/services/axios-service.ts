@@ -8,9 +8,7 @@ import { makeLeft, makeRight } from 'shared/utils/handleEither';
 export interface IBuildRequest {
     endpoint: string;
     method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
-    options?: Partial<AxiosRequestConfig> & {
-        baseUrl?: string;
-    };
+    options?: Partial<AxiosRequestConfig>
     slash_id?: boolean
     upload?: boolean
 }
@@ -28,7 +26,7 @@ class RESTClientService {
     static buildRequest = (props: IBuildRequest): IRequestReturn => {
         const { endpoint, method, options, slash_id = false, upload = false } = props;
 
-        const baseUrl = options?.baseUrl || axiosService.defaults.baseURL;
+        const baseUrl = options?.baseURL || axiosService.defaults.baseURL;
         const headers = options?.headers ?? {};
 
         const url = new URL(endpoint, baseUrl).toString();
