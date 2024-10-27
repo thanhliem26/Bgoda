@@ -12,13 +12,13 @@ interface createServiceRoomProps {
 function useCreateServiceRoom(props: createServiceRoomProps = {}) {
   const { onSuccess } = props
 
-  const { createRoomType, queryKey } = useService()
+  const { createServiceRoom, queryKey } = useService()
   const { useCreateReturn, useFormReturn } = useCreateResource<
     CreateServiceRoomArguments,
     FormDataSchema
   >({
     mutationKey: [queryKey],
-    queryString: createRoomType,
+    queryString: createServiceRoom,
     defaultValues: {
       name: '',
       description: '',
@@ -29,7 +29,7 @@ function useCreateServiceRoom(props: createServiceRoomProps = {}) {
   })
 
   const { handleSubmit, control, formState, setValue } = useFormReturn
-
+console.log("formState", formState.isValid, formState.errors)
   const isValid = !formState.isValid
   const { isPending, mutate } = useCreateReturn
 

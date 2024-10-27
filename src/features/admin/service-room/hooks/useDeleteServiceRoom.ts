@@ -3,20 +3,20 @@ import useService from "../domain/services"
 import useDeleteResource from "shared/hooks/crud-hook/useDeleteResource"
 import { DeleteUserArguments } from "shared/schema/user"
 
-type UseDeleteRoomTypeProps = {
+type UseDeleteServiceRoomProps = {
   id: string
   onSuccess: (data: BaseRecord) => void
   onError?: (data: BaseRecord) => void
 }
 
-function useDeleteRoomType(props: UseDeleteRoomTypeProps) {
+function useDeleteServiceRoom(props: UseDeleteServiceRoomProps) {
   const { id, onSuccess, onError } = props
-  const { queryKey, deleteRoomType } = useService()
+  const { queryKey, deleteServiceRoom } = useService()
   const { useDeleteReturn } = useDeleteResource<DeleteUserArguments>({
     mutationKey: [queryKey],
     onSuccess,
     onError,
-    queryString: deleteRoomType,
+    queryString: deleteServiceRoom,
   })
 
   const { mutate, isPending } = useDeleteReturn
@@ -32,4 +32,4 @@ function useDeleteRoomType(props: UseDeleteRoomTypeProps) {
     onDelete,
   }
 }
-export default useDeleteRoomType
+export default useDeleteServiceRoom

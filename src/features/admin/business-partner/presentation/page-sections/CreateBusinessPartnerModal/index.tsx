@@ -2,6 +2,7 @@ import useCreateBusinessPartner from 'features/admin/business-partner/hooks/useC
 import { WrapperAvatar } from 'features/admin/business-partner/shared/styles'
 import { Controller } from 'react-hook-form'
 import AppButton from 'shared/components/AppButton'
+import AppUpload from 'shared/components/AppUpload'
 import RoleAutoComplete from 'shared/components/autocomplete/role-auto-complete'
 import AppNumberField from 'shared/components/form/AppNumberField'
 import AppTextField from 'shared/components/form/AppTextField'
@@ -31,9 +32,15 @@ function CreateBusinessPartnerModal({ open, setOpen }: ICreateBusinessPartnerMod
               </label>
             </Box>
             <Box className="avatar_upload">
-              <label htmlFor="image">
-                <img src={'/static/avatar/001-man.svg'} alt="avatar" />
-              </label>
+              <AppUpload onChange={(info) => {
+                console.log("info", info)
+              }}>
+                <label htmlFor="image">
+                  <img src={'/static/avatar/001-man.svg'} alt="avatar" />
+                </label>
+              </AppUpload>
+
+
               {/* <UploadComponent
                 id="image"
                 name="avatar"

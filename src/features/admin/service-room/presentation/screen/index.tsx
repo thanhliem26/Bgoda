@@ -10,15 +10,19 @@ import TableBase from "shared/components/table";
 import useRoomTypeTable from "../../hooks/useRoomTypeTable";
 import useActionTable from "../../hooks/useActionTable";
 import CreateServiceRoomModal from "../page-sections/CreateServiceRoomModal";
-import UpdateRoomTypeModal from "../page-sections/UpdateRoomTypeModal";
-import DeleteRoomTypeModal from "../page-sections/DeleteRoomTypeModal";
+import UpdateServiceRoomModal from "../page-sections/UpdateServiceRoomModal";
+import DeleteServiceRoomModal from "../page-sections/DeleteServiceRoomModal";
 import useBuildActionTableRoleTemplate from "../../hooks/useBuildActionTableRoleTemplate";
 import useBuildColumnTable from "shared/components/table/hooks/useBuildColumnTable";
 import { columns } from "../../shared/constants";
 import DetailRoomTypeModal from "../page-sections/DetailRoomTypeModal";
+import { useState } from "react";
+import debounce from "shared/utils/debounce";
 
 const AdminServiceRoom = () => {
   const useActionTableReturn = useActionTable()
+  const [search, setSearch] = useState<string>('');
+
   const { openCreate,
     setOpenCreate,
     openEdit,
@@ -31,11 +35,14 @@ const AdminServiceRoom = () => {
 
   const { actions } = useBuildActionTableRoleTemplate(useActionTableReturn)
 
-  const { useTableReturn } = useRoomTypeTable({variables: {indexPage: 1}});
+  const { useTableReturn } = useRoomTypeTable({search: {searchName: search}});
   const { columnTable } = useBuildColumnTable({
     columns: columns,
     actions
   })
+
+  
+  const handleSearch = debounce(setSearch, 500)
 
   return (
     <Box style={{ paddingTop: 16, paddingBottom: 32 }}>
@@ -45,7 +52,9 @@ const AdminServiceRoom = () => {
       <WrapperContainer style={{ marginTop: '20px' }}>
         <FlexBox style={{ justifyContent: 'space-between', padding: '12px', marginTop: '16px' }}>
           <Box style={{ width: '400px', maxWidth: '100%' }}>
-            <SearchInput placeholder="Search by name" />
+            <SearchInput placeholder="Search by name service" onChange={(event) => {
+              handleSearch(event.target.value)
+            }} />
           </Box>
           <Box>
             <ButtonBase icon={<PlusOutlined />} onClick={() => setOpenCreate(true)}>
@@ -59,8 +68,8 @@ const AdminServiceRoom = () => {
       </WrapperContainer>
 
       {openCreate && <CreateServiceRoomModal open={openCreate} setOpen={setOpenCreate} />}
-      {openEdit && <UpdateRoomTypeModal open={openEdit} setOpen={setOpenEdit} id={rowId.current} />}
-      {openDelete && <DeleteRoomTypeModal open={openDelete} setOpen={setOpenDelete} id={rowId.current} />}
+      {openEdit && <UpdateServiceRoomModal open={openEdit} setOpen={setOpenEdit} id={rowId.current} />}
+      {openDelete && <DeleteServiceRoomModal open={openDelete} setOpen={setOpenDelete} id={rowId.current} />}
       {openDetail && <DetailRoomTypeModal open={openDetail} setOpen={setOpenDetail} id={rowId.current} />}
     </Box>
   )

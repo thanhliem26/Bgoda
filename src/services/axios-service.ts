@@ -1,3 +1,4 @@
+import { AxiosRequestConfig } from 'axios';
 import axiosService from 'configs/api';
 import { cloneDeep } from 'lodash';
 import { ResponseServer } from 'shared/interfaces/common';
@@ -7,25 +8,25 @@ import { makeLeft, makeRight } from 'shared/utils/handleEither';
 export interface IBuildRequest {
     endpoint: string;
     method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
-    options?: {
+    options?: Partial<AxiosRequestConfig> & {
         baseUrl?: string;
-        headers?: Record<string, string>;
     };
     slash_id?: boolean
+    upload?: boolean
 }
 
 export interface IRequestReturn {
     url: string;
-    requestOptions: {
+    requestOptions: Partial<AxiosRequestConfig> &  {
         method: string;
-        headers: Record<string, string>;
     };
     slash_id: boolean
+    upload: boolean
 }
 
 class RESTClientService {
     static buildRequest = (props: IBuildRequest): IRequestReturn => {
-        const { endpoint, method, options, slash_id = false } = props;
+        const { endpoint, method, options, slash_id = false, upload = false } = props;
 
         const baseUrl = options?.baseUrl || axiosService.defaults.baseURL;
         const headers = options?.headers ?? {};
@@ -38,9 +39,10 @@ class RESTClientService {
                 'Content-Type': 'application/json',
                 ...headers,
             },
+            ...options
         };
 
-        return { url, requestOptions, slash_id };
+        return { url, requestOptions, slash_id, upload };
     };
 
     static fetchREST = async (
@@ -48,7 +50,7 @@ class RESTClientService {
         params?: Record<string, any>
     ): Promise<CustomAxiosResponse> => {
         try {
-            const { requestOptions, slash_id } = requestString;
+            const { requestOptions, slash_id, upload } = requestString;
             let url = (params?.id && slash_id) ? requestString.url + `/${params?.id}` : requestString.url;
 
             let finalUrl = url;
@@ -69,9 +71,23 @@ class RESTClientService {
                 finalUrl = urlWithParams.toString();
             }
 
+            // if (['POST', 'PUT', 'PATCH'].includes(config.method) && params) {
+            //      //@ts-ignore
+            //     config.data = params;
+            // }
             if (['POST', 'PUT', 'PATCH'].includes(config.method) && params) {
-                 //@ts-ignore
-                config.data = params;
+                if (upload) {
+                    //upload file
+                    const formData = new FormData();
+                    Object.keys(params).forEach((key) => {
+                        formData.append(key, params[key]);
+                    });
+                    //@ts-ignore
+                    config.data = formData;
+                } else { console.log("222")
+                    //@ts-ignore
+                    config.data = params;
+                }
             }
 
             const response = await axiosService({

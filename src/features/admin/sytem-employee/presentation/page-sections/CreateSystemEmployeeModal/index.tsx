@@ -160,9 +160,10 @@ function CreateSystemEmployeeModal({ open, setOpen }: ICreateSystemEmployeeModal
               name="salary"
               render={({ field, fieldState }) => (
                 <FlexBox style={{ flexDirection: 'column' }}>
-                   <AppNumberField
+                  <AppNumberField
                     label="Salary"
                     value={field.value}
+                    min={0}
                     onChange={field.onChange}
                     formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                     parser={(value) => value?.replace(/\$\s?|(,*)/g, '') as unknown as number}
@@ -206,7 +207,7 @@ function CreateSystemEmployeeModal({ open, setOpen }: ICreateSystemEmployeeModal
               name="dob"
               render={({ field, fieldState }) => (
                 <FlexBox style={{ flexDirection: 'column' }}>
-                   <AppDatePicker
+                  <AppDatePicker
                     label="Date of birth"
                     value={field.value ? dayjs(field.value) : null}
                     onChange={field.onChange}

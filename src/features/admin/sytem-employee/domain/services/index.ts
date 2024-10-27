@@ -20,7 +20,7 @@ const useService = () => {
 
     const updateEmployee = () => {
         return RESTClientService.buildRequest({
-            endpoint: '/api/admin/accounts/system-employees',
+            endpoint: '/api/admin/accounts/employees',
             method: 'PUT',
         })
     }

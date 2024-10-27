@@ -3,33 +3,34 @@ import useService from "../domain/services"
 import { yupResolver } from "@hookform/resolvers/yup"
 import useEditResource from "shared/hooks/crud-hook/useEditResource"
 import { FormDataSchemaUpdate, schemaUpdate } from "../shared/constants/schema"
-import { RoomType, UpdateRoomTypeArguments } from "shared/schema/room-type"
+import { ServiceRoom, UpdateServiceRoomArguments } from "shared/schema/service-room"
 
-type UseUpdateRoomType = {
+type UseUpdateServiceRoom = {
     id: string | number
     onSuccess: (data: BaseRecord) => void
 }
 
-function useUpdateRoomType(props: UseUpdateRoomType) {
+function useUpdateServiceRoom(props: UseUpdateServiceRoom) {
     const { id, onSuccess } = props
-    const { updateRoomType, getAllRoomType, queryKey } = useService()
+    const { updateServiceRoom, getServiceRoom, queryKey } = useService()
     const { useEditReturn, useFormReturn, isGetting } = useEditResource<
-        RoomType,
+        ServiceRoom,
         FormDataSchemaUpdate,
-        UpdateRoomTypeArguments
+        UpdateServiceRoomArguments
     >({
         resolver: yupResolver(schemaUpdate),
-        editBuildQuery: updateRoomType,
-        oneBuildQuery: getAllRoomType,
+        editBuildQuery: updateServiceRoom,
+        oneBuildQuery: getServiceRoom,
         queryKey: [queryKey],
         id,
         onSuccess,
-        formatDefaultValues() {
+        formatDefaultValues(data) {
 
             return {
                 id: id,
-                name: '',
-                description: ''
+                name: data?.name ?? '',
+                description: data?.description ?? '',
+                icon: data?.icon ?? ''
             }
         },
     })
@@ -41,9 +42,8 @@ function useUpdateRoomType(props: UseUpdateRoomType) {
 
     function onSubmit() {
         handleSubmit((value) => {
-            console.log("🚀 ~ value:", value)
 
-            mutate(value as UpdateRoomTypeArguments)
+            mutate(value as UpdateServiceRoomArguments)
         })()
     }
 
@@ -58,4 +58,4 @@ function useUpdateRoomType(props: UseUpdateRoomType) {
     }
 }
 
-export default useUpdateRoomType
+export default useUpdateServiceRoom

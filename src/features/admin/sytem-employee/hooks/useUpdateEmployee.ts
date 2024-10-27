@@ -30,7 +30,7 @@ function useUpdateEmployee(props: UseUpdateEmployee) {
                 id: data?.id ?? '',
                 address: data?.address ?? '',
                 email: data?.email ?? '',
-                fullName: data?.fullName ?? '',
+                fullName: data?.name ?? '',
                 phoneNumber: data?.phoneNumber,
                 roleId: data?.roleId ?? null,
                 dob: data?.dob ?? null,
@@ -54,17 +54,17 @@ function useUpdateEmployee(props: UseUpdateEmployee) {
         handleSubmit((value) => {
 
             const payload: UpdateEmployeeArguments = {
+                id: id as string,
                 address: value.address ?? '',
                 email: value.email,
                 fullName: value.fullName,
                 name: value.fullName,
                 avatar: value.avatar ?? '',
-                password: value.password,
                 roleId: value.roleId ?? 0,
-                bankNumber: '',
+                bankNumber: value.bankNumber ?? '',
                 dob: value.dob ?? new Date(),
-                phoneNumber: '',
-                salary: 0,
+                phoneNumber: value.phoneNumber ?? '',
+                salary: value.salary ?? 0,
         
               }
             mutate(payload)

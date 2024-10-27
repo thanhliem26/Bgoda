@@ -1,4 +1,4 @@
-import useCreateRoomType from 'features/admin/service-room/hooks/useCreateServiceRoom'
+import useCreateServiceRoom from 'features/admin/service-room/hooks/useCreateServiceRoom'
 import SelectIcon from 'features/admin/service-room/shared/components/SelecIcon'
 import { Controller } from 'react-hook-form'
 import AppButton from 'shared/components/AppButton'
@@ -13,7 +13,7 @@ interface ICreateServiceRoomModal {
 }
 
 function CreateServiceRoomModal({ open, setOpen }: ICreateServiceRoomModal) {
-  const { onSubmit, control, isPending, isValid } = useCreateRoomType({
+  const { onSubmit, control, isPending, isValid } = useCreateServiceRoom({
     onSuccess: () => {
       setOpen(false)
     },
@@ -54,7 +54,7 @@ function CreateServiceRoomModal({ open, setOpen }: ICreateServiceRoomModal) {
               name="icon"
               render={({ field, fieldState }) => (
                 <FlexBox style={{ flexDirection: 'column', width: 'auto', minWidth: '100px' }}>
-                  <SelectIcon />
+                  <SelectIcon value={field.value} onChange={field.onChange}/>
                   <HelperTextForm>{fieldState.error?.message}</HelperTextForm>
                 </FlexBox>
               )}

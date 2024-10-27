@@ -45,7 +45,7 @@ const AdminRoomType = () => {
       <WrapperContainer style={{ marginTop: '20px' }}>
         <FlexBox style={{ justifyContent: 'space-between', padding: '12px', marginTop: '16px' }}>
           <Box style={{ width: '400px', maxWidth: '100%' }}>
-            <SearchInput placeholder="Search by name" />
+            <SearchInput placeholder="Search by name room type" />
           </Box>
           <Box>
             <ButtonBase icon={<PlusOutlined />} onClick={() => setOpenCreate(true)}>

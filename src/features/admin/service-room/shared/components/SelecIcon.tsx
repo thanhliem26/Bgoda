@@ -36,6 +36,7 @@ const SelectIcon = (props: Omit<IAutoCompleteBaseProps, 'options' | 'popupClassN
     <AutoCompleteBase
       options={options}
       popupClassName={style['select_icon']}
+      className={style['select_parent']}
       {...props}
     />
   )

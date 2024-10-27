@@ -51,7 +51,7 @@ const SystemEmployee = () => {
       <WrapperContainer style={{ marginTop: '20px' }}>
         <FlexBox style={{ justifyContent: 'space-between', padding: '12px', marginTop: '16px' }}>
           <Box style={{ width: '400px', maxWidth: '100%' }}>
-            <SearchInput placeholder="Search by company name" onChange={(event) => {
+            <SearchInput placeholder="Search by employee name" onChange={(event) => {
               handleSearch(event.target.value)
             }} />
           </Box>

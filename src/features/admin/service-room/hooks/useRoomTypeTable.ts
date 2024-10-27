@@ -3,11 +3,11 @@ import { IUseCustomCommonTable } from "shared/components/table/interfaces"
 import useService from "../domain/services"
 
 const useRoomTypeTable = (props: IUseCustomCommonTable) => {
-  const { getAllRoomType, queryKey } = useService()
+  const { getAllServiceRoom, queryKey } = useService()
   const { search, filters, variables = {} } = props
 
   const useTableReturn = useCustomTable({
-    buildQuery: getAllRoomType,
+    buildQuery: getAllServiceRoom,
     queryKey,
     filters,
     search,

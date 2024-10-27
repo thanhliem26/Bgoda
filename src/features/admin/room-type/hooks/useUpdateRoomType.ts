@@ -12,7 +12,7 @@ type UseUpdateRoomType = {
 
 function useUpdateRoomType(props: UseUpdateRoomType) {
     const { id, onSuccess } = props
-    const { updateRoomType, getAllRoomType, queryKey } = useService()
+    const { updateRoomType, getRoomType, queryKey } = useService()
     const { useEditReturn, useFormReturn, isGetting } = useEditResource<
         RoomType,
         FormDataSchemaUpdate,
@@ -20,16 +20,16 @@ function useUpdateRoomType(props: UseUpdateRoomType) {
     >({
         resolver: yupResolver(schemaUpdate),
         editBuildQuery: updateRoomType,
-        oneBuildQuery: getAllRoomType,
+        oneBuildQuery: getRoomType,
         queryKey: [queryKey],
         id,
         onSuccess,
-        formatDefaultValues() {
+        formatDefaultValues(data) {
 
             return {
                 id: id,
-                name: '',
-                description: ''
+                name: data?.name ?? '',
+                description: data?.description
             }
         },
     })
