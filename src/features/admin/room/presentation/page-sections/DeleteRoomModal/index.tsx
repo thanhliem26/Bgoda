@@ -1,15 +1,15 @@
-import useDeleteBusinessPartner from 'features/admin/business-partner/hooks/useDeleteBusinessPartner'
+import useDeleteRoom from 'features/admin/room/hooks/useDeleteRoom'
 import AppButton from 'shared/components/AppButton'
 import ModalBase, { ModalFooter } from 'shared/components/modal'
 
-interface IDeleteBusinessPartnerModal {
+interface IDeleteRoomModal {
   open: boolean
   setOpen: (value: boolean) => void
   id: string
 }
 
-function DeleteBusinessPartnerModal({ open, setOpen, id }: IDeleteBusinessPartnerModal) {
-  const { onDelete, isPending } = useDeleteBusinessPartner({
+function DeleteRoomModal({ open, setOpen, id }: IDeleteRoomModal) {
+  const { onDelete, isPending } = useDeleteRoom({
     onSuccess: () => {
       setOpen(false)
     },
@@ -30,4 +30,4 @@ function DeleteBusinessPartnerModal({ open, setOpen, id }: IDeleteBusinessPartne
   )
 }
 
-export default DeleteBusinessPartnerModal
+export default DeleteRoomModal

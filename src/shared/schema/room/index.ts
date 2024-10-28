@@ -6,6 +6,12 @@ export interface Room {
     price: number
     roomTypeId: number
     services: number[]
+    commune: string
+    discount: number
+    district: string
+    map: string
+    province: string
+    partner_id: number
     createdDate: string
     updatedDate: string
 }
@@ -19,6 +25,8 @@ export type CreateRoomArguments = {
     name: string,
     price: number,
     province: string,
+    partner_id: number,
+    roomTypeId: number,
     services: number[]
 }
 
@@ -31,5 +39,7 @@ export type UpdateRoomArguments = {
     name: string,
     price: number,
     province: string,
+    partner_id: number,
+    roomTypeId: number,
     services: number[]
 }

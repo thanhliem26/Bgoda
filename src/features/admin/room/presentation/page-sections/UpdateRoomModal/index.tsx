@@ -1,38 +1,40 @@
-import useCreateRoom from 'features/admin/room/hooks/useCreateRoom'
+import { WrapperAvatar } from 'features/admin/room/shared/styles'
+import useUpdateBusinessPartner from 'features/admin/room/hooks/useUpdateRoom'
 import { Controller } from 'react-hook-form'
 import AppButton from 'shared/components/AppButton'
-import EditorBox from 'shared/components/AppTinyEditor'
-import BusinessPartnerAutoComplete from 'shared/components/autocomplete/business-partner-auto-complete'
-import CommuneAutoComplete from 'shared/components/autocomplete/commune-auto-complete'
-import DistrictAutoComplete from 'shared/components/autocomplete/distric-auto-complete'
-import ProvinceAutoComplete from 'shared/components/autocomplete/province-auto-complete'
-import RoomServiceAutoComplete from 'shared/components/autocomplete/room-service-auto-complete'
-import RoomTypeAutoComplete from 'shared/components/autocomplete/room-type-auto-complete-base'
-import AppNumberField from 'shared/components/form/AppNumberField'
 import AppTextField from 'shared/components/form/AppTextField'
 import ModalBase, { ModalFooter } from 'shared/components/modal'
-import { FlexBox, FormControl, HelperTextForm } from 'shared/styles'
+import { Box, FlexBox, FormControl, HelperTextForm } from 'shared/styles'
+import AppNumberField from 'shared/components/form/AppNumberField'
+import RoleAutoComplete from 'shared/components/autocomplete/role-auto-complete'
+import AppUpload from 'shared/components/AppUpload'
+import ProvinceAutoComplete from 'shared/components/autocomplete/province-auto-complete'
+import BusinessPartnerAutoComplete from 'shared/components/autocomplete/business-partner-auto-complete'
+import RoomServiceAutoComplete from 'shared/components/autocomplete/room-service-auto-complete'
+import RoomTypeAutoComplete from 'shared/components/autocomplete/room-type-auto-complete-base'
+import DistrictAutoComplete from 'shared/components/autocomplete/distric-auto-complete'
+import CommuneAutoComplete from 'shared/components/autocomplete/commune-auto-complete'
+import { Tiny } from 'shared/styles/Typography'
 
-interface ICreateRoomModal {
+interface IUpdateRoomModal {
   open: boolean
   setOpen: (value: boolean) => void
+  id: string
 }
 
-function CreateRoomModal({
-  open,
-  setOpen,
-}: ICreateRoomModal) {
-  const { onSubmit, control, isPending, isValid, watch, setValue } = useCreateRoom({
+function UpdateRoomModal({ open, setOpen, id }: IUpdateRoomModal) {
+  const { onSubmit, control, isPending, isValid, setValue, watch } = useUpdateBusinessPartner({
     onSuccess: () => {
       setOpen(false)
     },
+    id: id
   })
 
   const province = watch('province');
   const district = watch('district');
 
   return (
-    <ModalBase title="Add a new room" open={open} setOpen={setOpen}>
+    <ModalBase title="Edit room" open={open} setOpen={setOpen}>
       <FlexBox style={{ flexDirection: 'column', gap: '16px' }}>
         {/* <FlexBox>
           <WrapperAvatar>
@@ -215,7 +217,8 @@ function CreateRoomModal({
               control={control}
               name="services"
               render={({ field, fieldState }) => (
-                <FlexBox style={{ flexDirection: 'column' }}>
+                <FlexBox style={{ flexDirection: 'column' }} gap={8}>
+                  <Tiny>Services <span style={{color: 'red'}}>*</span></Tiny>
                   <RoomServiceAutoComplete
                     label="Services"
                     required
@@ -342,4 +345,4 @@ function CreateRoomModal({
   )
 }
 
-export default CreateRoomModal
+export default UpdateRoomModal

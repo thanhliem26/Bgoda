@@ -10,8 +10,8 @@ import TableBase from "shared/components/table";
 import useRoleTemplateTable from "../../hooks/useRoleTemplateTable";
 import useActionTable from "../../hooks/useActionTable";
 import CreateRoomModal from "../page-sections/CreateRoomModal";
-import UpdateBusinessPartnerModal from "../page-sections/UpdateBusinessPartnerModal";
-import DeleteBusinessPartnerModal from "../page-sections/DeleteBusinessPartnerModal";
+import UpdateRoomModal from "../page-sections/UpdateRoomModal";
+import DeleteRoomModal from "../page-sections/DeleteRoomModal";
 import useBuildActionsTableBusinessPartner from "../../hooks/useBuildActionTableBusinessPartner";
 import useBuildColumnTable from "shared/components/table/hooks/useBuildColumnTable";
 import { columns } from "../../shared/constants";
@@ -67,8 +67,8 @@ const AdminRoom = () => {
       </WrapperContainer>
 
       {openCreate && <CreateRoomModal open={openCreate} setOpen={setOpenCreate} />}
-      {openEdit && <UpdateBusinessPartnerModal open={openEdit} setOpen={setOpenEdit} id={rowId.current} />}
-      {openDelete && <DeleteBusinessPartnerModal open={openDelete} setOpen={setOpenDelete} id={rowId.current} />}
+      {openEdit && <UpdateRoomModal open={openEdit} setOpen={setOpenEdit} id={rowId.current} />}
+      {openDelete && <DeleteRoomModal open={openDelete} setOpen={setOpenDelete} id={rowId.current} />}
       {openDetail && <DetailRoleTemplateModal open={openDetail} setOpen={setOpenDetail} id={rowId.current} />}
     </Box>
   )

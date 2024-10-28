@@ -28,7 +28,7 @@ function useCreateRoom(props: IcreateRoomProps = {}) {
       name: '',
       price: null,
       province: '',
-      services: []
+      services: [],
     },
     resolver: yupResolver(schema),
     onSuccess: onSuccess,
@@ -51,6 +51,8 @@ function useCreateRoom(props: IcreateRoomProps = {}) {
         price: value?.price ?? 0,
         province: value?.province,
         services: value?.services,
+        partner_id: value?.partner_id,
+        roomTypeId: value?.roomTypeId
       }
 
       mutate(payload)

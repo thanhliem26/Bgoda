@@ -2,7 +2,7 @@ import { BaseRecord } from "shared/interfaces/common"
 import useService from "../domain/services"
 import useDeleteResource from "shared/hooks/crud-hook/useDeleteResource"
 
-type UseDeleteBusinessPartnerProps = {
+type UseDeleteRoomProps = {
   id: string
   onSuccess: (data: BaseRecord) => void
   onError?: (data: BaseRecord) => void
@@ -12,14 +12,14 @@ type DeleteArguments = {
   id: string
 }
 
-function useDeleteBusinessPartner(props: UseDeleteBusinessPartnerProps) {
+function useDeleteRoom(props: UseDeleteRoomProps) {
   const { id, onSuccess, onError } = props
-  const { queryKey, deleteBusinessPartner } = useService()
+  const { queryKey, deleteRoom } = useService()
   const { useDeleteReturn } = useDeleteResource<DeleteArguments>({
     mutationKey: [queryKey],
     onSuccess,
     onError,
-    queryString: deleteBusinessPartner,
+    queryString: deleteRoom,
   })
 
   const { mutate, isPending } = useDeleteReturn
@@ -35,4 +35,4 @@ function useDeleteBusinessPartner(props: UseDeleteBusinessPartnerProps) {
     onDelete,
   }
 }
-export default useDeleteBusinessPartner
+export default useDeleteRoom
