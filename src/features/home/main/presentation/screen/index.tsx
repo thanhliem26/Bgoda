@@ -1,13 +1,18 @@
 import BackgroundMain from '../page-sections/background-main'
 import { MainWrapperProvider } from '../../context'
-import BodyMain from '../page-sections/body-main'
+import { Box, FlexBox } from 'shared/styles'
+import AttractiveLocation from '../page-sections/attractive-location'
 
 function Home() {
 
   return (
     <MainWrapperProvider>
       <BackgroundMain  />
-      <BodyMain />
+     <FlexBox style={{width: '100%', justifyContent: 'center'}}>
+     <FlexBox style={{marginTop: '100px', width: '1124px', maxWidth: '100%'}}>
+        <AttractiveLocation />
+      </FlexBox>
+     </FlexBox>
     </MainWrapperProvider>
   )
 }
