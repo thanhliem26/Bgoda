@@ -7,6 +7,8 @@ import styled, { keyframes } from "styled-components"
 import {
     LogoutOutlined,
 } from '@ant-design/icons'
+import handleAuthLocalStorage from "services/auth-local-storage-service"
+import { toast } from "react-toastify"
 
 const pulseAnimation = keyframes`
     0% {
@@ -80,11 +82,13 @@ const ProfilePopover: FC = () => {
     // const { logout } = useAuth()
     // const upSm = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'))
 
-    // const handleLogout = () => {
-    //     //   logout()
-    //     //   toast.success('You Logout Successfully')
-    // }
 
+    const { removeToken } = handleAuthLocalStorage();
+    const handleLogout = () => {
+        removeToken()
+        toast.success('You Logout Successfully')
+        window.location.reload()
+    }
     return (
         <Fragment>
             <StyledButtonBase
@@ -118,7 +122,7 @@ const ProfilePopover: FC = () => {
                         David Pham
                     </Tiny>
                 </Box>
-                <LogoutOutlined style={{ color: "rgb(77, 96, 122)", fontSize: '16px', cursor: 'pointer' }} />
+                <LogoutOutlined onClick={handleLogout} style={{ color: "rgb(77, 96, 122)", fontSize: '16px', cursor: 'pointer' }} />
             </StyledButtonBase>
 
         </Fragment>

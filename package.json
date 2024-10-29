@@ -39,6 +39,7 @@
     "sass": "^1.80.4",
     "simplebar-react": "^3.2.6",
     "styled-components": "^6.1.13",
+    "uuid": "^11.0.1",
     "vite-tsconfig-paths": "^5.0.1",
     "yup": "^1.4.0"
   },

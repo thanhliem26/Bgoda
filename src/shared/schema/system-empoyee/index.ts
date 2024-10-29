@@ -13,6 +13,7 @@ export interface Employee {
     salary: number
     name: string
     fullName: string
+    roleName: string
     createdDate: string
     updatedDate: string
 }

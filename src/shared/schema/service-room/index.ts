@@ -1,5 +1,5 @@
 export interface ServiceRoom {
-    id: string
+    id: number
     name: string
     description: string
     icon: string

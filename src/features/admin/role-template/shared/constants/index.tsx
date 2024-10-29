@@ -24,10 +24,10 @@ export const columns = (
       title: 'Permission',
       dataIndex: 'permission',
       key: 'permission',
-      width: 200,
+      width: 400,
       render: (_, rowData) => {
 
-        return <FlexBox>{rowData?.permission.map((item, idx) => {
+        return <FlexBox style={{flexWrap: 'wrap', gap: '16px'}}>{rowData?.permission.map((item, idx) => {
           return <AppTag key={idx}>{PermissionLabel?.[item as TypePermissionLabel]}</AppTag>
         })}</FlexBox>;
       },

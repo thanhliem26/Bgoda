@@ -1,17 +1,9 @@
-import useDetailRoleTemplate from 'features/admin/role-template/hooks/useDetailRoleTemplate'
+import useDetailRoomService from 'features/admin/service-room/hooks/useDetailRoomService'
 import AppButton from 'shared/components/AppButton'
-import AppTag from 'shared/components/AppTag'
-import { PermissionLabel, TypePermissionLabel } from 'shared/components/autocomplete/permission-auto-complete'
 import ModalBase, { ModalFooter } from 'shared/components/modal'
 import { Box, FlexBox } from 'shared/styles'
 import { Span, Tiny } from 'shared/styles/Typography'
 import styled from 'styled-components'
-
-interface IDetailRoleTemplateModal {
-  open: boolean
-  setOpen: (value: boolean) => void
-  id: string
-}
 
 const SpanField = styled(Span)`
       font-size: 12px;
@@ -30,13 +22,19 @@ const TinyValue = styled(Tiny)`
     color: rgb(11, 14, 30);
 `
 
-function DetailRoleTemplateModal({ open, setOpen, id }: IDetailRoleTemplateModal) {
-  const { roleTemplate } = useDetailRoleTemplate({
+interface IDetailRoomServiceModal {
+  open: boolean
+  setOpen: (value: boolean) => void
+  id: string
+}
+
+function DetailRoomServiceModal({ open, setOpen, id }: IDetailRoomServiceModal) {
+  const { roomService } = useDetailRoomService({
     id: id
   })
-
+console.log("roomService", roomService)
   return (
-    <ModalBase title="Detail role template" open={open} setOpen={setOpen}>
+    <ModalBase title="Detail room service" open={open} setOpen={setOpen}>
       <FlexBox style={{ flexDirection: 'column', gap: '16px' }}>
         <FlexBox>
           <FlexBox
@@ -45,13 +43,12 @@ function DetailRoleTemplateModal({ open, setOpen, id }: IDetailRoleTemplateModal
               alignContent: 'center',
               marginTop: 8,
               flexDirection: 'column',
-              flex: 1,
-              gap: '8px'
+              flex: 1
             }}
           >
             <SpanField>Name</SpanField>
             <Box>
-              <TinyValue>{roleTemplate?.name}</TinyValue>
+              <TinyValue>{roomService?.name}</TinyValue>
             </Box>
           </FlexBox>
 
@@ -64,14 +61,13 @@ function DetailRoleTemplateModal({ open, setOpen, id }: IDetailRoleTemplateModal
               alignContent: 'center',
               marginTop: 8,
               flexDirection: 'column',
-              flex: 1,
-              gap: '8px'
+              flex: 1
             }}
           >
-            <SpanField>Permission</SpanField>
-            <FlexBox style={{ flexWrap: 'wrap', gap: '16px' }}>{roleTemplate?.permission.map((item, idx) => {
-              return <AppTag key={idx}>{PermissionLabel?.[item as TypePermissionLabel]}</AppTag>
-            })}</FlexBox>
+            <SpanField>Description</SpanField>
+            <Box>
+              <TinyValue>{roomService?.description}</TinyValue>
+            </Box>
           </FlexBox>
 
         </FlexBox>
@@ -86,4 +82,4 @@ function DetailRoleTemplateModal({ open, setOpen, id }: IDetailRoleTemplateModal
   )
 }
 
-export default DetailRoleTemplateModal
+export default DetailRoomServiceModal

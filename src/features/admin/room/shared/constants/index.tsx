@@ -4,16 +4,18 @@ import AppTag from "shared/components/AppTag";
 import { ActionGroupButtons } from "shared/components/table/components/ActionGroupButton";
 import { TOptionItem } from "shared/components/table/hooks/useBuildActionTable"
 import { BusinessPartner } from "shared/schema/business-partner";
+import { Room } from "shared/schema/room";
 import { Box, FlexBox } from "shared/styles";
 import { Tiny } from "shared/styles/Typography";
+import { convertCurrency } from "shared/utils/convert-string";
 
 export const columns = (
-  actions: TOptionItem<BusinessPartner>[],
-): TableProps<BusinessPartner>['columns'] => [
+  actions: TOptionItem<Room>[],
+): TableProps<Room>['columns'] => [
     {
-      title: 'Company name',
-      dataIndex: 'companyName',
-      key: 'companyName',
+      title: 'Room',
+      dataIndex: 'id',
+      key: 'id',
       render: (text, rowData) => {
         return <FlexBox style={{alignItems: 'center', gap: '8px'}}>
           <Box style={{ width: '50px', height: '50px', overflow: 'hidden', borderRadius: '50%' }}><img style={{
@@ -22,37 +24,37 @@ export const columns = (
             objectFit: 'cover',
             objectPosition: 'center',
 
-          }} src={rowData?.logo ? rowData?.logo : '/static/avatar/001-man.svg'} /></Box>
-          <Tiny style={{fontWeight: 'bold'}}>{text}</Tiny>
+          }} src={rowData?.thumbnail ? rowData?.thumbnail : '/static/avatar/001-man.svg'} /></Box>
+          <Tiny style={{fontWeight: 'bold'}}>{rowData?.name}</Tiny>
         </FlexBox>
       },
       width: 300,
     },
     {
-      title: 'Email',
-      dataIndex: 'email',
-      key: 'email',
+      title: 'Company name',
+      dataIndex: 'businessPartnerId',
+      key: 'businessPartnerId',
       width: 300,
-      render: (email) => {
-        return <Tiny>{email}</Tiny>
+      render: (name, rowData) => {
+        return <Tiny>{rowData?.businessPartner?.name}</Tiny>
       },
     },
     {
-      title: 'Role',
-      dataIndex: 'roleName',
-      key: 'roleName',
+      title: 'Available',
+      dataIndex: 'avaiable',
+      key: 'avaiable',
       width: 200,
-      render: (role) => {
-        return <AppTag color="green">{role}</AppTag>
+      render: (avaiable) => {
+        return <Tiny>{avaiable}</Tiny>
       },
     },
     {
-      title: 'Phone number',
-      dataIndex: 'phoneNumber',
-      key: 'phoneNumber',
+      title: 'Price',
+      dataIndex: 'price',
+      key: 'price',
       width: 200,
-      render: (phoneNumber) => {
-        return <Tiny>{phoneNumber}</Tiny>
+      render: (price) => {
+        return <Tiny>{convertCurrency(price)} VND</Tiny>
       },
     },
     {

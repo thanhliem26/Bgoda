@@ -27,13 +27,13 @@ type TypeValueUpload<Multiple extends boolean> = Multiple extends true ? string[
 type paramOnChange<Multiple extends boolean> = {file: TypeValueUpload<Multiple>}
 type onChangeUpload<Multiple extends boolean> = (data: paramOnChange<Multiple>) => void;
 interface IAppUpload<Multiple extends boolean> extends UploadProps {
-    value: TypeValueUpload<Multiple>
+    value?: TypeValueUpload<Multiple>
     multiple?: Multiple
     onChangeUpload: onChangeUpload<Multiple>
 }
 
 const AppUpload = <Multiple extends boolean = false>(props: IAppUpload<Multiple>) => {
-    const { children, multiple = false, onChange, onChangeUpload, value, ...inputProps } = props;
+    const { children, multiple = false, onChange, onChangeUpload, value = '', ...inputProps } = props;
 
     const handleChangeUpload = (file: UploadFile) => {
         if (multiple) {

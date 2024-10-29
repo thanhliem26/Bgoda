@@ -1,3 +1,6 @@
+import { BusinessPartner } from "../business-partner"
+import { ServiceRoom } from "../service-room"
+
 export interface Room {
     id: string
     name: string
@@ -5,41 +8,56 @@ export interface Room {
     thumbnail: string
     price: number
     roomTypeId: number
-    services: number[]
+    services: ServiceRoom[]
     commune: string
-    discount: number
+    defaultDiscount: number
     district: string
     map: string
     province: string
-    partner_id: number
+    businessPartner: BusinessPartner
+    businessPartnerId: number
+    avaiable: number
+    street: string
+    address: string
+    images: ImageRoom[]
     createdDate: string
     updatedDate: string
 }
 
+export type ImageRoom = {type: string, urls: string[]}
 export type CreateRoomArguments = {
-    commune: string,
+    street: string,
     description: string,
-    discount: number,
+    defaultDiscount: number,
     district: string,
-    map: string,
+    address: string,
     name: string,
     price: number,
     province: string,
-    partner_id: number,
     roomTypeId: number,
-    services: number[]
+    services: number[],
+    avaiable: number,
+    images: ImageRoom[],
+    thumbnail: string,
+    //
+    businessPartnerId: number
 }
 
 export type UpdateRoomArguments = {
-    commune: string,
+    id: string
+    street: string,
     description: string,
-    discount: number,
+    defaultDiscount: number,
     district: string,
-    map: string,
+    address: string,
     name: string,
     price: number,
     province: string,
-    partner_id: number,
     roomTypeId: number,
-    services: number[]
+    services: number[],
+    avaiable: number,
+    images: ImageRoom[],
+    thumbnail: string,
+    //
+    businessPartnerId: number
 }

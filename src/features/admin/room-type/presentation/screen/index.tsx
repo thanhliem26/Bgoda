@@ -2,6 +2,7 @@ import IconScreen from "shared/components/utils/IconScreen"
 import { Box, FlexBox, WrapperContainer } from "shared/styles"
 import {
   BoxPlotOutlined,
+  HomeOutlined,
   PlusOutlined,
 } from '@ant-design/icons'
 import SearchInput from "shared/components/table/components/SearchInput";
@@ -40,7 +41,7 @@ const AdminRoomType = () => {
   return (
     <Box style={{ paddingTop: 16, paddingBottom: 32 }}>
       <Box>
-        <IconScreen textLabel={"Room type"} Icon={<BoxPlotOutlined />} />
+        <IconScreen textLabel={"Room type"} Icon={<HomeOutlined />} />
       </Box>
       <WrapperContainer style={{ marginTop: '20px' }}>
         <FlexBox style={{ justifyContent: 'space-between', padding: '12px', marginTop: '16px' }}>

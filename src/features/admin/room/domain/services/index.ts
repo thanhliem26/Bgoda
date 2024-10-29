@@ -6,7 +6,7 @@ const useService = () => {
 
     const getAllRoom = () => {
         return RESTClientService.buildRequest({
-            endpoint: '/api/admin/accounts/business-partners',
+            endpoint: '/api/admin/rooms',
             method: 'GET',
         })
     }
@@ -20,14 +20,14 @@ const useService = () => {
 
     const updateRoom = () => {
         return RESTClientService.buildRequest({
-            endpoint: '/api/admin/accounts/business-partners',
+            endpoint: '/api/admin/rooms',
             method: 'PUT',
         })
     }
 
     const getRoom = () => {
         return RESTClientService.buildRequest({
-            endpoint: '/api/admin/accounts/business-partners',
+            endpoint: '/api/admin/rooms',
             method: 'GET',
             slash_id: true
         })
@@ -35,9 +35,8 @@ const useService = () => {
 
     const deleteRoom = () => {
         return RESTClientService.buildRequest({
-            endpoint: 'api/admin/accounts/business-partner',
+            endpoint: '/api/admin/rooms',
             method: 'DELETE',
-            slash_id: true
         })
     }
 

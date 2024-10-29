@@ -1,3 +1,4 @@
+import LayoutFooter from 'layouts/layout-parts/LayoutFooter'
 import LayoutHeader from 'layouts/layout-parts/LayoutHeader'
 import { Outlet } from 'react-router-dom'
 import { Box } from 'shared/styles'
@@ -16,7 +17,7 @@ const DashboardHomeLayout = ({}: DashboardHomeLayoutProps) => {
     <DashboardWrapper>
         <LayoutHeader />
         <Outlet />
-        {/* <Box>footer</Box> */}
+        <LayoutFooter />
     </DashboardWrapper>
   )
 }

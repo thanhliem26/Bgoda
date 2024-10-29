@@ -5,7 +5,7 @@ import {
   EditOutlined,
   SearchOutlined,
 } from '@ant-design/icons'
-import { BusinessPartner } from 'shared/schema/business-partner'
+import { Room } from 'shared/schema/room'
 
 export enum ActionsTableRoleTemplate {
   DELETE = 'delete',
@@ -20,7 +20,7 @@ function useBuildActionsTableBusinessPartner({
 }: IuseUserActionTableReturn) {
   const useBuildActionsTableReturn = useBuildActionsTable<
     ActionsTableRoleTemplate,
-    BusinessPartner
+    Room
   >({
     actions: {
       detail: {
@@ -42,7 +42,7 @@ function useBuildActionsTableBusinessPartner({
       delete: {
         key: ActionsTableRoleTemplate.DELETE,
         onClick: (id, rowData) => {
-          handleOpenDelete(rowData.accountId)
+          handleOpenDelete(id)
         },
         label: "Delete",
         icon: <DeleteOutlined />,
