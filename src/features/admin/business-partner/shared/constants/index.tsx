@@ -4,6 +4,7 @@ import AppTag from "shared/components/AppTag";
 import { ActionGroupButtons } from "shared/components/table/components/ActionGroupButton";
 import { TOptionItem } from "shared/components/table/hooks/useBuildActionTable"
 import { BusinessPartner } from "shared/schema/business-partner";
+import { Box, FlexBox } from "shared/styles";
 import { Tiny } from "shared/styles/Typography";
 
 export const columns = (
@@ -13,8 +14,17 @@ export const columns = (
       title: 'Company name',
       dataIndex: 'companyName',
       key: 'companyName',
-      render: (text) => {
-        return <b>{text}</b>;
+      render: (text, rowData) => {
+        return <FlexBox style={{alignItems: 'center', gap: '8px'}}>
+          <Box style={{ width: '50px', height: '50px', overflow: 'hidden', borderRadius: '50%' }}><img style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center',
+
+          }} src={rowData?.logo ? rowData?.logo : '/static/avatar/001-man.svg'} /></Box>
+          <Tiny style={{fontWeight: 'bold'}}>{text}</Tiny>
+        </FlexBox>
       },
       width: 300,
     },

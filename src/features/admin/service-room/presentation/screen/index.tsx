@@ -1,6 +1,7 @@
 import IconScreen from "shared/components/utils/IconScreen"
 import { Box, FlexBox, WrapperContainer } from "shared/styles"
 import {
+  CustomerServiceOutlined,
   PlusOutlined,
   SettingOutlined,
 } from '@ant-design/icons'
@@ -15,7 +16,7 @@ import DeleteServiceRoomModal from "../page-sections/DeleteServiceRoomModal";
 import useBuildActionTableRoleTemplate from "../../hooks/useBuildActionTableRoleTemplate";
 import useBuildColumnTable from "shared/components/table/hooks/useBuildColumnTable";
 import { columns } from "../../shared/constants";
-import DetailRoomTypeModal from "../page-sections/DetailRoomTypeModal";
+import DetailRoomServiceModal from "../page-sections/DetailRoomServiceModal";
 import { useState } from "react";
 import debounce from "shared/utils/debounce";
 
@@ -47,7 +48,7 @@ const AdminServiceRoom = () => {
   return (
     <Box style={{ paddingTop: 16, paddingBottom: 32 }}>
       <Box>
-        <IconScreen textLabel={"Service room"} Icon={<SettingOutlined />} />
+        <IconScreen textLabel={"Service room"} Icon={<CustomerServiceOutlined />} />
       </Box>
       <WrapperContainer style={{ marginTop: '20px' }}>
         <FlexBox style={{ justifyContent: 'space-between', padding: '12px', marginTop: '16px' }}>
@@ -70,7 +71,7 @@ const AdminServiceRoom = () => {
       {openCreate && <CreateServiceRoomModal open={openCreate} setOpen={setOpenCreate} />}
       {openEdit && <UpdateServiceRoomModal open={openEdit} setOpen={setOpenEdit} id={rowId.current} />}
       {openDelete && <DeleteServiceRoomModal open={openDelete} setOpen={setOpenDelete} id={rowId.current} />}
-      {openDetail && <DetailRoomTypeModal open={openDetail} setOpen={setOpenDetail} id={rowId.current} />}
+      {openDetail && <DetailRoomServiceModal open={openDetail} setOpen={setOpenDetail} id={rowId.current} />}
     </Box>
   )
 }

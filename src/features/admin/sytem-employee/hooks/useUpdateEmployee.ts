@@ -38,7 +38,8 @@ function useUpdateEmployee(props: UseUpdateEmployee) {
                 re_password: data?.password ?? '',
                 avatar: data?.avatar,
                 bankNumber: data?.bankNumber,
-                salary: data?.salary 
+                salary: data?.salary ,
+                bank: data?.bank
             }
         },
     })
@@ -65,6 +66,7 @@ function useUpdateEmployee(props: UseUpdateEmployee) {
                 dob: value.dob ?? new Date(),
                 phoneNumber: value.phoneNumber ?? '',
                 salary: value.salary ?? 0,
+                bank: value?.bank ?? ''
         
               }
             mutate(payload)

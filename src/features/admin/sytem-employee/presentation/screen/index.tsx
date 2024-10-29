@@ -10,11 +10,11 @@ import TableBase from "shared/components/table";
 import useSystemEmployeeTable from "../../hooks/useSystemEmployeeTable";
 import useActionTable from "../../hooks/useActionTable";
 import CreateSystemEmployeeModal from "../page-sections/CreateSystemEmployeeModal";
-import DeleteBusinessPartnerModal from "../page-sections/DeleteBusinessPartnerModal";
+import DeleteEmployeeModal from "../page-sections/DeleteSystemEmployeeModal";
 import useBuildActionsTableBusinessPartner from "../../hooks/useBuildActionTableBusinessPartner";
 import useBuildColumnTable from "shared/components/table/hooks/useBuildColumnTable";
 import { columns } from "../../shared/constants";
-import DetailRoleTemplateModal from "../page-sections/DetailRoleTemplateModal";
+import DetailSystemEmployeeModal from "../page-sections/DetailSystemEmployeeModal";
 import { useState } from "react";
 import debounce from "shared/utils/debounce";
 import UpdateSystemEmployeeModal from "../page-sections/UpdateEmployeeModal";
@@ -68,8 +68,8 @@ const SystemEmployee = () => {
 
       {openCreate && <CreateSystemEmployeeModal open={openCreate} setOpen={setOpenCreate} />}
       {openEdit && <UpdateSystemEmployeeModal open={openEdit} setOpen={setOpenEdit} id={rowId.current} />}
-      {openDelete && <DeleteBusinessPartnerModal open={openDelete} setOpen={setOpenDelete} id={rowId.current} />}
-      {openDetail && <DetailRoleTemplateModal open={openDetail} setOpen={setOpenDetail} id={rowId.current} />}
+      {openDelete && <DeleteEmployeeModal open={openDelete} setOpen={setOpenDelete} id={rowId.current} />}
+      {openDetail && <DetailSystemEmployeeModal open={openDetail} setOpen={setOpenDetail} id={rowId.current} />}
     </Box>
   )
 }

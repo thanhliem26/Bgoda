@@ -41,15 +41,23 @@ axiosService.interceptors.response.use(
     return response
   },
   async (error) => {
+    const { removeToken } = handleAuthLocalStorage();
+
+    const status = error?.status;
     const errorData: unknown = error?.['response']?.['data']
 
-    switch (error?.['response']?.['status']) {
+    switch (status) {
       case 401:
-        return errorData
+        removeToken()
+        window.location.reload()
+      break;
 
       default:
         return Promise.reject(error)
     }
+
+    return errorData
+
   }
 )
 

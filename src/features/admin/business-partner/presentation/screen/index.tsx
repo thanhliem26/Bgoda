@@ -3,6 +3,7 @@ import { Box, FlexBox, WrapperContainer } from "shared/styles"
 import {
   PlusOutlined,
   SettingOutlined,
+  TeamOutlined,
 } from '@ant-design/icons'
 import SearchInput from "shared/components/table/components/SearchInput";
 import ButtonBase from "shared/components/AppButton";
@@ -15,7 +16,7 @@ import DeleteBusinessPartnerModal from "../page-sections/DeleteBusinessPartnerMo
 import useBuildActionsTableBusinessPartner from "../../hooks/useBuildActionTableBusinessPartner";
 import useBuildColumnTable from "shared/components/table/hooks/useBuildColumnTable";
 import { columns } from "../../shared/constants";
-import DetailRoleTemplateModal from "../page-sections/DetailRoleTemplateModal";
+import DetailBusinessPartnerModal from "../page-sections/DetailBusinessPartnerModal";
 import { useState } from "react";
 import debounce from "shared/utils/debounce";
 
@@ -46,7 +47,7 @@ const AdminUser = () => {
   return (
     <Box style={{ paddingTop: 16, paddingBottom: 32 }}>
       <Box>
-        <IconScreen textLabel={"Business partner"} Icon={<SettingOutlined />} />
+        <IconScreen textLabel={"Business partner"} Icon={<TeamOutlined />} />
       </Box>
       <WrapperContainer style={{ marginTop: '20px' }}>
         <FlexBox style={{ justifyContent: 'space-between', padding: '12px', marginTop: '16px' }}>
@@ -69,7 +70,7 @@ const AdminUser = () => {
       {openCreate && <CreateBusinessPartnerModal open={openCreate} setOpen={setOpenCreate} />}
       {openEdit && <UpdateBusinessPartnerModal open={openEdit} setOpen={setOpenEdit} id={rowId.current} />}
       {openDelete && <DeleteBusinessPartnerModal open={openDelete} setOpen={setOpenDelete} id={rowId.current} />}
-      {openDetail && <DetailRoleTemplateModal open={openDetail} setOpen={setOpenDetail} id={rowId.current} />}
+      {openDetail && <DetailBusinessPartnerModal open={openDetail} setOpen={setOpenDetail} id={rowId.current} />}
     </Box>
   )
 }

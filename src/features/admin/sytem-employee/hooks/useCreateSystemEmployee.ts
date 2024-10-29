@@ -30,7 +30,8 @@ function useCreateSystemEmployee(props: createEmployeeProps = {}) {
       avatar: '',
       bankNumber: '',
       dob: null,
-      salary: null
+      salary: null,
+      bank: ''
     },
     resolver: yupResolver(schema),
     onSuccess: onSuccess,
@@ -55,6 +56,7 @@ function useCreateSystemEmployee(props: createEmployeeProps = {}) {
         dob: value.dob ?? new Date(),
         phoneNumber: value.phoneNumber ?? '',
         salary: value.salary ?? 0,
+        bank: value.bank ?? ''
       }
 
       mutate(payload)

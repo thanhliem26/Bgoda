@@ -1,14 +1,9 @@
+import useDetailRoomType from 'features/admin/room-type/hooks/useDetailRoomType'
 import AppButton from 'shared/components/AppButton'
 import ModalBase, { ModalFooter } from 'shared/components/modal'
 import { Box, FlexBox } from 'shared/styles'
 import { Span, Tiny } from 'shared/styles/Typography'
 import styled from 'styled-components'
-
-interface IDetailRoomTypeModal {
-  open: boolean
-  setOpen: (value: boolean) => void
-  id: string
-}
 
 const SpanField = styled(Span)`
       font-size: 12px;
@@ -26,12 +21,19 @@ const TinyValue = styled(Tiny)`
     white-space: break-spaces;
     color: rgb(11, 14, 30);
 `
+interface IDetailRoomTypeModal {
+  open: boolean
+  setOpen: (value: boolean) => void
+  id: string
+}
 
-function DetailRoomTypeModal({ open, setOpen }: IDetailRoomTypeModal) {
-
+function DetailRoomTypeModal({ open, setOpen, id }: IDetailRoomTypeModal) {
+  const {  roomType } = useDetailRoomType({
+    id: id
+  })
 
   return (
-    <ModalBase title="Detail role template" open={open} setOpen={setOpen}>
+    <ModalBase title="Detail room type" open={open} setOpen={setOpen}>
       <FlexBox style={{ flexDirection: 'column', gap: '16px' }}>
        <FlexBox>
        <FlexBox
@@ -45,7 +47,7 @@ function DetailRoomTypeModal({ open, setOpen }: IDetailRoomTypeModal) {
         >
           <SpanField>Name</SpanField>
           <Box>
-            <TinyValue>Name ok nhe</TinyValue>
+            <TinyValue>{roomType?.name}</TinyValue>
           </Box>
         </FlexBox>
        
@@ -63,7 +65,7 @@ function DetailRoomTypeModal({ open, setOpen }: IDetailRoomTypeModal) {
         >
           <SpanField>Description</SpanField>
           <Box>
-            <TinyValue>permission nhe</TinyValue>
+            <TinyValue>{roomType?.description}</TinyValue>
           </Box>
         </FlexBox>
      

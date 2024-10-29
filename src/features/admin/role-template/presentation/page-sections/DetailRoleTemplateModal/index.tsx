@@ -1,4 +1,7 @@
+import useDetailRoleTemplate from 'features/admin/role-template/hooks/useDetailRoleTemplate'
 import AppButton from 'shared/components/AppButton'
+import AppTag from 'shared/components/AppTag'
+import { PermissionLabel, TypePermissionLabel } from 'shared/components/autocomplete/permission-auto-complete'
 import ModalBase, { ModalFooter } from 'shared/components/modal'
 import { Box, FlexBox } from 'shared/styles'
 import { Span, Tiny } from 'shared/styles/Typography'
@@ -27,47 +30,51 @@ const TinyValue = styled(Tiny)`
     color: rgb(11, 14, 30);
 `
 
-function DetailRoleTemplateModal({ open, setOpen }: IDetailRoleTemplateModal) {
-
+function DetailRoleTemplateModal({ open, setOpen, id }: IDetailRoleTemplateModal) {
+  const { roleTemplate } = useDetailRoleTemplate({
+    id: id
+  })
 
   return (
     <ModalBase title="Detail role template" open={open} setOpen={setOpen}>
       <FlexBox style={{ flexDirection: 'column', gap: '16px' }}>
-       <FlexBox>
-       <FlexBox
-          style={{
-            justifyContent: 'center',
-            alignContent: 'center',
-            marginTop: 8,
-            flexDirection: 'column',
-            flex: 1
-          }}
-        >
-          <SpanField>Name</SpanField>
-          <Box>
-            <TinyValue>Name ok nhe</TinyValue>
-          </Box>
+        <FlexBox>
+          <FlexBox
+            style={{
+              justifyContent: 'center',
+              alignContent: 'center',
+              marginTop: 8,
+              flexDirection: 'column',
+              flex: 1,
+              gap: '8px'
+            }}
+          >
+            <SpanField>Name</SpanField>
+            <Box>
+              <TinyValue>{roleTemplate?.name}</TinyValue>
+            </Box>
+          </FlexBox>
+
         </FlexBox>
-       
-       </FlexBox>
-       
-       <FlexBox>
-       <FlexBox
-          style={{
-            justifyContent: 'center',
-            alignContent: 'center',
-            marginTop: 8,
-            flexDirection: 'column',
-            flex: 1
-          }}
-        >
-          <SpanField>Permission</SpanField>
-          <Box>
-            <TinyValue>permission nhe</TinyValue>
-          </Box>
+
+        <FlexBox>
+          <FlexBox
+            style={{
+              justifyContent: 'center',
+              alignContent: 'center',
+              marginTop: 8,
+              flexDirection: 'column',
+              flex: 1,
+              gap: '8px'
+            }}
+          >
+            <SpanField>Permission</SpanField>
+            <FlexBox style={{ flexWrap: 'wrap', gap: '16px' }}>{roleTemplate?.permission.map((item, idx) => {
+              return <AppTag key={idx}>{PermissionLabel?.[item as TypePermissionLabel]}</AppTag>
+            })}</FlexBox>
+          </FlexBox>
+
         </FlexBox>
-     
-       </FlexBox>
 
       </FlexBox>
       <ModalFooter>
