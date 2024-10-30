@@ -34,12 +34,15 @@ function useUpdateBusinessPartner(props: UseUpdateBusinessPartner) {
                 logo: data?.logo ?? '',
                 phoneNumber: data?.phoneNumber ?? '',
                 roleId: data?.roleId ?? null,
+                districtId: data?.districtId ?? '',
+                provinceId: data?.provinceId ?? '',
+                streetId: data?.streetId ?? '',
             }
         },
     })
 
 
-    const { handleSubmit, control, formState, setValue } = useFormReturn
+    const { handleSubmit, control, formState, setValue, watch } = useFormReturn
     const { isValid, isDirty} = formState;
     const isValidUpdate = !isValid || !isDirty
 
@@ -57,6 +60,9 @@ function useUpdateBusinessPartner(props: UseUpdateBusinessPartner) {
                 logo: value.logo ?? '',
                 phoneNumber: value.phoneNumber,
                 roleId: value.roleId ?? 0,
+                districtId: value?.districtId ?? '',
+                provinceId: value?.provinceId ?? '',
+                streetId: value?.streetId ?? ''
             }
 
             mutate(payload)
@@ -71,6 +77,7 @@ function useUpdateBusinessPartner(props: UseUpdateBusinessPartner) {
         formState,
         setValue,
         isGetting,
+        watch
     }
 }
 

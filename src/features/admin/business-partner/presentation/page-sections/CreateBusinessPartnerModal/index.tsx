@@ -3,6 +3,9 @@ import { WrapperAvatar } from 'features/admin/business-partner/shared/styles'
 import { Controller } from 'react-hook-form'
 import AppButton from 'shared/components/AppButton'
 import AppUpload from 'shared/components/AppUpload'
+import CommuneAutoComplete from 'shared/components/autocomplete/commune-auto-complete'
+import DistrictAutoComplete from 'shared/components/autocomplete/distric-auto-complete'
+import ProvinceAutoComplete from 'shared/components/autocomplete/province-auto-complete'
 import RoleAutoComplete from 'shared/components/autocomplete/role-auto-complete'
 import AppNumberField from 'shared/components/form/AppNumberField'
 import AppTextField from 'shared/components/form/AppTextField'
@@ -18,11 +21,14 @@ function CreateBusinessPartnerModal({
   open,
   setOpen,
 }: ICreateBusinessPartnerModal) {
-  const { onSubmit, control, isPending, isValid } = useCreateBusinessPartner({
+  const { onSubmit, control, isPending, isValid, setValue, watch } = useCreateBusinessPartner({
     onSuccess: () => {
       setOpen(false)
     },
   })
+
+  const province = watch('provinceId')
+  const district = watch('districtId')
 
   return (
     <ModalBase title="Add a new business partner" open={open} setOpen={setOpen}>
@@ -131,6 +137,79 @@ function CreateBusinessPartnerModal({
             />
           </FormControl>
         </FlexBox>
+
+        <FlexBox
+          style={{
+            justifyContent: 'center',
+            alignContent: 'center',
+            marginTop: 8,
+            gap: 16,
+          }}
+        >
+          <FormControl>
+            <Controller
+              control={control}
+              name="provinceId"
+              render={({ field, fieldState }) => (
+                <FlexBox style={{ flexDirection: 'column' }}>
+                  <ProvinceAutoComplete
+                    label="Province"
+                    required
+                    value={field.value}
+                    onChange={(value) => {
+                      field.onChange(value)
+                      setValue('districtId', '')
+                      setValue('streetId', '')
+                    }}
+                  />
+                  <HelperTextForm>{fieldState.error?.message}</HelperTextForm>
+                </FlexBox>
+              )}
+            />
+          </FormControl>
+
+          <FormControl>
+            <Controller
+              control={control}
+              name="districtId"
+              render={({ field, fieldState }) => (
+                <FlexBox style={{ flexDirection: 'column' }}>
+                  <DistrictAutoComplete
+                    label="District"
+                    required
+                    value={field.value}
+                    onChange={(value) => {
+                      field.onChange(value)
+                      setValue('streetId', '')
+                    }}
+                    id_province={province}
+                  />
+                  <HelperTextForm>{fieldState.error?.message}</HelperTextForm>
+                </FlexBox>
+              )}
+            />
+          </FormControl>
+
+          <FormControl>
+            <Controller
+              control={control}
+              name="streetId"
+              render={({ field, fieldState }) => (
+                <FlexBox style={{ flexDirection: 'column' }}>
+                  <CommuneAutoComplete
+                    label="Commune"
+                    required
+                    value={field.value}
+                    onChange={field.onChange}
+                    id_district={district}
+                  />
+                  <HelperTextForm>{fieldState.error?.message}</HelperTextForm>
+                </FlexBox>
+              )}
+            />
+          </FormControl>
+        </FlexBox>
+
         <FlexBox
           style={{
             justifyContent: 'center',

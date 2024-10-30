@@ -5,7 +5,7 @@ import useEditResource from "shared/hooks/crud-hook/useEditResource"
 import { FormDataSchemaUpdate, schemaUpdate } from "../shared/constants/schema"
 import { ImageRoom, Room, UpdateRoomArguments } from "shared/schema/room"
 import { v4 as uuidv4 } from 'uuid';
-import { ImageType } from "../domain/interfaces"
+import { ImageType, TypeImages } from "../domain/interfaces"
 
 type UseUpdateRoomModal = {
     id: string | number
@@ -27,7 +27,15 @@ function useUpdateRoomModal(props: UseUpdateRoomModal) {
         id,
         onSuccess,
         formatDefaultValues(data) {
-            console.log("🚀 ~ data:", data?.images)
+            const formatImages: TypeImages[] = data?.images?.map((item) => {
+              return {
+                id: uuidv4(),
+                label: item.type,
+                type: 'customize',
+                urls: item.urls,
+              }
+            }) ?? []
+
             return {
                 street: data?.street ?? "",
                 description: data?.description ?? "",
@@ -39,7 +47,7 @@ function useUpdateRoomModal(props: UseUpdateRoomModal) {
                 province: data?.province ?? "",
                 services: data?.services.map((item) => item.id) ?? [],
                 avaiable: data?.avaiable ?? 1,
-                images: [],
+                images: formatImages,
                 roomTypeId: data?.roomTypeId ?? null,
                 thumbnail: data?.thumbnail ?? "",
             }
