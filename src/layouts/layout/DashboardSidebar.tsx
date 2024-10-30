@@ -1,4 +1,4 @@
-import React from 'react'
+import React  from 'react'
 import type { MenuProps } from 'antd'
 import { Menu } from 'antd'
 import styled from 'styled-components'
@@ -98,7 +98,8 @@ const MenuSidebar = styled(Menu)`
 
     & .ant-menu-sub {
       background-color: #fff !important;
-      & .ant-menu-item {
+      & .ant-menu-item {import { permissions } from './../../contexts/AuthenticationAdmin/constants/index';
+
         & .ant-menu-title-content {
           margin-left: 16px;
           white-space: nowrap;
@@ -181,9 +182,9 @@ const DashboardSidebar: React.FC = () => {
   const navigate = useNavigate();
 
   const onClick: MenuProps['onClick'] = (event) => {
-    console.log('click ', event)
     navigate(event.key);
   }
+
 
   return (
     <DashboardWrapper>
@@ -194,18 +195,9 @@ const DashboardSidebar: React.FC = () => {
             <img src="/static/logo/logo.svg" alt="logo" width={70} />
           </Link>
 
-          {/* {!COMPACT && <StyledLogo>BGODA</StyledLogo>} */}
         </FlexBox>
-
-        {/* SIDEBAR COLLAPSE BUTTON */}
-        {/* <StyledIconButton
-          onClick={setSidebarCompact}
-          sx={{ display: COMPACT ? 'none' : 'block' }}
-        >
-          <StyledArrow />
-        </StyledIconButton> */}
       </FlexBox>
-      {/* NAVIGATION ITEMS */}
+
       <Scrollbar
         autoHide
         clickOnTrack={false}

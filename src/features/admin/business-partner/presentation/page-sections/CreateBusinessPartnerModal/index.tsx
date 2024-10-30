@@ -28,7 +28,6 @@ function CreateBusinessPartnerModal({
   })
 
   const province = watch('provinceId')
-  const district = watch('districtId')
 
   return (
     <ModalBase title="Add a new business partner" open={open} setOpen={setOpen}>
@@ -159,7 +158,6 @@ function CreateBusinessPartnerModal({
                     onChange={(value) => {
                       field.onChange(value)
                       setValue('districtId', '')
-                      setValue('streetId', '')
                     }}
                   />
                   <HelperTextForm>{fieldState.error?.message}</HelperTextForm>
@@ -180,28 +178,8 @@ function CreateBusinessPartnerModal({
                     value={field.value}
                     onChange={(value) => {
                       field.onChange(value)
-                      setValue('streetId', '')
                     }}
                     id_province={province}
-                  />
-                  <HelperTextForm>{fieldState.error?.message}</HelperTextForm>
-                </FlexBox>
-              )}
-            />
-          </FormControl>
-
-          <FormControl>
-            <Controller
-              control={control}
-              name="streetId"
-              render={({ field, fieldState }) => (
-                <FlexBox style={{ flexDirection: 'column' }}>
-                  <CommuneAutoComplete
-                    label="Commune"
-                    required
-                    value={field.value}
-                    onChange={field.onChange}
-                    id_district={district}
                   />
                   <HelperTextForm>{fieldState.error?.message}</HelperTextForm>
                 </FlexBox>
@@ -242,7 +220,7 @@ function CreateBusinessPartnerModal({
               name="phoneNumber"
               render={({ field, fieldState }) => (
                 <FlexBox style={{ flexDirection: 'column' }}>
-                  <AppNumberField
+                  <AppTextField
                     label="Phone number"
                     value={field.value}
                     onChange={field.onChange}

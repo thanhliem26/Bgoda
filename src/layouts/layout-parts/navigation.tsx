@@ -6,6 +6,7 @@ import {
   TeamOutlined,
   UserOutlined,
 } from '@ant-design/icons'
+import { TYPE_PERMISSION } from 'contexts/AuthenticationAdmin/constants';
 
 interface BaseMenu {
   key: string;
@@ -13,13 +14,14 @@ interface BaseMenu {
 
 interface NormalMenu extends BaseMenu {
   label: string;
+  permission?: TYPE_PERMISSION | null
 }
 
 interface GroupMenu extends BaseMenu {
   type: 'group';
   label: string;
   icon: JSX.Element;
-  children?: (NormalMenu & { icon: JSX.Element })[];
+  children?: (NormalMenu & { icon: JSX.Element, permission: TYPE_PERMISSION | null })[];
 }
 
 interface SubMenu extends BaseMenu {
@@ -43,7 +45,7 @@ export const navigation: IMenuSideBar[] = [
     label: 'REPORT',
     type: 'group',
     children: [
-      { key: 'evaluates', label: 'Evaluates', icon: <SettingOutlined /> },
+      { key: '/admin/evaluates', label: 'Evaluates', icon: <SettingOutlined />, permission: null },
     ],
   },
   {
@@ -51,11 +53,10 @@ export const navigation: IMenuSideBar[] = [
     label: 'FUNCTION',
     type: 'group',
     children: [
-      { key: 'business-partner', label: 'Business partner', icon: <TeamOutlined /> },
-      // { key: 'system-employee', label: 'System employee', icon: <SettingOutlined /> },
-      { key: 'room', label: 'Room', icon: <HomeOutlined /> },
-      { key: 'booking', label: 'Booking', icon: <SettingOutlined /> },
-      { key: 'discount', label: 'Discount', icon: <SettingOutlined /> },
+      { key: '/admin/business-partner', label: 'Business partner', icon: <TeamOutlined />, permission: 'account_manage' },
+      { key: '/admin/room', label: 'Room', icon: <HomeOutlined />, permission: 'room_manage' },
+      { key: '/admin/booking', label: 'Booking', icon: <SettingOutlined />, permission: 'booking_manage' },
+      { key: '/admin/discount', label: 'Discount', icon: <SettingOutlined />, permission: 'discount_manage' },
     ],
   },
   {
@@ -63,9 +64,9 @@ export const navigation: IMenuSideBar[] = [
     label: 'SYSTEM',
     type: 'group',
     children: [
-      { key: 'room-type', label: 'Room type', icon: <BoxPlotOutlined /> },
-      { key: 'service-room', label: 'Service room', icon: <CustomerServiceOutlined /> },
-      { key: 'role-template', label: 'Role template', icon: <SettingOutlined /> },
+      { key: '/admin/room-type', label: 'Room type', icon: <BoxPlotOutlined />, permission: 'room_manage'},
+      { key: '/admin/service-room', label: 'Service room', icon: <CustomerServiceOutlined />, permission: 'service_manage' },
+      { key: '/admin/role-template', label: 'Role template', icon: <SettingOutlined />, permission: 'role_manage' },
     ],
   },
   {
@@ -73,8 +74,8 @@ export const navigation: IMenuSideBar[] = [
    icon:  <UserOutlined />,
    label: 'User',
    children: [
-    { key: '', label: 'Tourist',},
-    { key: 'system-employee', label: 'System employee'}
+    { key: '/admin', label: 'Tourist',  permission: 'account_manage' },
+    { key: '/admin/system-employee', label: 'System employee', permission: 'account_manage'}
    ],
    key: ''
   }

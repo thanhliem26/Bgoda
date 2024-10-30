@@ -11,6 +11,8 @@ export interface BusinessPartner {
     districtId: string
     provinceId: string
     streetId: string
+    province: string
+    district: string
     roleName: string
     createdDate: string
     updatedDate: string
@@ -27,7 +29,6 @@ export type CreateBusinessPartnerArguments = {
     roleId: number
     provinceId: string
     districtId: string
-    streetId: string
 }
 
 export type UpdateBusinessPartnerArguments = {
@@ -41,5 +42,4 @@ export type UpdateBusinessPartnerArguments = {
     roleId: number
     provinceId: string
     districtId: string
-    streetId: string
 }

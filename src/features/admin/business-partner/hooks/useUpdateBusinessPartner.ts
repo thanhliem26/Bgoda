@@ -36,7 +36,6 @@ function useUpdateBusinessPartner(props: UseUpdateBusinessPartner) {
                 roleId: data?.roleId ?? null,
                 districtId: data?.districtId ?? '',
                 provinceId: data?.provinceId ?? '',
-                streetId: data?.streetId ?? '',
             }
         },
     })
@@ -62,7 +61,6 @@ function useUpdateBusinessPartner(props: UseUpdateBusinessPartner) {
                 roleId: value.roleId ?? 0,
                 districtId: value?.districtId ?? '',
                 provinceId: value?.provinceId ?? '',
-                streetId: value?.streetId ?? ''
             }
 
             mutate(payload)

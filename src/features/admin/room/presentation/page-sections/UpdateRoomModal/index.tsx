@@ -39,8 +39,6 @@ function UpdateRoomModal({ open, setOpen, id }: IUpdateRoomModal) {
       id: id,
     })
 
-  const province = watch('province')
-  const district = watch('district')
   const images = watch('images')
 
   const {
@@ -245,104 +243,7 @@ function UpdateRoomModal({ open, setOpen, id }: IUpdateRoomModal) {
             />
           </FormControl>
         </FlexBox>
-
-        <FlexBox
-          style={{
-            justifyContent: 'center',
-            alignContent: 'center',
-            marginTop: 8,
-            gap: 16,
-          }}
-        >
-          <FormControl>
-            <Controller
-              control={control}
-              name="province"
-              render={({ field, fieldState }) => (
-                <FlexBox style={{ flexDirection: 'column' }}>
-                  <ProvinceAutoComplete
-                    label="Province"
-                    required
-                    value={field.value}
-                    onChange={(value) => {
-                      field.onChange(value)
-                      setValue('district', '')
-                      setValue('address', '')
-                    }}
-                  />
-                  <HelperTextForm>{fieldState.error?.message}</HelperTextForm>
-                </FlexBox>
-              )}
-            />
-          </FormControl>
-
-          <FormControl>
-            <Controller
-              control={control}
-              name="district"
-              render={({ field, fieldState }) => (
-                <FlexBox style={{ flexDirection: 'column' }}>
-                  <DistrictAutoComplete
-                    label="District"
-                    required
-                    value={field.value}
-                    onChange={(value) => {
-                      field.onChange(value)
-                      setValue('address', '')
-                    }}
-                    id_province={province}
-                  />
-                  <HelperTextForm>{fieldState.error?.message}</HelperTextForm>
-                </FlexBox>
-              )}
-            />
-          </FormControl>
-
-          <FormControl>
-            <Controller
-              control={control}
-              name="address"
-              render={({ field, fieldState }) => (
-                <FlexBox style={{ flexDirection: 'column' }}>
-                  <CommuneAutoComplete
-                    label="Commune"
-                    required
-                    value={field.value}
-                    onChange={field.onChange}
-                    id_district={district}
-                  />
-                  <HelperTextForm>{fieldState.error?.message}</HelperTextForm>
-                </FlexBox>
-              )}
-            />
-          </FormControl>
-        </FlexBox>
-
-        <FlexBox
-          style={{
-            justifyContent: 'center',
-            alignContent: 'center',
-            marginTop: 8,
-          }}
-        >
-          <FormControl>
-            <Controller
-              control={control}
-              name="street"
-              render={({ field, fieldState }) => (
-                <FlexBox style={{ flexDirection: 'column' }}>
-                  <AppTextField
-                    label="Street"
-                    value={field.value}
-                    onChange={field.onChange}
-                  />
-                  <HelperTextForm>{fieldState.error?.message}</HelperTextForm>
-                </FlexBox>
-              )}
-            />
-          </FormControl>
-        </FlexBox>
-
+        
         <FlexBox style={{ flexDirection: 'column', gap: '16px' }}>
           <FlexBox style={{ flexDirection: 'column', gap: '8px' }}>
             {images?.map((item) => {

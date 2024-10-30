@@ -28,10 +28,6 @@ export const schema = yup.object({
   defaultDiscount: yup.number().min(0, RULE_MESSAGES.MC2('discount', 0, 100)).max(100, RULE_MESSAGES.MC2('discount', 0, 100)).nullable(),
   images: yup.array().of(yup.object({id: yup.string().required(), label: yup.string().required(),type: yup.string().required(), urls: yup.array().required().of(yup.string())})).required(RULE_MESSAGES.MC1('images')),
   avaiable: yup.number().required(RULE_MESSAGES.MC1('avaiable')).min(1),
-  province: yup.string().required(RULE_MESSAGES.MC1('Province')),
-  district: yup.string().required(RULE_MESSAGES.MC1('district')),
-  address: yup.string().required(RULE_MESSAGES.MC1('address')),
-  street: yup.string(),
   thumbnail: yup.string().required(RULE_MESSAGES.MC1('Thumbnail'))
 })
 
@@ -64,10 +60,6 @@ export const schemaUpdate = yup.object({
   defaultDiscount: yup.number().min(0, RULE_MESSAGES.MC2('discount', 0, 100)).max(100, RULE_MESSAGES.MC2('discount', 0, 100)).nullable(),
   images: yup.array().of(yup.object({id: yup.string().required(), label: yup.string().required(),type: yup.string().required(), urls: yup.array().required().of(yup.string())})).required(RULE_MESSAGES.MC1('images')),
   avaiable: yup.number().required(RULE_MESSAGES.MC1('avaiable')).min(1),
-  province: yup.string().required(RULE_MESSAGES.MC1('Province')),
-  district: yup.string().required(RULE_MESSAGES.MC1('district')),
-  address: yup.string().required(RULE_MESSAGES.MC1('address')),
-  street: yup.string(),
   thumbnail: yup.string().required(RULE_MESSAGES.MC1('Thumbnail'))
 })
 

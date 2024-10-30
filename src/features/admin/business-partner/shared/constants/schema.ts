@@ -25,7 +25,6 @@ export const schema = yup.object({
   }),
   provinceId: yup.string().required(RULE_MESSAGES.MC1('Province')),
   districtId: yup.string().required(RULE_MESSAGES.MC1('district')),
-  streetId: yup.string().required(RULE_MESSAGES.MC1('district')),
   address: yup.string().required(RULE_MESSAGES.MC1('address')),
 })
 
@@ -50,7 +49,6 @@ roleId: yup.number().required(RULE_MESSAGES.MC1('Role')).nullable().test('is_nul
 }),
 provinceId: yup.string().required(RULE_MESSAGES.MC1('Province')),
 districtId: yup.string().required(RULE_MESSAGES.MC1('district')),
-streetId: yup.string().required(RULE_MESSAGES.MC1('district')),
 address: yup.string().required(RULE_MESSAGES.MC1('address')),
 })
 

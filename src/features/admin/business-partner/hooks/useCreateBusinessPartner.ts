@@ -29,7 +29,6 @@ function useCreateBusinessPartner(props: IcreateBusinessPartnerProps = {}) {
       address: '',
       districtId: '',
       provinceId: '',
-      streetId: ''
     },
     resolver: yupResolver(schema),
     onSuccess: onSuccess,
@@ -53,7 +52,6 @@ function useCreateBusinessPartner(props: IcreateBusinessPartnerProps = {}) {
         roleId: value.roleId ?? 0,
         districtId: value?.districtId,
         provinceId: value?.provinceId,
-        streetId: value?.streetId,
       }
 
       mutate(payload)

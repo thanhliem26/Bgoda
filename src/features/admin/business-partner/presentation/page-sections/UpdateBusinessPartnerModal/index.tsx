@@ -10,7 +10,6 @@ import RoleAutoComplete from 'shared/components/autocomplete/role-auto-complete'
 import AppUpload from 'shared/components/AppUpload'
 import ProvinceAutoComplete from 'shared/components/autocomplete/province-auto-complete'
 import DistrictAutoComplete from 'shared/components/autocomplete/distric-auto-complete'
-import CommuneAutoComplete from 'shared/components/autocomplete/commune-auto-complete'
 
 interface IUpdateRoleTemplateModal {
   open: boolean
@@ -27,7 +26,6 @@ function UpdateBusinessPartnerModal({ open, setOpen, id }: IUpdateRoleTemplateMo
   })
 
   const province = watch('provinceId')
-  const district = watch('districtId')
 
   return (
     <ModalBase title="Edit Business partner" open={open} setOpen={setOpen}>
@@ -159,7 +157,6 @@ function UpdateBusinessPartnerModal({ open, setOpen, id }: IUpdateRoleTemplateMo
                     onChange={(value) => {
                       field.onChange(value)
                       setValue('districtId', '')
-                      setValue('streetId', '')
                     }}
                   />
                   <HelperTextForm>{fieldState.error?.message}</HelperTextForm>
@@ -180,7 +177,6 @@ function UpdateBusinessPartnerModal({ open, setOpen, id }: IUpdateRoleTemplateMo
                     value={field.value}
                     onChange={(value) => {
                       field.onChange(value)
-                      setValue('streetId', '')
                     }}
                     id_province={province}
                   />
@@ -190,24 +186,6 @@ function UpdateBusinessPartnerModal({ open, setOpen, id }: IUpdateRoleTemplateMo
             />
           </FormControl>
 
-          <FormControl>
-            <Controller
-              control={control}
-              name="streetId"
-              render={({ field, fieldState }) => (
-                <FlexBox style={{ flexDirection: 'column' }}>
-                  <CommuneAutoComplete
-                    label="Commune"
-                    required
-                    value={field.value}
-                    onChange={field.onChange}
-                    id_district={district}
-                  />
-                  <HelperTextForm>{fieldState.error?.message}</HelperTextForm>
-                </FlexBox>
-              )}
-            />
-          </FormControl>
         </FlexBox>
 
         <FlexBox

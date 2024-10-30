@@ -37,14 +37,10 @@ function useUpdateRoomModal(props: UseUpdateRoomModal) {
             }) ?? []
 
             return {
-                street: data?.street ?? "",
                 description: data?.description ?? "",
                 defaultDiscount: data?.defaultDiscount ?? null,
-                district: data?.district ?? "",
-                address: data?.address ?? "",
                 name: data?.name ?? "",
                 price: data?.price ?? null,
-                province: data?.province ?? "",
                 services: data?.services.map((item) => item.id) ?? [],
                 avaiable: data?.avaiable ?? 1,
                 images: formatImages,
@@ -71,21 +67,15 @@ function useUpdateRoomModal(props: UseUpdateRoomModal) {
         
               const payload: UpdateRoomArguments = {
                 id: id as string,
-                street: value.street ?? '',
                 description: value.description ?? '',
                 defaultDiscount: value.defaultDiscount ?? 0,
-                district: value.district,
-                address: value?.address ?? '',
                 name: value?.name,
                 price: value?.price ?? 0,
-                province: value?.province,
                 services: value?.services,
                 avaiable: value?.avaiable,
                 roomTypeId: value?.roomTypeId ?? 0,
                 images: imagesFormat ?? [],
                 thumbnail: value?.thumbnail ?? '',
-                //
-                businessPartnerId: 1,
               }
 
             mutate(payload)

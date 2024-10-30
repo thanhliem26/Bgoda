@@ -27,14 +27,10 @@ function useCreateRoom(props: IcreateRoomProps = {}) {
     mutationKey: [queryKey],
     queryString: createRoom,
     defaultValues: {
-      street: '',
       description: '',
       defaultDiscount: null,
-      district: '',
-      address: '',
       name: '',
       price: null,
-      province: '',
       services: [],
       avaiable: 1,
       images: defaultImage,
@@ -59,21 +55,15 @@ function useCreateRoom(props: IcreateRoomProps = {}) {
       }))
 
       const payload: CreateRoomArguments = {
-        street: value.street ?? '',
         description: value.description ?? '',
         defaultDiscount: value.defaultDiscount ?? 0,
-        district: value.district,
-        address: value?.address ?? '',
         name: value?.name,
         price: value?.price ?? 0,
-        province: value?.province,
         services: value?.services,
         avaiable: value?.avaiable,
         roomTypeId: value?.roomTypeId ?? 0,
         images: imagesFormat ?? [],
         thumbnail: value?.thumbnail ?? '',
-        //
-        businessPartnerId: 1,
       }
 
       mutate(payload)

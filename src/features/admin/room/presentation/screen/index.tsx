@@ -15,7 +15,7 @@ import DeleteRoomModal from "../page-sections/DeleteRoomModal";
 import useBuildActionsTableBusinessPartner from "../../hooks/useBuildActionTableBusinessPartner";
 import useBuildColumnTable from "shared/components/table/hooks/useBuildColumnTable";
 import { columns } from "../../shared/constants";
-import DetailRoleTemplateModal from "../page-sections/DetailRoleTemplateModal";
+import DetailRoomModal from "../page-sections/DetailRoomModal";
 import { useState } from "react";
 import debounce from "shared/utils/debounce";
 
@@ -69,7 +69,7 @@ const AdminRoom = () => {
       {openCreate && <CreateRoomModal open={openCreate} setOpen={setOpenCreate} />}
       {openEdit && <UpdateRoomModal open={openEdit} setOpen={setOpenEdit} id={rowId.current} />}
       {openDelete && <DeleteRoomModal open={openDelete} setOpen={setOpenDelete} id={rowId.current} />}
-      {openDetail && <DetailRoleTemplateModal open={openDetail} setOpen={setOpenDetail} id={rowId.current} />}
+      {openDetail && <DetailRoomModal open={openDetail} setOpen={setOpenDetail} id={rowId.current} />}
     </Box>
   )
 }
