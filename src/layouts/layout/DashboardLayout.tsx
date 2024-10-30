@@ -4,6 +4,7 @@ import DashboardSidebar from './DashboardSidebar'
 import styled, { CSSProperties } from 'styled-components'
 import { FlexBox } from 'shared/styles'
 import LayoutBodyWrapper from 'layouts/layout-parts/LayoutBodyWrapper'
+import { AuthenticationAdminProvider } from 'contexts/AuthenticationAdmin'
 
 type DashboardLayoutProps = {
   children?: ReactNode
@@ -13,9 +14,9 @@ const BoxWrapperContainer = styled(FlexBox)`
     height: 100%;
     width: 100%;
     min-height: 100vh;
-    background-color: ${({theme}) => theme.colors.background};
+    background-color: ${({ theme }) => theme.colors.background};
 `
- 
+
 
 const DashboardLayout: FC<DashboardLayoutProps> = ({ children }) => {
   const [sidebarCompact, setSidebarCompact] = useState(false)
@@ -26,10 +27,11 @@ const DashboardLayout: FC<DashboardLayoutProps> = ({ children }) => {
   }
 
   return (
-    <BoxWrapperContainer>
-      <DashboardSidebar />
-      <LayoutBodyWrapper style={customStyle}>{children || <Outlet />}</LayoutBodyWrapper>
-    </BoxWrapperContainer>
+      <BoxWrapperContainer>
+        <DashboardSidebar />
+        <LayoutBodyWrapper style={customStyle}>{children || <Outlet />}</LayoutBodyWrapper>
+      </BoxWrapperContainer>
+
   )
 }
 

@@ -23,9 +23,7 @@ type AuthState = 'INIT' | 'IS_AUTHENTICATED' | 'IS_NOT_AUTHENTICATED'
 
 export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
   const { removeToken, getToken } = handleAuthLocalStorage()
-
   const [authState, setAuthState] = useState<AuthState>('INIT')
-  console.log("🚀 ~ authState:", authState)
 
   const logout = () => {
     removeToken()

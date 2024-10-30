@@ -1,11 +1,11 @@
 import { BoxImage, BoxTitle, BoxWrapper, FormBodyWrapper, SlickButtonCarousel } from 'features/home/main/shared/style'
-import { Box } from 'shared/styles'
+import { Box, FlexBox } from 'shared/styles'
 import { H2, Span, Tiny } from 'shared/styles/Typography'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons'
 import { Carousel, CarouselProps } from 'antd'
 
 
-const AttractiveLocation = () => {
+const ProposePlace = () => {
   //@ts-ignore
   const SlickButton = ({ currentSlide, slideCount, children, ...props }) => {
     return <SlickButtonCarousel {...props} >{children}</SlickButtonCarousel>
@@ -13,13 +13,15 @@ const AttractiveLocation = () => {
 
   const setting: CarouselProps = {
     draggable: true,
-    slidesToShow: 5,
     dots: true,
-    infinite: false,
-    speed: 500,
-    slidesToScroll: 3,
     arrows: true,
     initialSlide: 0,
+    className: "center",
+    centerMode: true,
+    infinite: true,
+    centerPadding: "60px",
+    slidesToShow: 3,
+    speed: 500,
     nextArrow: (
       <SlickButton currentSlide slideCount>
         <RightOutlined />
@@ -45,37 +47,37 @@ const AttractiveLocation = () => {
 
   const data = [
     {
-      src: 'https://pix6.agoda.net/geo/city/13170/1_13170_02.jpg?ca=6&ce=1&s=375x&ar=1x1',
+      src: 'https://cdn6.agoda.net/images/WebCampaign/pulse_localcampaign_superwednesday_newdesign/home_banner_web/vi-vn.png',
       label: 'Hồ Chí Minh',
       total: '15.416 chỗ ở',
     },
     {
-      src: 'https://pix6.agoda.net/geo/city/16440/1_16440_02.jpg?ca=6&ce=1&s=375x&ar=1x1',
+      src: 'https://cdn6.agoda.net/images/WebCampaign/wcPD20230127/home_banner_web4/vi-vn.png',
       label: 'Đà Nẵng',
       total: '15.416 chỗ ở',
     },
     {
-      src: 'https://pix6.agoda.net/geo/city/2758/065f4f2c9fa263611ab65239ecbeaff7.jpg?ce=0&s=375x&ar=1x1',
+      src: 'https://cdn6.agoda.net/images/WebCampaign/pulse_localcampaign_muongthanh_vn/home_banner_web/en-us.png',
       label: 'Hà Nội',
       total: '15.416 chỗ ở',
     },
     {
-      src: 'https://pix6.agoda.net/geo/city/17190/1_17190_02.jpg?ca=6&ce=1&s=375x&ar=1x1',
+      src: 'https://cdn6.agoda.net/images/WebCampaign/pulse_globalcampaign_prestigesavings_ka/home_banner_web/vi-vn.png',
       label: 'Vũng Tàu',
       total: '15.416 chỗ ở',
     },
     {
-      src: 'https://pix6.agoda.net/geo/city/15932/1_15932_02.jpg?ca=6&ce=1&s=375x&ar=1x1',
+      src: 'https://cdn6.agoda.net/images/WebCampaign/pulse_globalcampaign_midnightmadness/home_banner_web2/vi-vn.png',
       label: 'Đà Lạt',
       total: '15.416 chỗ ở',
     },
     {
-      src: 'https://pix6.agoda.net/geo/city/15932/1_15932_02.jpg?ca=6&ce=1&s=375x&ar=1x1',
+      src: 'https://cdn6.agoda.net/images/WebCampaign/pulse_localcampaign_celebrateher_vn/home_banner_web/vi-vn.png',
       label: 'Đà Lạt',
       total: '15.416 chỗ ở',
     },
     {
-      src: 'https://pix6.agoda.net/geo/city/15932/1_15932_02.jpg?ca=6&ce=1&s=375x&ar=1x1',
+      src: 'https://cdn6.agoda.net/images/WebCampaign/wcM4S20230403Elite/home_banner_web2/vi-vn.png',
       label: 'Đà Lạt',
       total: '15.416 chỗ ở',
     },
@@ -84,19 +86,15 @@ const AttractiveLocation = () => {
   return (
     <FormBodyWrapper>
       <Box>
-        <H2>Các điểm đến thu hút việt nam</H2>
+        <H2>Những chỗ nghĩ được đề xuất cho quí khách</H2>
       </Box>
       <Carousel {...setting}>
         {data?.map((item, key) => {
           return (
             <BoxWrapper key={key}>
-              <BoxImage>
-                <img style={{borderRadius:'16px'}} src={item.src} />
+              <BoxImage style={{height: '185px'}}>
+                <img style={{borderRadius:'16px', height: '100%', width: '100%'}} src={item.src} />
               </BoxImage>
-              <BoxTitle>
-                <Tiny>{item.label}</Tiny>
-                <Span>{item.total}</Span>
-              </BoxTitle>
             </BoxWrapper>
           )
         })}
@@ -105,4 +103,4 @@ const AttractiveLocation = () => {
   )
 }
 
-export default AttractiveLocation
+export default ProposePlace

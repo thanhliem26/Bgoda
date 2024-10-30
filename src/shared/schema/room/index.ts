@@ -26,38 +26,26 @@ export interface Room {
 
 export type ImageRoom = {type: string, urls: string[]}
 export type CreateRoomArguments = {
-    street: string,
     description: string,
     defaultDiscount: number,
-    district: string,
-    address: string,
     name: string,
     price: number,
-    province: string,
     roomTypeId: number,
     services: number[],
     avaiable: number,
     images: ImageRoom[],
     thumbnail: string,
-    //
-    businessPartnerId: number
 }
 
 export type UpdateRoomArguments = {
     id: string
-    street: string,
     description: string,
     defaultDiscount: number,
-    district: string,
-    address: string,
     name: string,
     price: number,
-    province: string,
     roomTypeId: number,
     services: number[],
     avaiable: number,
     images: ImageRoom[],
     thumbnail: string,
-    //
-    businessPartnerId: number
 }

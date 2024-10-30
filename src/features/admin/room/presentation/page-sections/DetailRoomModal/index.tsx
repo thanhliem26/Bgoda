@@ -1,12 +1,16 @@
-import useDetailBusinessPartner from 'features/admin/business-partner/hooks/useDetailBusinessPartner'
+import { Col, Row } from 'antd'
 import { WrapperAvatar } from 'features/admin/business-partner/shared/styles'
+import useDetailRoom from 'features/admin/room/hooks/useDetailRoom'
+import ImageComponent from 'features/admin/room/shared/components/ImageComponent'
+import { Fragment } from 'react/jsx-runtime'
 import AppButton from 'shared/components/AppButton'
 import ModalBase, { ModalFooter } from 'shared/components/modal'
 import { Box, FlexBox } from 'shared/styles'
 import { Span, Tiny } from 'shared/styles/Typography'
+import { convertCurrency } from 'shared/utils/convert-string'
 import styled from 'styled-components'
 
-interface IDetailBusinessPartnerModal {
+interface IDetailRoomModal {
   open: boolean
   setOpen: (value: boolean) => void
   id: string
@@ -29,41 +33,19 @@ const TinyValue = styled(Tiny)`
     color: rgb(11, 14, 30);
 `
 
-function DetailBusinessPartnerModal({ open, setOpen, id }: IDetailBusinessPartnerModal) {
-  const { businessPartner } = useDetailBusinessPartner({
-    id: id
-  })
+function DetailRoomModal({ open, setOpen, id }: IDetailRoomModal) {
+  const { room } = useDetailRoom({ id });
 
   return (
-    <ModalBase title="Detail business partner" open={open} setOpen={setOpen}>
+    <ModalBase title="Detail room" open={open} setOpen={setOpen}>
       <FlexBox style={{ flexDirection: 'column', gap: '16px' }}>
         <FlexBox>
           <WrapperAvatar>
             <Box className="image_wrapper">
               <label htmlFor="image_background">
                 <img
-                  src={'/static/avatar/avatar_support.jpg'}
+                  src={room?.thumbnail ? room?.thumbnail : '/static/avatar/avatar_support.jpg'}
                   alt="avatar supporting"
-                />
-              </label>
-            </Box>
-            <Box className="avatar_upload">
-              <label htmlFor="image">
-                <img
-                  width={'100%'}
-                  src={
-                    businessPartner?.logo
-                      ? businessPartner?.logo
-                      : '/static/avatar/001-man.svg'
-                  }
-                  alt="avatar"
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    objectPosition: 'center',
-
-                  }}
                 />
               </label>
             </Box>
@@ -80,24 +62,24 @@ function DetailBusinessPartnerModal({ open, setOpen, id }: IDetailBusinessPartne
               flex: 1
             }}
           >
-            <SpanField>Email</SpanField>
-            <Box>
-              <TinyValue>{businessPartner?.email}</TinyValue>
-            </Box>
-          </FlexBox>
-
-          <FlexBox
-            style={{
-              justifyContent: 'center',
-              alignContent: 'center',
-              marginTop: 8,
-              flexDirection: 'column',
-              flex: 1
-            }}
-          >
             <SpanField>Name</SpanField>
             <Box>
-              <TinyValue>{businessPartner?.name}</TinyValue>
+              <TinyValue>{room?.name}</TinyValue>
+            </Box>
+          </FlexBox>
+
+          <FlexBox
+            style={{
+              justifyContent: 'center',
+              alignContent: 'center',
+              marginTop: 8,
+              flexDirection: 'column',
+              flex: 1
+            }}
+          >
+            <SpanField>Room Type</SpanField>
+            <Box>
+              <TinyValue>{room?.roomTypeId}</TinyValue>
             </Box>
           </FlexBox>
 
@@ -113,9 +95,9 @@ function DetailBusinessPartnerModal({ open, setOpen, id }: IDetailBusinessPartne
               flex: 1
             }}
           >
-            <SpanField>Province</SpanField>
+            <SpanField>Price</SpanField>
             <Box>
-              <TinyValue>{businessPartner?.province}</TinyValue>
+              <TinyValue>{convertCurrency(room?.price)} VND</TinyValue>
             </Box>
           </FlexBox>
 
@@ -128,27 +110,9 @@ function DetailBusinessPartnerModal({ open, setOpen, id }: IDetailBusinessPartne
               flex: 1
             }}
           >
-            <SpanField>District</SpanField>
+            <SpanField>Discount</SpanField>
             <Box>
-              <TinyValue>{businessPartner?.district}</TinyValue>
-            </Box>
-          </FlexBox>
-
-        </FlexBox>
-
-        <FlexBox>
-          <FlexBox
-            style={{
-              justifyContent: 'center',
-              alignContent: 'center',
-              marginTop: 8,
-              flexDirection: 'column',
-              flex: 1
-            }}
-          >
-            <SpanField>Address</SpanField>
-            <Box>
-              <TinyValue>{businessPartner?.address}</TinyValue>
+              <TinyValue>{room?.defaultDiscount} %</TinyValue>
             </Box>
           </FlexBox>
 
@@ -164,9 +128,9 @@ function DetailBusinessPartnerModal({ open, setOpen, id }: IDetailBusinessPartne
               flex: 1
             }}
           >
-             <SpanField>Role template</SpanField>
+            <SpanField>Available</SpanField>
             <Box>
-              <TinyValue>{businessPartner?.roleName}</TinyValue>
+              <TinyValue>{room?.avaiable}</TinyValue>
             </Box>
           </FlexBox>
 
@@ -179,9 +143,61 @@ function DetailBusinessPartnerModal({ open, setOpen, id }: IDetailBusinessPartne
               flex: 1
             }}
           >
-            <SpanField>Phone number</SpanField>
+            <SpanField>Service</SpanField>
             <Box>
-              <TinyValue>{businessPartner?.phoneNumber}</TinyValue>
+              <TinyValue>{room?.services?.map((item) => item.name).join(', ')}</TinyValue>
+            </Box>
+          </FlexBox>
+
+        </FlexBox>
+
+        <FlexBox style={{ flexDirection: 'column', gap: '16px' }}>
+          <FlexBox style={{ flexDirection: 'column', gap: '8px' }}>
+            {room?.images?.map((item, index) => {
+              return (
+                <FlexBox
+                  key={index}
+                  style={{ flexDirection: 'column', gap: '8px' }}
+                >
+                  <FlexBox
+                    style={{ width: '100%', gap: '20px', alignItems: 'center' }}
+                  >
+                    <Fragment>
+                        <Tiny style={{ fontSize: '16px', fontWeight: 500 }}>
+                          {item.type}
+                        </Tiny>
+                      
+                      </Fragment>
+                  </FlexBox>
+                  <Row gutter={[16, 16]}>
+                    {item.urls.map((itemImage) => {
+                      return (
+                        <Col key={itemImage} span={12} sm={8} lg={6} >
+                          <ImageComponent
+                            url={itemImage as string}
+                          />
+                        </Col>
+                      )
+                    })}
+                  </Row>
+                </FlexBox>
+              )
+            })}
+          </FlexBox>
+        </FlexBox>
+
+        <FlexBox>
+          <FlexBox
+            style={{
+              justifyContent: 'center',
+              alignContent: 'center',
+              marginTop: 8,
+              flexDirection: 'column',
+              flex: 1
+            }}
+          >
+            <SpanField>Description</SpanField>
+            <Box dangerouslySetInnerHTML={{ __html: room?.description }}>
             </Box>
           </FlexBox>
 
@@ -197,4 +213,4 @@ function DetailBusinessPartnerModal({ open, setOpen, id }: IDetailBusinessPartne
   )
 }
 
-export default DetailBusinessPartnerModal
+export default DetailRoomModal

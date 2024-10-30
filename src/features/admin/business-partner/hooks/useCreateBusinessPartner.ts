@@ -25,13 +25,16 @@ function useCreateBusinessPartner(props: IcreateBusinessPartnerProps = {}) {
       password: '',
       phoneNumber: '',
       re_password: '',
-      roleId: null
+      roleId: null,
+      address: '',
+      districtId: '',
+      provinceId: '',
     },
     resolver: yupResolver(schema),
     onSuccess: onSuccess,
   })
 
-  const { handleSubmit, control, formState, setValue } = useFormReturn
+  const { handleSubmit, control, formState, setValue, watch } = useFormReturn
   
   const isValid = !formState.isValid
   const { isPending, mutate } = useCreateReturn
@@ -46,7 +49,9 @@ function useCreateBusinessPartner(props: IcreateBusinessPartnerProps = {}) {
         logo: value.logo ?? '',
         password: value.password,
         phoneNumber: value.phoneNumber,
-        roleId: value.roleId ?? 0
+        roleId: value.roleId ?? 0,
+        districtId: value?.districtId,
+        provinceId: value?.provinceId,
       }
 
       mutate(payload)
@@ -59,7 +64,8 @@ function useCreateBusinessPartner(props: IcreateBusinessPartnerProps = {}) {
     isValid,
     isPending,
     formState,
-    setValue
+    setValue,
+    watch
   }
 }
 

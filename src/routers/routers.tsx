@@ -1,17 +1,14 @@
 import { FC, lazy, LazyExoticComponent, Suspense } from 'react'
-import {
-  createBrowserRouter,
-  Outlet,
-  RouterProvider,
-} from 'react-router-dom'
+import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom'
 import LoadingScreen from 'shared/components/loading-screen'
 //misc page
-import DoNotAllow from 'pages/403';
+import DoNotAllow from 'pages/403'
 import NotFound from 'pages/404'
-import DashboardLayout from 'layouts/layout/DashboardLayout';
-import DashboardHomeLayout from 'layouts/layout/DashboardHomeLayout';
-import ProtectedLayout from 'features/authorization/presentation/page-sections/ProtectedLayout';
-import AuthenticateLayout from 'features/authorization/presentation/page-sections/AuthenticateLayout';
+import DashboardLayout from 'layouts/layout/DashboardLayout'
+import DashboardHomeLayout from 'layouts/layout/DashboardHomeLayout'
+import ProtectedLayout from 'features/authorization/presentation/page-sections/ProtectedLayout'
+import AuthenticateLayout from 'features/authorization/presentation/page-sections/AuthenticateLayout'
+import Cant from 'contexts/AuthenticationAdmin/components/Cant'
 
 const Loadable = (Component: LazyExoticComponent<FC>) => (props: any) => {
   return (
@@ -23,15 +20,23 @@ const Loadable = (Component: LazyExoticComponent<FC>) => (props: any) => {
 
 const AdminUserPage = Loadable(lazy(() => import('../pages/admin/user')))
 
-const RoleTemplatePage = Loadable(lazy(() => import('../pages/admin/role-template')))
+const RoleTemplatePage = Loadable(
+  lazy(() => import('../pages/admin/role-template'))
+)
 
 const RoomTypePage = Loadable(lazy(() => import('../pages/admin/room-type')))
 
-const ServiceRoomPage = Loadable(lazy(() => import('../pages/admin/service-room')))
+const ServiceRoomPage = Loadable(
+  lazy(() => import('../pages/admin/service-room'))
+)
 
-const BusinessPartnerPage = Loadable(lazy(() => import('../pages/admin/business-partner')))
+const BusinessPartnerPage = Loadable(
+  lazy(() => import('../pages/admin/business-partner'))
+)
 
-const SystemEmployeePage = Loadable(lazy(() => import('../pages/admin/system-employee')))
+const SystemEmployeePage = Loadable(
+  lazy(() => import('../pages/admin/system-employee'))
+)
 
 const RoomPage = Loadable(lazy(() => import('../pages/admin/room')))
 
@@ -39,78 +44,123 @@ const MainPage = Loadable(lazy(() => import('../pages/home/main/index')))
 
 const LoginPage = Loadable(lazy(() => import('../pages/home/login/index')))
 
-const RegisterPage = Loadable(lazy(() => import('../pages/home/register/index')))
+const RegisterPage = Loadable(
+  lazy(() => import('../pages/home/register/index'))
+)
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <DashboardHomeLayout><Outlet /></DashboardHomeLayout>,
+    path: '/',
+    element: (
+      <DashboardHomeLayout>
+        <Outlet />
+      </DashboardHomeLayout>
+    ),
     children: [
       {
         index: true,
-        element: <MainPage />
+        element: <MainPage />,
       },
       {
-        path: "/login",
-        element: <AuthenticateLayout>
-          <LoginPage />
-        </AuthenticateLayout>
+        path: '/login',
+        element: (
+          <AuthenticateLayout>
+            <LoginPage />
+          </AuthenticateLayout>
+        ),
       },
       {
-        path: "/register",
-        element: <AuthenticateLayout><RegisterPage /></AuthenticateLayout>
+        path: '/register',
+        element: (
+          <AuthenticateLayout>
+            <RegisterPage />
+          </AuthenticateLayout>
+        ),
       },
-    ]
+    ],
   },
   {
     path: '/admin',
     element: (
       <ProtectedLayout>
-        <DashboardLayout>
-          <Outlet />
-        </DashboardLayout>
+        <Outlet />
       </ProtectedLayout>
-
     ),
     children: [
       {
         index: true,
-        element: <AdminUserPage />,
+        element: <Cant module='account_manage'>
+          <DashboardLayout>
+            <AdminUserPage />
+          </DashboardLayout>
+
+        </Cant>,
       },
       {
         path: 'role-template',
-        element: <RoleTemplatePage />
+        element: <Cant module='role_manage'>
+          <DashboardLayout>
+            <RoleTemplatePage />
+          </DashboardLayout>
+
+        </Cant>,
       },
       {
         path: 'room-type',
-        element: <RoomTypePage />
+        element: <Cant module='room_manage'>
+          <DashboardLayout>
+            <RoomTypePage />
+          </DashboardLayout>
+
+        </Cant>,
       },
       {
         path: 'service-room',
-        element: <ServiceRoomPage />
+        element: <Cant module='service_manage'>
+          <DashboardLayout>
+            <ServiceRoomPage />
+          </DashboardLayout>
+
+        </Cant>,
       },
       {
         path: 'business-partner',
-        element: <BusinessPartnerPage />
+        element: <Cant module='account_manage'>
+          <DashboardLayout>
+            <BusinessPartnerPage />
+          </DashboardLayout>
+
+        </Cant>,
       },
       {
         path: 'system-employee',
-        element: <SystemEmployeePage />
+        element: <Cant module='account_manage'>
+          <DashboardLayout>
+            <SystemEmployeePage />
+          </DashboardLayout>
+
+        </Cant>,
       },
       {
         path: 'room',
-        element: <RoomPage />
+        element: (
+          <Cant module="room_manage">
+            <DashboardLayout>
+              <RoomPage />
+            </DashboardLayout>
+          </Cant>
+        ),
       },
     ],
   },
   {
-    path: "/forbidden",
-    element: <DoNotAllow />
+    path: '/forbidden',
+    element: <DoNotAllow />,
   },
   {
-    path: "*",
-    element: <NotFound />
-  }
+    path: '*',
+    element: <NotFound />,
+  },
 ])
 
 export const AppRoutes = () => {

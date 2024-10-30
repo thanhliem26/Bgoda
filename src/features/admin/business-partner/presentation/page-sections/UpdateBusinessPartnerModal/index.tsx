@@ -8,6 +8,8 @@ import { Box, FlexBox, FormControl, HelperTextForm } from 'shared/styles'
 import AppNumberField from 'shared/components/form/AppNumberField'
 import RoleAutoComplete from 'shared/components/autocomplete/role-auto-complete'
 import AppUpload from 'shared/components/AppUpload'
+import ProvinceAutoComplete from 'shared/components/autocomplete/province-auto-complete'
+import DistrictAutoComplete from 'shared/components/autocomplete/distric-auto-complete'
 
 interface IUpdateRoleTemplateModal {
   open: boolean
@@ -16,12 +18,14 @@ interface IUpdateRoleTemplateModal {
 }
 
 function UpdateBusinessPartnerModal({ open, setOpen, id }: IUpdateRoleTemplateModal) {
-  const { onSubmit, control, isPending, isValid } = useUpdateBusinessPartner({
+  const { onSubmit, control, isPending, isValid, setValue, watch } = useUpdateBusinessPartner({
     onSuccess: () => {
       setOpen(false)
     },
     id: id
   })
+
+  const province = watch('provinceId')
 
   return (
     <ModalBase title="Edit Business partner" open={open} setOpen={setOpen}>
@@ -131,6 +135,59 @@ function UpdateBusinessPartnerModal({ open, setOpen, id }: IUpdateRoleTemplateMo
           </FormControl>
 
         </FlexBox>
+
+        <FlexBox
+          style={{
+            justifyContent: 'center',
+            alignContent: 'center',
+            marginTop: 8,
+            gap: 16,
+          }}
+        >
+          <FormControl>
+            <Controller
+              control={control}
+              name="provinceId"
+              render={({ field, fieldState }) => (
+                <FlexBox style={{ flexDirection: 'column' }}>
+                  <ProvinceAutoComplete
+                    label="Province"
+                    required
+                    value={field.value}
+                    onChange={(value) => {
+                      field.onChange(value)
+                      setValue('districtId', '')
+                    }}
+                  />
+                  <HelperTextForm>{fieldState.error?.message}</HelperTextForm>
+                </FlexBox>
+              )}
+            />
+          </FormControl>
+
+          <FormControl>
+            <Controller
+              control={control}
+              name="districtId"
+              render={({ field, fieldState }) => (
+                <FlexBox style={{ flexDirection: 'column' }}>
+                  <DistrictAutoComplete
+                    label="District"
+                    required
+                    value={field.value}
+                    onChange={(value) => {
+                      field.onChange(value)
+                    }}
+                    id_province={province}
+                  />
+                  <HelperTextForm>{fieldState.error?.message}</HelperTextForm>
+                </FlexBox>
+              )}
+            />
+          </FormControl>
+
+        </FlexBox>
+
         <FlexBox
           style={{
             justifyContent: 'center',
