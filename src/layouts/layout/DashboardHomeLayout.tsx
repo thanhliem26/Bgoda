@@ -11,8 +11,8 @@ const DashboardWrapper = styled(Box)`
     overflow: hidden;
 `
 
-// interface DashboardHomeLayoutProps {}
-const DashboardHomeLayout = () => {
+interface DashboardHomeLayoutProps {}
+const DashboardHomeLayout = (props: DashboardHomeLayoutProps) => {
   return (
     <DashboardWrapper>
         <LayoutHeader />

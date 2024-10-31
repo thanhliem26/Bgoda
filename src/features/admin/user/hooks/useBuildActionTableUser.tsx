@@ -41,8 +41,8 @@ function useBuildActionsTableUser({
       },
       delete: {
         key: ActionsTableUser.DELETE,
-        onClick: (id) => {
-          handleOpenDelete(id)
+        onClick: (id, rowData) => {
+          handleOpenDelete(rowData?.accountId)
         },
         label: "Delete",
         icon: <DeleteOutlined />,

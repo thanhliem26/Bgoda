@@ -3,7 +3,7 @@ import useService from "../domain/services"
 import { yupResolver } from "@hookform/resolvers/yup"
 import useEditResource from "shared/hooks/crud-hook/useEditResource"
 import { FormDataSchemaUpdate, schemaUpdate } from "../shared/constants/schema"
-import { UpdateUserArguments, User } from "shared/schema/user"
+import { UpdateTouristArguments, User } from "shared/schema/user"
 
 type UseUpdateUser = {
     id: string | number
@@ -16,7 +16,7 @@ function useUpdateUser(props: UseUpdateUser) {
     const { useEditReturn, useFormReturn, isGetting } = useEditResource<
         User,
         FormDataSchemaUpdate,
-        UpdateUserArguments
+        UpdateTouristArguments
     >({
         resolver: yupResolver(schemaUpdate),
         editBuildQuery: updateUser,
@@ -24,14 +24,16 @@ function useUpdateUser(props: UseUpdateUser) {
         queryKey: [queryKey],
         id,
         onSuccess,
-        formatDefaultValues() {
+        formatDefaultValues(data) {
 
             return {
-                email: 'teset',
-                password: 'ok',
-                name: '',
-                re_password: '',
-                role: ''
+                email: data?.email ?? '',
+                fullName: data?.name ?? '',
+                address: data?.address ?? '',
+                avatar: data?.avatar ?? '',
+                dob: data?.dob ?? null,
+                gender: data?.gender ?? '',
+                phoneNumber: data?.phoneNumber ?? '',
             }
         },
     })
@@ -43,9 +45,18 @@ function useUpdateUser(props: UseUpdateUser) {
 
     function onSubmit() {
         handleSubmit((value) => {
-            console.log("🚀 ~ value:", value)
+            const payload: UpdateTouristArguments = {
+                id: id as string,
+                address: value?.address ?? '',
+                avatar: value?.avatar ?? '',
+                dob: value?.dob ?? null,
+                email: value?.email ?? '',
+                fullName: value?.fullName ?? '',
+                gender: value?.gender ?? '',
+                phoneNumber: value?.phoneNumber ?? '',
+            }
 
-            mutate(value)
+            mutate(payload)
         })()
     }
 

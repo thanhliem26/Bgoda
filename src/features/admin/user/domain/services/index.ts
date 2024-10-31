@@ -6,7 +6,7 @@ const useService = () => {
 
     const getAllUser = () => {
         return RESTClientService.buildRequest({
-            endpoint: '/v1/api/news/list',
+            endpoint: '/api/admin/accounts/tourists',
             method: 'GET',
         })
     }
@@ -20,14 +20,14 @@ const useService = () => {
 
     const updateUser = () => {
         return RESTClientService.buildRequest({
-            endpoint: '/v1/api/user/update',
+            endpoint: '/api/admin/accounts/tourists',
             method: 'PUT',
         })
     }
 
     const getUserDetail = () => {
         return RESTClientService.buildRequest({
-            endpoint: '/v1/api/product',
+            endpoint: '/api/admin/accounts/tourists',
             method: 'GET',
             slash_id: true
         })
@@ -35,8 +35,8 @@ const useService = () => {
 
     const deleteUser = () => {
         return RESTClientService.buildRequest({
-            endpoint: '/v1/api/user/delete',
-            method: 'PUT',
+            endpoint: '/api/admin/accounts/tourists',
+            method: 'DELETE',
             slash_id: true
         })
     }
