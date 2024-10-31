@@ -1,7 +1,4 @@
-import { createContext, ReactNode, useEffect, useState } from 'react'
-import LoadingScreen from 'shared/components/loading-screen'
-import Token from 'shared/class/token'
-import handleAuthLocalStorage from 'services/auth-local-storage-service'
+import { createContext, ReactNode, useState } from 'react'
 import dayjs from 'dayjs'
 // import restApi from 'configs/api/restApi'
 // --------------------------------------------------------

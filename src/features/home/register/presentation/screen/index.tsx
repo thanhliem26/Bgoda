@@ -9,12 +9,13 @@ import { Controller } from 'react-hook-form'
 import useCreateUser from '../../hooks/useCreateUser'
 import InputBase from 'shared/components/input'
 import AppButton from 'shared/components/AppButton'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function Register() {
+  const navigate = useNavigate();
   const { onSubmit, control, isPending, isValid } = useCreateUser({
     onSuccess: () => {
-      // setOpen(false)
+      navigate('/verify-email')
     },
   })
 
@@ -25,12 +26,6 @@ function Register() {
           <Box className="form_container">
             <Box className="form_title">
               <H3>Đăng kí</H3>
-              {/* <Box>
-                <H5>
-                  Để đảm bảo an toàn, xin vui lòng đăng nhập để truy cập vào
-                  thông tin
-                </H5>
-              </Box> */}
             </Box>
             <Box className="form_field">
               <FlexBox style={{ flexDirection: 'column', gap: '16px' }}>
@@ -154,6 +149,7 @@ function Register() {
                           <InputBase
                             placeholder="Xác nhận mật khẩu"
                             required
+                           type="password"
                             value={field.value}
                             onChange={field.onChange}
 

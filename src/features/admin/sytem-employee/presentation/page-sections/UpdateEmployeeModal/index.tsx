@@ -165,7 +165,7 @@ function UpdateSystemEmployeeModal({ open, setOpen, id }: IUpdateEmployeeModal) 
               name="phoneNumber"
               render={({ field, fieldState }) => (
                 <FlexBox style={{ flexDirection: 'column' }}>
-                  <AppNumberField
+                  <AppTextField
                     label="Phone number"
                     value={field.value}
                     onChange={field.onChange}

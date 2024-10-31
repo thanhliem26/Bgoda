@@ -1,5 +1,4 @@
 import useService from "../domain/services"
-import { RoleTemplate } from "shared/schema/role-template"
 import { useQuery } from "@tanstack/react-query"
 import RESTClientService from "services/axios-service"
 import { isRight, unwrapEither } from "shared/utils/handleEither"

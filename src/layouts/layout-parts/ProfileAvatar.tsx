@@ -1,5 +1,5 @@
 import { Badge, Button } from "antd"
-import { FC, Fragment, useRef } from "react"
+import { FC, Fragment, useContext, useRef } from "react"
 import AppAvatar from "shared/components/AppAvatar"
 import { Box } from "shared/styles"
 import { Tiny } from "shared/styles/Typography"
@@ -9,6 +9,8 @@ import {
 } from '@ant-design/icons'
 import handleAuthLocalStorage from "services/auth-local-storage-service"
 import { toast } from "react-toastify"
+import useAuth from "features/authorization/hooks/useAuth"
+import AuthAdminContext from "contexts/AuthenticationAdmin"
 
 const pulseAnimation = keyframes`
     0% {
@@ -78,10 +80,7 @@ const BadgeAvatar = styled(Badge)`
 
 const ProfilePopover: FC = () => {
     const anchorRef = useRef(null)
-    // const { user } = useAuthorization()
-    // const { logout } = useAuth()
-    // const upSm = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'))
-
+    const { name, image } = useContext(AuthAdminContext);
 
     const { removeToken } = handleAuthLocalStorage();
     const handleLogout = () => {
@@ -96,7 +95,7 @@ const ProfilePopover: FC = () => {
             >
                 <Box style={{ position: 'relative', width: "fit-content" }}>
                     <AppAvatar
-                        src={'/static/avatar/001-man.svg'}
+                        src={image ? image : '/static/avatar/001-man.svg'}
                         style={{ width: 28, height: 28 }}
                     />
                     <BadgeAvatar color={"green"} style={{ zIndex: 9999 }} />
@@ -119,7 +118,7 @@ const ProfilePopover: FC = () => {
                             whiteSpace: 'nowrap'
                         }}
                     >
-                        David Pham
+                        {name}
                     </Tiny>
                 </Box>
                 <LogoutOutlined onClick={handleLogout} style={{ color: "rgb(77, 96, 122)", fontSize: '16px', cursor: 'pointer' }} />

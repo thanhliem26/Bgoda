@@ -2,7 +2,6 @@ import IconScreen from "shared/components/utils/IconScreen"
 import { Box, FlexBox, WrapperContainer } from "shared/styles"
 import {
   PlusOutlined,
-  SettingOutlined,
   TeamOutlined,
 } from '@ant-design/icons'
 import SearchInput from "shared/components/table/components/SearchInput";

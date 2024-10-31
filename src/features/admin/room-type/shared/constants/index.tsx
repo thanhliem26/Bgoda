@@ -2,7 +2,6 @@ import { TableProps } from "antd"
 import dayjs from "dayjs";
 import { ActionGroupButtons } from "shared/components/table/components/ActionGroupButton";
 import { TOptionItem } from "shared/components/table/hooks/useBuildActionTable"
-import { RoleTemplate } from "shared/schema/role-template";
 import { RoomType } from "shared/schema/room-type";
 import { Tiny } from "shared/styles/Typography";
 

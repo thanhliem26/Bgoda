@@ -12,7 +12,7 @@ const DashboardWrapper = styled(Box)`
 `
 
 interface DashboardHomeLayoutProps {}
-const DashboardHomeLayout = ({}: DashboardHomeLayoutProps) => {
+const DashboardHomeLayout = (props: DashboardHomeLayoutProps) => {
   return (
     <DashboardWrapper>
         <LayoutHeader />

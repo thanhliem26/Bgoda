@@ -1,13 +1,14 @@
 import dayjs from 'dayjs'
+import { WrapperAvatar } from 'features/admin/sytem-employee/shared/styles'
 import useUpdateUser from 'features/admin/user/hooks/useUpdateUser'
 import { Controller } from 'react-hook-form'
 import AppButton from 'shared/components/AppButton'
-import RoleAutoComplete from 'shared/components/autocomplete/role-auto-complete'
+import AppUpload from 'shared/components/AppUpload'
+import GenderAutoComplete from 'shared/components/autocomplete/gender-auto-complete'
 import AppDatePicker from 'shared/components/form/AppDatePicker'
-import AppNumberField from 'shared/components/form/AppNumberField'
 import AppTextField from 'shared/components/form/AppTextField'
 import ModalBase, { ModalFooter } from 'shared/components/modal'
-import { FlexBox, FormControl, HelperTextForm } from 'shared/styles'
+import { Box, FlexBox, FormControl, HelperTextForm } from 'shared/styles'
 
 interface IUpdateUserModal {
   open: boolean
@@ -20,12 +21,66 @@ function UpdateUserModal({ open, setOpen, id }: IUpdateUserModal) {
     onSuccess: () => {
       setOpen(false)
     },
-    id: id
+    id: id,
   })
 
   return (
     <ModalBase title="Edit user" open={open} setOpen={setOpen}>
- <FlexBox style={{ flexDirection: 'column', gap: '16px' }}>
+      <FlexBox style={{ flexDirection: 'column', gap: '16px' }}>
+      <FlexBox>
+        <WrapperAvatar>
+            <Box className="image_wrapper">
+              <label htmlFor="image_background">
+                <img
+                  src={'/static/avatar/avatar_support.jpg'}
+                  alt="avatar supporting"
+                />
+              </label>
+            </Box>
+            <Box className="avatar_upload">
+              <FormControl style={{width: '100%', height: '100%'}}>
+                <Controller
+                  control={control}
+                  name="avatar"
+                  render={({ field, fieldState }) => (
+                    <FlexBox style={{ flexDirection: 'column', width: '100%', height: '100%' }}>
+                      <AppUpload
+                        value={field.value ?? ''}
+                        onChangeUpload={({ file }) => {
+                          field.onChange(file)
+                        }}
+                      >
+                        <label htmlFor="image">
+                          <img
+                            width={'100%'}
+                            src={
+                              field.value
+                                ? field.value
+                                : '/static/avatar/001-man.svg'
+                            }
+                            alt="avatar"
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              objectFit: 'cover',
+                              objectPosition: 'center',
+
+                            }}
+                          />
+                        </label>
+                      </AppUpload>
+                      <HelperTextForm>
+                        {fieldState.error?.message}
+                      </HelperTextForm>
+                    </FlexBox>
+                  )}
+                />
+              </FormControl>
+            </Box>
+          </WrapperAvatar>
+        </FlexBox>
+
+
         <FlexBox
           style={{
             justifyContent: 'center',
@@ -56,13 +111,13 @@ function UpdateUserModal({ open, setOpen, id }: IUpdateUserModal) {
             justifyContent: 'center',
             alignContent: 'center',
             marginTop: 8,
-            gap: 16
+            gap: 16,
           }}
         >
           <FormControl>
             <Controller
               control={control}
-              name="name"
+              name="fullName"
               render={({ field, fieldState }) => (
                 <FlexBox style={{ flexDirection: 'column' }}>
                   <AppTextField
@@ -76,14 +131,13 @@ function UpdateUserModal({ open, setOpen, id }: IUpdateUserModal) {
               )}
             />
           </FormControl>
-
         </FlexBox>
         <FlexBox
           style={{
             justifyContent: 'center',
             alignContent: 'center',
             marginTop: 8,
-            gap: 16
+            gap: 16,
           }}
         >
           <FormControl>
@@ -106,7 +160,7 @@ function UpdateUserModal({ open, setOpen, id }: IUpdateUserModal) {
           <FormControl>
             <Controller
               control={control}
-              name="phone_number"
+              name="phoneNumber"
               render={({ field, fieldState }) => (
                 <FlexBox style={{ flexDirection: 'column' }}>
                   <AppTextField
@@ -126,53 +180,7 @@ function UpdateUserModal({ open, setOpen, id }: IUpdateUserModal) {
             justifyContent: 'center',
             alignContent: 'center',
             marginTop: 8,
-            gap: 16
-          }}
-        >
-          <FormControl>
-            <Controller
-              control={control}
-              name="salary"
-              render={({ field, fieldState }) => (
-                <FlexBox style={{ flexDirection: 'column' }}>
-                  <AppNumberField
-                    label="Salary"
-                    value={field.value}
-                    onChange={field.onChange}
-                    formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                    parser={(value) => value?.replace(/\$\s?|(,*)/g, '') as unknown as number}
-
-                  />
-                  <HelperTextForm>{fieldState.error?.message}</HelperTextForm>
-                </FlexBox>
-              )}
-            />
-          </FormControl>
-
-          <FormControl>
-            <Controller
-              control={control}
-              name="bank_number"
-              render={({ field, fieldState }) => (
-                <FlexBox style={{ flexDirection: 'column' }}>
-                  <AppTextField
-                    label="Bank number"
-                    value={field.value}
-                    onChange={field.onChange}
-                  />
-                  <HelperTextForm>{fieldState.error?.message}</HelperTextForm>
-                </FlexBox>
-              )}
-            />
-          </FormControl>
-        </FlexBox>
-
-        <FlexBox
-          style={{
-            justifyContent: 'center',
-            alignContent: 'center',
-            marginTop: 8,
-            gap: 16
+            gap: 16,
           }}
         >
           <FormControl>
@@ -183,7 +191,6 @@ function UpdateUserModal({ open, setOpen, id }: IUpdateUserModal) {
                 <FlexBox style={{ flexDirection: 'column' }}>
                   <AppTextField
                     label="Address"
-
                     value={field.value}
                     onChange={field.onChange}
                   />
@@ -196,68 +203,13 @@ function UpdateUserModal({ open, setOpen, id }: IUpdateUserModal) {
           <FormControl>
             <Controller
               control={control}
-              name="role"
+              name="gender"
               render={({ field, fieldState }) => (
                 <FlexBox style={{ flexDirection: 'column' }}>
-                  <RoleAutoComplete
-                    label="Role"
-                    required
+                  <GenderAutoComplete
                     value={field.value}
                     onChange={field.onChange}
-                  />
-                  <HelperTextForm>{fieldState.error?.message}</HelperTextForm>
-                </FlexBox>
-              )}
-            />
-          </FormControl>
-        </FlexBox>
-
-        <FlexBox
-          style={{
-            justifyContent: 'center',
-            alignContent: 'center',
-            marginTop: 8,
-          }}
-        >
-          <FormControl>
-            <Controller
-              control={control}
-              name="password"
-              render={({ field, fieldState }) => (
-                <FlexBox style={{ flexDirection: 'column' }}>
-                  <AppTextField
-                    label="Password"
-                    required
-                    value={field.value}
-                    onChange={field.onChange}
-                    type='password'
-                  />
-                  <HelperTextForm>{fieldState.error?.message}</HelperTextForm>
-                </FlexBox>
-              )}
-            />
-          </FormControl>
-        </FlexBox>
-
-        <FlexBox
-          style={{
-            justifyContent: 'center',
-            alignContent: 'center',
-            marginTop: 8,
-          }}
-        >
-          <FormControl>
-            <Controller
-              control={control}
-              name="re_password"
-              render={({ field, fieldState }) => (
-                <FlexBox style={{ flexDirection: 'column' }}>
-                  <AppTextField
-                    label="Re password"
-                    required
-                    value={field.value}
-                    onChange={field.onChange}
-                    type='password'
+                    label="Gender"
                   />
                   <HelperTextForm>{fieldState.error?.message}</HelperTextForm>
                 </FlexBox>

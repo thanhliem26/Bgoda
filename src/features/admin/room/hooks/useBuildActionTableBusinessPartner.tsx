@@ -41,7 +41,7 @@ function useBuildActionsTableBusinessPartner({
       },
       delete: {
         key: ActionsTableRoleTemplate.DELETE,
-        onClick: (id, rowData) => {
+        onClick: (id) => {
           handleOpenDelete(id)
         },
         label: "Delete",

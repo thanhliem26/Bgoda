@@ -163,7 +163,7 @@ function CreateSystemEmployeeModal({ open, setOpen }: ICreateSystemEmployeeModal
               name="phoneNumber"
               render={({ field, fieldState }) => (
                 <FlexBox style={{ flexDirection: 'column' }}>
-                  <AppNumberField
+                  <AppTextField
                     label="Phone number"
                     value={field.value}
                     onChange={field.onChange}

@@ -1,26 +1,26 @@
 import IconScreen from "shared/components/utils/IconScreen"
 import { Box, FlexBox, WrapperContainer } from "shared/styles"
 import {
-  PlusOutlined,
   UserOutlined,
 } from '@ant-design/icons'
 import SearchInput from "shared/components/table/components/SearchInput";
-import ButtonBase from "shared/components/AppButton";
 import TableBase from "shared/components/table";
-import useTeamTable from "../../hooks/useUserTable";
+import useUserTable from "../../hooks/useUserTable";
 import useActionTable from "../../hooks/useActionTable";
-import CreateUserModal from "../page-sections/CreateUserModal";
 import UpdateUserModal from "../page-sections/UpdateUserModal";
 import DeleteUserModal from "../page-sections/DeleteUserModal";
 import useBuildActionsTableUser from "../../hooks/useBuildActionTableUser";
 import useBuildColumnTable from "shared/components/table/hooks/useBuildColumnTable";
 import { columns } from "../../shared/constants";
 import DetailUserModal from "../page-sections/DetailUserModal";
+import { useState } from "react";
+import debounce from "shared/utils/debounce";
 
 const AdminUser = () => {
   const useActionTableReturn = useActionTable()
-  const { openCreate,
-    setOpenCreate,
+  const [search, setSearch] = useState<string>('');
+
+  const { 
     openEdit,
     setOpenEdit,
     openDelete,
@@ -31,11 +31,13 @@ const AdminUser = () => {
 
   const { actions } = useBuildActionsTableUser(useActionTableReturn)
 
-  const { useTableReturn } = useTeamTable({ search: { name: '' } });
+  const { useTableReturn } = useUserTable({search: {searchName: search}});
   const { columnTable } = useBuildColumnTable({
     columns: columns,
     actions
   })
+
+  const handleSearch = debounce(setSearch, 500)
 
   return (
     <Box style={{ paddingTop: 16, paddingBottom: 32 }}>
@@ -45,12 +47,9 @@ const AdminUser = () => {
       <WrapperContainer style={{ marginTop: '20px' }}>
         <FlexBox style={{ justifyContent: 'space-between', padding: '12px', marginTop: '16px' }}>
           <Box style={{ width: '400px', maxWidth: '100%' }}>
-            <SearchInput placeholder="Search by name, email" />
-          </Box>
-          <Box>
-            <ButtonBase icon={<PlusOutlined />} onClick={() => setOpenCreate(true)}>
-              Add a new user
-            </ButtonBase>
+            <SearchInput placeholder="Search by name, email" onChange={(event) => {
+              handleSearch(event.target.value)
+            }} />
           </Box>
         </FlexBox>
         <FlexBox>
@@ -58,7 +57,6 @@ const AdminUser = () => {
         </FlexBox>
       </WrapperContainer>
 
-      {openCreate && <CreateUserModal open={openCreate} setOpen={setOpenCreate} />}
       {openEdit && <UpdateUserModal open={openEdit} setOpen={setOpenEdit} id={rowId.current} />}
       {openDelete && <DeleteUserModal open={openDelete} setOpen={setOpenDelete} id={rowId.current} />}
       {openDetail && <DetailUserModal open={openDetail} setOpen={setOpenDetail} id={rowId.current} />}

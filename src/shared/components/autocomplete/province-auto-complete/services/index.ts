@@ -4,7 +4,7 @@ const useService = () => {
     const queryKey = MODLUE_QUERY_KEY.PERMISSION
 
     const getAllProvince = () => {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             resolve(fetch('https://esgoo.net/api-tinhthanh/1/0.htm')
                 .then(response => response.json()))
         }).then((res) => {

@@ -7,6 +7,7 @@ import useService from "../services"
 interface InfoMe {
     name:  string
     permission: string[]
+    image: string
 }
 function useGetMe() {
     const { queryKey,  getInfo} = useService()

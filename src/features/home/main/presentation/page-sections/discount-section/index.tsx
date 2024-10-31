@@ -1,6 +1,6 @@
-import { BoxImage, BoxTitle, BoxWrapper, FormBodyWrapper, SlickButtonCarousel } from 'features/home/main/shared/style'
-import { Box, FlexBox } from 'shared/styles'
-import { H2, Span, Tiny } from 'shared/styles/Typography'
+import { BoxImage, BoxWrapper, FormBodyWrapper, SlickButtonCarousel } from 'features/home/main/shared/style'
+import { Box } from 'shared/styles'
+import { H2 } from 'shared/styles/Typography'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons'
 import { Carousel, CarouselProps } from 'antd'
 

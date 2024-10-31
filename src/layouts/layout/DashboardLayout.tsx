@@ -4,7 +4,6 @@ import DashboardSidebar from './DashboardSidebar'
 import styled, { CSSProperties } from 'styled-components'
 import { FlexBox } from 'shared/styles'
 import LayoutBodyWrapper from 'layouts/layout-parts/LayoutBodyWrapper'
-import { AuthenticationAdminProvider } from 'contexts/AuthenticationAdmin'
 
 type DashboardLayoutProps = {
   children?: ReactNode

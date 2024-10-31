@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom'
 import { IuseUserActionTableReturn } from './useActionTable'
 import { useBuildActionsTable } from 'shared/components/table/hooks/useBuildActionTable'
 import { User } from 'shared/schema/user'
@@ -42,8 +41,8 @@ function useBuildActionsTableUser({
       },
       delete: {
         key: ActionsTableUser.DELETE,
-        onClick: (id) => {
-          handleOpenDelete(id)
+        onClick: (id, rowData) => {
+          handleOpenDelete(rowData?.accountId)
         },
         label: "Delete",
         icon: <DeleteOutlined />,

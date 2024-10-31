@@ -3,7 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import useService from "../domain/services"
 import { FormDataSchema, schema } from "../shared/constants/schema"
 import useCreateResource from "shared/hooks/crud-hook/useCreateResource"
-import { CreateUserArguments } from "shared/schema/user"
+import { LoginUserArguments } from "shared/schema/user"
 import handleAuthLocalStorage from "services/auth-local-storage-service"
 interface IUseLoginProps {
   onSuccess?: (value: any) => void
@@ -14,7 +14,7 @@ function useLogin(props: IUseLoginProps = {}) {
 
   const { loginUser, queryKey } = useService()
   const { useCreateReturn, useFormReturn } = useCreateResource<
-    CreateUserArguments,
+    LoginUserArguments,
     FormDataSchema
   >({
     mutationKey: [queryKey],
@@ -26,8 +26,10 @@ function useLogin(props: IUseLoginProps = {}) {
     resolver: yupResolver(schema),
     onSuccess: (data) => {
       const { metaData } = data;
+
       const token = metaData?.accessToken;
-      saveToken({accessToken: token.toString()})
+      const userType = metaData?.userType;
+      saveToken({ accessToken: token.toString(), type: userType })
 
       window.location.reload()
     },

@@ -1,5 +1,4 @@
-// import Login from "features/authentication/presentation/pages/login";
-import { Fragment, ReactNode } from 'react'
+import { ReactNode } from 'react'
 import { Navigate, useLocation } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth'
 import { AuthenticationAdminProvider } from 'contexts/AuthenticationAdmin'
@@ -14,7 +13,7 @@ const ProtectedLayout = ({ children }: ProtectedLayoutProps) => {
   let location = useLocation()
   
   if (authState === 'IS_NOT_AUTHENTICATED') {
-    return <Navigate to="/login" state={{ from: location }} replace />
+    return <Navigate to="/system-login" state={{ from: location }} replace />
   }
   
   return  <AuthenticationAdminProvider>{children}</AuthenticationAdminProvider>

@@ -9,11 +9,13 @@ type AuthProviderProps = { children: ReactNode }
 interface IAuthAdminContext {
     name: string
     permission: string[]
+    image: string
 }
 
 const AuthAdminContext = createContext<IAuthAdminContext>({
     name: '',
-    permission: []
+    permission: [],
+    image: ''
 })
 
 export const AuthenticationAdminProvider = ({ children }: AuthProviderProps) => {
@@ -23,7 +25,8 @@ export const AuthenticationAdminProvider = ({ children }: AuthProviderProps) => 
         <AuthAdminContext.Provider
             value={{
                 name: information?.name,
-                permission: information?.permission
+                permission: information?.permission,
+                image: information?.image
             }}
         >
             {children}
