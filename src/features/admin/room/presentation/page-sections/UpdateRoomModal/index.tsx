@@ -6,15 +6,7 @@ import AppTextField from 'shared/components/form/AppTextField'
 import ModalBase, { ModalFooter } from 'shared/components/modal'
 import { Box, FlexBox, FormControl, HelperTextForm } from 'shared/styles'
 import AppNumberField from 'shared/components/form/AppNumberField'
-import RoleAutoComplete from 'shared/components/autocomplete/role-auto-complete'
-import AppUpload from 'shared/components/AppUpload'
-import ProvinceAutoComplete from 'shared/components/autocomplete/province-auto-complete'
-import BusinessPartnerAutoComplete from 'shared/components/autocomplete/business-partner-auto-complete'
-import RoomServiceAutoComplete from 'shared/components/autocomplete/room-service-auto-complete'
 import RoomTypeAutoComplete from 'shared/components/autocomplete/room-type-auto-complete-base'
-import DistrictAutoComplete from 'shared/components/autocomplete/distric-auto-complete'
-import CommuneAutoComplete from 'shared/components/autocomplete/commune-auto-complete'
-import { Tiny } from 'shared/styles/Typography'
 import { Fragment } from 'react/jsx-runtime'
 import { DeleteOutlined } from '@ant-design/icons'
 import { Col, Row } from 'antd'
@@ -23,6 +15,9 @@ import ImageComponent, {
 } from 'features/admin/room/shared/components/ImageComponent'
 import { ImageType } from 'features/admin/room/domain/interfaces'
 import EditorBox from 'shared/components/AppTinyEditor'
+import AppUpload from 'shared/components/AppUpload'
+import { Tiny } from 'shared/styles/Typography'
+import RoomServiceAutoComplete from 'shared/components/autocomplete/room-service-auto-complete'
 
 interface IUpdateRoomModal {
   open: boolean
@@ -31,7 +26,7 @@ interface IUpdateRoomModal {
 }
 
 function UpdateRoomModal({ open, setOpen, id }: IUpdateRoomModal) {
-  const { onSubmit, control, isPending, isValid, setValue, watch, actions } =
+  const { onSubmit, control, isPending, isValid, watch, actions } =
     useUpdateBusinessPartner({
       onSuccess: () => {
         setOpen(false)

@@ -4,9 +4,6 @@ import { Controller } from 'react-hook-form'
 import AppButton from 'shared/components/AppButton'
 import EditorBox from 'shared/components/AppTinyEditor'
 import AppUpload from 'shared/components/AppUpload'
-import CommuneAutoComplete from 'shared/components/autocomplete/commune-auto-complete'
-import DistrictAutoComplete from 'shared/components/autocomplete/distric-auto-complete'
-import ProvinceAutoComplete from 'shared/components/autocomplete/province-auto-complete'
 import RoomServiceAutoComplete from 'shared/components/autocomplete/room-service-auto-complete'
 import RoomTypeAutoComplete from 'shared/components/autocomplete/room-type-auto-complete-base'
 import AppNumberField from 'shared/components/form/AppNumberField'
@@ -34,7 +31,6 @@ function CreateRoomModal({ open, setOpen }: ICreateRoomModal) {
     isPending,
     isValid,
     watch,
-    setValue,
     handleAddImage,
     handleDeleteImage,
     handleDeleteTypeImage,

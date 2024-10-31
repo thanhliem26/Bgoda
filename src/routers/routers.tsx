@@ -9,6 +9,7 @@ import DashboardHomeLayout from 'layouts/layout/DashboardHomeLayout'
 import ProtectedLayout from 'features/authorization/presentation/page-sections/ProtectedLayout'
 import AuthenticateLayout from 'features/authorization/presentation/page-sections/AuthenticateLayout'
 import Cant from 'contexts/AuthenticationAdmin/components/Cant'
+import AuthenticateLayoutAdmin from 'features/authorization/presentation/page-sections/AuthenticateLayouAdmin'
 
 const Loadable = (Component: LazyExoticComponent<FC>) => (props: any) => {
   return (
@@ -43,6 +44,10 @@ const RoomPage = Loadable(lazy(() => import('../pages/admin/room')))
 const MainPage = Loadable(lazy(() => import('../pages/home/main/index')))
 
 const LoginPage = Loadable(lazy(() => import('../pages/home/login/index')))
+
+const VerifyEmailPage = Loadable(lazy(() => import('../pages/home/verify-email/index')))
+
+const SystemLoginPage = Loadable(lazy(() => import('../pages/admin/system-login/index')))
 
 const RegisterPage = Loadable(
   lazy(() => import('../pages/home/register/index'))
@@ -152,6 +157,16 @@ const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: '/system-login',
+    element: <AuthenticateLayoutAdmin>
+      <SystemLoginPage />
+      </AuthenticateLayoutAdmin>,
+  },
+  {
+    path: '/verify-email',
+    element: <VerifyEmailPage />,
   },
   {
     path: '/forbidden',

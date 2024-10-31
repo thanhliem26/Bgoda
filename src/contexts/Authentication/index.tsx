@@ -12,18 +12,27 @@ type AuthProviderProps = { children: ReactNode }
 interface IAuthContext {
   authState: AuthState
   logout: () => void
+  type: string
 }
 
 const AuthContext = createContext<IAuthContext>({
   authState: 'INIT',
   logout: () => {},
+  type: ''
 })
 
 type AuthState = 'INIT' | 'IS_AUTHENTICATED' | 'IS_NOT_AUTHENTICATED'
 
+export const TYPE_ACCOUNT_LOGIN = {
+  TOURIST: 'Tourist',
+  SYSTEM_EMPLOYEE: 'SystemEmployee',
+  BUSINESS_PARTNER: 'BusinessPartner',
+}
+
 export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
   const { removeToken, getToken } = handleAuthLocalStorage()
   const [authState, setAuthState] = useState<AuthState>('INIT')
+  const [type, setType] = useState<string>('');
 
   const logout = () => {
     removeToken()
@@ -41,6 +50,7 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
           Token.isValidToken(token.accessToken)
         ) {
           setAuthState('IS_AUTHENTICATED')
+          setType(token?.type)
         } else {
           setAuthState('IS_NOT_AUTHENTICATED')
         }
@@ -56,6 +66,7 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
       value={{
         authState,
         logout,
+        type,
       }}
     >
       {children}

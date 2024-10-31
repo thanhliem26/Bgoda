@@ -15,9 +15,15 @@ export interface User {
     address: string
 }
 
+export type LoginUserArguments = {
+    email: string
+    password: string
+}
+
 export type CreateUserArguments = {
     email: string
     password: string
+    fullName: string
 }
 
 export type UpdateUserArguments = {

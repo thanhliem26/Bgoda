@@ -1,7 +1,6 @@
 import IconScreen from "shared/components/utils/IconScreen"
 import { Box, FlexBox, WrapperContainer } from "shared/styles"
 import {
-  BoxPlotOutlined,
   HomeOutlined,
   PlusOutlined,
 } from '@ant-design/icons'

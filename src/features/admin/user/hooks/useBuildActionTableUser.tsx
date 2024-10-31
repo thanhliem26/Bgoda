@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom'
 import { IuseUserActionTableReturn } from './useActionTable'
 import { useBuildActionsTable } from 'shared/components/table/hooks/useBuildActionTable'
 import { User } from 'shared/schema/user'

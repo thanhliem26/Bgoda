@@ -1,4 +1,4 @@
-import RESTClientService from 'services/axios-service'
+import RESTClientService from 'services/axios-service-application'
 import { MODLUE_QUERY_KEY } from 'shared/interfaces/common'
 
 const useService = () => {
@@ -6,7 +6,7 @@ const useService = () => {
 
     const createUser = () => {
         return RESTClientService.buildRequest({
-            endpoint: '/v1/api/access/signup',
+            endpoint: '/api/application/accounts/register',
             method: 'POST',
         })
     }

@@ -1,4 +1,3 @@
-import useCreateUser from 'features/admin/user/hooks/useCreateUser'
 import AppButton from 'shared/components/AppButton'
 import ModalBase, { ModalFooter } from 'shared/components/modal'
 import { Box, FlexBox } from 'shared/styles'

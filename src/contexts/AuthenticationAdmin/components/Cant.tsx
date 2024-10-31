@@ -1,7 +1,7 @@
 import React, { Fragment, useContext } from 'react'
 import { TYPE_PERMISSION } from '../constants'
 import AuthAdminContext from '..'
-import ErrorPage from 'pages/404'
+import DoNotAllowPage from 'pages/403'
 
 interface ICant {
   children: React.ReactNode
@@ -10,7 +10,7 @@ interface ICant {
 const Cant = ({children, module}: ICant) => {
   const { permission} = useContext(AuthAdminContext);
   const hasPermission =permission && permission.includes(module);
-  if(!hasPermission && permission) return <ErrorPage />;
+  if(!hasPermission && permission) return <DoNotAllowPage />;
   
   return (
     <Fragment>

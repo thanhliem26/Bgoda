@@ -1,6 +1,6 @@
 import BackgroundMain from '../page-sections/background-main'
 import { MainWrapperProvider } from '../../context'
-import { Box, FlexBox } from 'shared/styles'
+import { FlexBox } from 'shared/styles'
 import AttractiveLocation from '../page-sections/attractive-location'
 import DiscountSection from '../page-sections/discount-section'
 import ProposePlace from '../page-sections/propose-place'

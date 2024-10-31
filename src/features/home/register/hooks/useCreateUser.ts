@@ -2,8 +2,8 @@
 import { yupResolver } from "@hookform/resolvers/yup"
 import useService from "../domain/services"
 import { FormDataSchema, schema } from "../shared/constants/schema"
-import useCreateResource from "shared/hooks/crud-hook/useCreateResource"
 import { CreateUserArguments } from "shared/schema/user"
+import useCreateResource from "shared/hooks/crud-hook-application/useCreateResource"
 
 interface createTeamProps {
   onSuccess?: (value: any) => void
@@ -37,7 +37,13 @@ function useCreateUser(props: createTeamProps = {}) {
   function onSubmit() {
     handleSubmit((value) => {
 
-      mutate(value)
+    const payload: CreateUserArguments = {
+      email: value?.email,
+      password: value?.password,
+      fullName: value?.name,
+    }
+
+      mutate(payload)
     })()
   }
 

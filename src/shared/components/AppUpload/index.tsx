@@ -1,5 +1,4 @@
 import { Upload, UploadFile, UploadProps } from 'antd'
-import React from 'react'
 import styled from 'styled-components';
 import { uploadImage } from './functions';
 
@@ -20,7 +19,7 @@ const AppUploadComponent = styled(Upload)`
     }
 `
 
-type UploadFileStatus = 'error' | 'done' | 'uploading' | 'removed';
+// type UploadFileStatus = 'error' | 'done' | 'uploading' | 'removed';
 
 type TypeValueUpload<Multiple extends boolean> = Multiple extends true ? string[] : string;
 
