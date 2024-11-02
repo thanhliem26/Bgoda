@@ -1,10 +1,10 @@
-import { Box, FlexBox } from "shared/styles";
-import styled, { keyframes } from "styled-components";
+import { Box, FlexBox } from 'shared/styles'
+import styled, { keyframes } from 'styled-components'
 
 export const FormBodyWrapper = styled(FlexBox)`
-    flex-direction: column;
-    gap: 16px;
-    width: 100%;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
 `
 
 export const BoxImage = styled(Box)`
@@ -62,21 +62,21 @@ export const SlickButtonCarousel = styled.span`
   background-color: transparent !important;
 
   &::after {
-    color: transparent
+    color: transparent;
   }
 
   &.slick-next {
-    right: -40px; 
+    right: -40px;
   }
 
   &.slick-prev {
-    left: -40px; 
+    left: -40px;
   }
 
   &.slick-disabled {
     display: none !important;
   }
-`;
+`
 
 export const fadein = keyframes`
     0% {
@@ -89,80 +89,73 @@ export const fadein = keyframes`
 
 export const SectionBackground = styled.section`
   width: 100%;
+  height: calc(100vh - 60px);
+  position: relative;
+  margin-bottom: 24px;
 
   & .background-image-wrapper {
     width: 100%;
-    height: 320px;
-    position: absolute;
-    left: 0px;
-    right: 0px;
+    height: 100%;
 
-    &::before {
-      background: url('static/background/bg-agoda-homepage.png') center center /
-        cover no-repeat;
-      position: absolute;
+    img {
       width: 100%;
       height: 100%;
-      content: '';
-      border-bottom-left-radius: 48px;
+      object-fit: cover;
+      border-style: none;
+      vertical-align: middle;
+      border: 0;
     }
   }
 
-  & .background-title {
-    display: flex;
-    justify-content: center;
-
-    & .TileContainer__wrapper {
-      max-width: 1124px;
-      padding-top: 40px;
-
-      & .WelcomeMessage {
-        color: #fff;
-        position: relative;
-        margin-bottom: 16px;
-
-        & h1 {
-          animation: fadein 1s;
-          font-size: 24px;
-          font-weight: 700;
-          line-height: 1.3;
-          margin-bottom: 4px;
-          margin-top: 0;
-          overflow: hidden;
-          text-transform: uppercase;
-        }
-      }
-    }
-  }
-
-  & .background-filter {
+  & .background_overlay {
     width: 100%;
-    position: relative;
-    flex-direction: column;
-    -webkit-box-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    align-items: center;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+  }
+
+  & .background_filter {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    /* color: white; */
     display: flex;
-    margin-top: 20px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
 
-    & .inner-background {
-      animation: ${fadein} 0.3s;
-      min-width: 580px;
-      width: 100%;
-      display: flex;
-      justify-content: center;
+    & .background-title {
+      flex-direction: column;
 
-      & .inner-background-modal {
-        background-color: #f8f7f9;
-        padding: 32px 48px 48px;
-        width: 100%;
-        position: relative;
-        box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 8px 3px;
-        border-radius: 16px;
-        max-width: 1124px;
-        padding-top: 24px;
+      h1 {
+        margin: 5px 0;
+        color: #fff;
+        text-align: center;
+        margin: 0;
       }
+
+      h2 {
+        font-size: 1em;
+        color: #fff;
+        text-align: center;
+        font-weight: 500;
+      }
+    }
+
+    & .background-action-filter {
+      gap: 10px;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 13px;
+      border-radius: 6px;
     }
   }
 `
@@ -186,24 +179,24 @@ export const SearchField = styled(Box)`
 `
 
 export const BoxWrapperMain = styled(Box)`
-    box-shadow: none;
-    font-size: 16px;
-    height: 66px;
-    padding: 0 10px;
-    cursor: pointer;
-    width: 100%;
-    background: white;
-    border: 1px solid #dddfe2;
-    border-radius: 8px;
+  box-shadow: none;
+  font-size: 16px;
+  height: 66px;
+  padding: 0 10px;
+  cursor: pointer;
+  width: 100%;
+  background: white;
+  border: 1px solid #dddfe2;
+  border-radius: 8px;
 `
 
 export const HotelWrapper = styled(FlexBox)`
-    width: 950px;
-    position: relative;
-    top: -40px;
+  width: 950px;
+  position: relative;
+  top: -40px;
 
-    & .item_menu {
-        margin-bottom: 0px;
+  & .item_menu {
+    margin-bottom: 0px;
     margin-left: 0px;
     margin-right: 0px;
     padding-left: 64px;
@@ -218,6 +211,43 @@ export const HotelWrapper = styled(FlexBox)`
     border-radius: 8px;
     background-color: rgb(255, 255, 255);
     width: 100%;
+  }
+`
 
+export const ListRoomWrapper = styled(FlexBox)`
+  flex-direction: column;
+
+  & .room-title {
+    h2 {
+      font-weight: 700;
+      margin-bottom: 30px;
     }
+  }
+
+  & .room-list {
+    & .room-star {
+      width: 20%;
+      margin-right: 16px;
+
+      & .room-checkbox {
+        & .ant-checkbox-group {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+      }
+    }
+
+    & .room-city {
+      width: 80%;
+
+      & .room-item {
+        display: flex;
+    border: 1px solid #d7d7db;
+    border-radius: 4px;
+    width: 100%;
+    padding: 16px;
+      }
+    }
+  }
 `

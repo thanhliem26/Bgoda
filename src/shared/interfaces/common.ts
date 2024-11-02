@@ -39,6 +39,11 @@ export enum MODLUE_QUERY_KEY {
     ROLE_TEMPLATE = 'role_template',
     PERMISSION = 'permission',
     LOGIN_USER = 'login',
-    PROVINCE = 'province'
+    PROVINCE = 'province',
+    APPLICATION_ROOM_TYPE = 'application_room_type'
 }
 
+export type IOption =  {
+    label: string;
+    value: string;
+}
