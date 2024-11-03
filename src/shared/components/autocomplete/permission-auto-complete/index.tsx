@@ -21,6 +21,7 @@ export const PermissionLabel = {
     room_manage: 'Quản lí phòng',
     service_manage: 'Quản lí dịch vụ',
     showroom_manage: 'Quản lí chi nhánh',
+    bank_manage: 'Quản lí tài khoản ngân hàng'
 }
 
 export type TypePermissionLabel = keyof typeof PermissionLabel;

@@ -5,14 +5,15 @@ import { CameraOutlined, CheckOutlined } from '@ant-design/icons'
 import { H2, Span, Tiny } from 'shared/styles/Typography'
 import { useParams } from 'react-router-dom'
 import useGetInfoRoom from 'features/home/room/hooks/useGetRoomDetail'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { isEmpty } from 'lodash'
 import { getServiceByValue } from 'features/admin/service-room/shared/components/SelecIcon'
 import RoomComponent from '../room-component'
 import { convertCurrency } from 'shared/utils/convert-string'
+import PreviewImageRoomModal from '../modal-image'
 
 const RoomInfo = () => {
-
+    const [open, setOpen] = useState<boolean>(false);
     const { id } = useParams()
     const { roomInfo } = useGetInfoRoom({ id: id as string })
     console.log('🚀 ~ id:', roomInfo)
@@ -32,7 +33,7 @@ const RoomInfo = () => {
     return (
         <RoomInfoWrapper>
             <FlexBox className="room_background">
-                <FlexBox className="room_thumbnail">
+                <FlexBox className="room_thumbnail" onClick={() => setOpen(true)}>
                     <Box className="box-image">
                         <img src={roomInfo?.thumbnail} />
                     </Box>
@@ -163,6 +164,9 @@ const RoomInfo = () => {
                     ]} />
                 </Box>
             </BoxWrapper>
+
+
+            {open && <PreviewImageRoomModal images={roomInfo?.images ?? []} open={open} setOpen={(value) => setOpen(value)} />}
         </RoomInfoWrapper>
     )
 }

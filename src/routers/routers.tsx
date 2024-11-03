@@ -35,6 +35,10 @@ const BusinessPartnerPage = Loadable(
   lazy(() => import('../pages/admin/business-partner'))
 )
 
+const BusinessPartnerBankPage = Loadable(
+  lazy(() => import('../pages/admin/business-partner-bank'))
+)
+
 const SystemEmployeePage = Loadable(
   lazy(() => import('../pages/admin/system-employee'))
 )
@@ -109,6 +113,15 @@ const router = createBrowserRouter([
         element: <Cant module='account_manage'>
           <DashboardLayout>
             <AdminUserPage />
+          </DashboardLayout>
+
+        </Cant>,
+      },
+      {
+        path: 'bank-business-partner',
+        element: <Cant module='bank_manage'>
+          <DashboardLayout>
+            <BusinessPartnerBankPage />
           </DashboardLayout>
 
         </Cant>,

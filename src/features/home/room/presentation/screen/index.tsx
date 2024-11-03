@@ -9,7 +9,6 @@ function RoomProvince() {
      <FlexBox style={{width: '100%', justifyContent: 'center'}}>
      <FlexBox style={{marginTop: '10px', width: '1124px', maxWidth: '100%', flexDirection: 'column', gap: '100px', marginBottom: '50px'}}>
         <RoomInfo />
-        
       </FlexBox>
      </FlexBox>
     </Fragment>

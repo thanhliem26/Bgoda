@@ -7,7 +7,6 @@ import AppTabComponent, { ITabType } from 'shared/components/AppTabs'
 import RoomComponent from './components/RoomComponent'
 import useGetPopularVisit from 'features/home/main/hooks/useGetPopularVisit'
 import { useMemo } from 'react'
-import { convertCurrency } from 'shared/utils/convert-string'
 
 const ProposePlace = () => {
 
