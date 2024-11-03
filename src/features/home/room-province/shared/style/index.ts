@@ -225,6 +225,7 @@ export const ListRoomWrapper = styled(FlexBox)`
   }
 
   & .room-list {
+   
     & .room-star {
       width: 20%;
       margin-right: 16px;
@@ -240,13 +241,30 @@ export const ListRoomWrapper = styled(FlexBox)`
 
     & .room-city {
       width: 80%;
+      flex-direction: column;
+      gap: 20px;
 
       & .room-item {
         display: flex;
-    border: 1px solid #d7d7db;
-    border-radius: 4px;
-    width: 100%;
-    padding: 16px;
+        border: 1px solid #d7d7db;
+        border-radius: 4px;
+        width: 100%;
+        padding: 16px;
+        gap: 10px;
+
+        & .room__item-image {
+          width: 30%;
+          max-width: 284px;
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        & .room__item-description {
+          flex: 1;
+          flex-direction: column;
+          gap: 10px;
+        }
+        
       }
     }
   }

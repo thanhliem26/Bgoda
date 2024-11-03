@@ -25,19 +25,11 @@ const useService = () => {
         })
     }
 
-    const getPopularVisit = () => {
-        return RESTClientService.buildRequest({
-            endpoint: '/api/application/ui/get-popular-visit',
-            method: 'GET',
-        })
-    }
-
     return {
         queryKey,
         getAllRoomType,
         getListSuggest,
-        getListProvince,
-        getPopularVisit
+        getListProvince
     }
 }
 

@@ -23,6 +23,7 @@ export const BoxWrapper = styled(FlexBox)`
   align-items: center;
   gap: 8px;
   width: 100%;
+  cursor: pointer;
 `
 
 export const BoxTitle = styled(FlexBox)`

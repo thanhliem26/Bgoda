@@ -5,10 +5,12 @@ import { LeftOutlined, RightOutlined } from '@ant-design/icons'
 import { Carousel, CarouselProps } from 'antd'
 import useGetListProvince from 'features/home/main/hooks/useGetProvince'
 import { useMemo } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 
 const AttractiveLocation = () => {
   const { optionProvinceMain } = useGetListProvince();
+  const navigate = useNavigate();
   //@ts-ignore
   const SlickButton = ({ currentSlide, slideCount, children, ...props }) => {
     return <SlickButtonCarousel {...props} >{children}</SlickButtonCarousel>
@@ -65,7 +67,9 @@ const AttractiveLocation = () => {
       <Carousel {...setting}>
         {dataProvince?.map((item, key) => {
           return (
-            <BoxWrapper key={key}>
+            <BoxWrapper key={key} onClick={() => {
+              navigate(`/city/${item.id}`)
+            }}>
               <BoxImage>
                 <img style={{borderRadius:'16px'}} src={item.src} />
               </BoxImage>

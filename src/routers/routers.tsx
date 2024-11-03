@@ -39,11 +39,13 @@ const SystemEmployeePage = Loadable(
   lazy(() => import('../pages/admin/system-employee'))
 )
 
-const RoomPage = Loadable(lazy(() => import('../pages/admin/room')))
+const RoomAdminPage = Loadable(lazy(() => import('../pages/admin/room')))
 
 const MainPage = Loadable(lazy(() => import('../pages/home/main/index')))
 
 const RoomProvincePage = Loadable(lazy(() => import('../pages/home/room-province/index')))
+
+const RoomPage = Loadable(lazy(() => import('../pages/home/room/index')))
 
 const LoginPage = Loadable(lazy(() => import('../pages/home/login/index')))
 
@@ -69,8 +71,12 @@ const router = createBrowserRouter([
         element: <MainPage />,
       },
       {
-        path: '/city',
+        path: '/city/:id',
         element: <RoomProvincePage />,
+      },
+      {
+        path: '/city/room/:id',
+        element: <RoomPage />,
       },
       {
         path: '/login',
@@ -157,7 +163,7 @@ const router = createBrowserRouter([
         element: (
           <Cant module="room_manage">
             <DashboardLayout>
-              <RoomPage />
+              <RoomAdminPage />
             </DashboardLayout>
           </Cant>
         ),
