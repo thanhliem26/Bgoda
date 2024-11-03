@@ -3,6 +3,7 @@ import { useMemo } from 'react'
 import { isRight, unwrapEither } from 'shared/utils/handleEither'
 import useService from '../services'
 import RESTClientService from 'services/axios-service-application'
+import { MODLUE_QUERY_KEY } from 'shared/interfaces/common'
 
 interface IUseGetAllSuggest {
     searchInput: string
@@ -27,10 +28,10 @@ export type ListSuggestBPANDPROVINCE = {
 }
 
 const useGetListSuggest = ({ searchInput }: IUseGetAllSuggest) => {
-  const { getListSuggest, queryKey } = useService()
+  const { getListSuggest } = useService()
 
   const { data } = useQuery({
-    queryKey: [queryKey, searchInput],
+    queryKey: [MODLUE_QUERY_KEY.APPLICATION_LIST_SUGGEST, searchInput],
     queryFn: async () =>
       RESTClientService.fetchREST(getListSuggest(), {
         searchInput: searchInput

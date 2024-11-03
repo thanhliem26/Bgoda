@@ -25,7 +25,7 @@ export const columns = (
             objectPosition: 'center',
 
           }} src={rowData?.thumbnail ? rowData?.thumbnail : '/static/avatar/001-man.svg'} /></Box>
-          <Tiny style={{fontWeight: 'bold'}}>{rowData?.name}</Tiny>
+          <Tiny style={{fontWeight: 'bold', flex: 1}}>{rowData?.name}</Tiny>
         </FlexBox>
       },
       width: 300,

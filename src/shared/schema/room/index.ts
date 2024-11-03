@@ -17,6 +17,7 @@ export interface Room {
     businessPartner: BusinessPartner
     businessPartnerId: number
     avaiable: number
+    star: number
     street: string
     address: string
     images: ImageRoom[]

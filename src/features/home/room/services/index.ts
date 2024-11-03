@@ -2,34 +2,19 @@ import RESTClientService from 'services/axios-service-application'
 import { MODLUE_QUERY_KEY } from 'shared/interfaces/common'
 
 const useService = () => {
-    const queryKey = MODLUE_QUERY_KEY.APPLICATION_ROOM_TYPE
+    const queryKey = MODLUE_QUERY_KEY.APPLICATION_INFO_ROOM
 
-    const getAllRoomType = () => {
+    const getListRoomInfo = () => {
         return RESTClientService.buildRequest({
-            endpoint: '/api/application/rooms/roomType/get-all',
+            endpoint: '/api/application/rooms',
             method: 'GET',
-        })
-    }
-
-    const getListSuggest = () => {
-        return RESTClientService.buildRequest({
-            endpoint: '/api/application/search/suggest-result',
-            method: 'GET',
-        })
-    }
-
-    const getListProvince = () => {
-        return RESTClientService.buildRequest({
-            endpoint: '/api/application/ui/get-province',
-            method: 'GET',
+            slash_id: true
         })
     }
 
     return {
         queryKey,
-        getAllRoomType,
-        getListSuggest,
-        getListProvince
+        getListRoomInfo
     }
 }
 

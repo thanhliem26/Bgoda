@@ -31,6 +31,10 @@ const options: SelectProps['options'] = [
   { label: <LocalDiningIcon />, value: 'local-dining-icon' },
 ]
 
+export const getServiceByValue = (value: string) => {
+  return options?.find((item) => item?.value === value);
+}
+ 
 const SelectIcon = (props: Omit<IAutoCompleteBaseProps, 'options' | 'popupClassName'>) => {
   return (
     <AutoCompleteBase

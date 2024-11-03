@@ -76,6 +76,10 @@ export const BoxWrapper = styled(FlexBox)`
     }
 
     &.room_service {
-
+      & .room_icon {
+        & svg {
+          font-size: 16px;
+        }
+      }
     }
 `

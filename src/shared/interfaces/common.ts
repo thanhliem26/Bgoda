@@ -42,7 +42,10 @@ export enum MODLUE_QUERY_KEY {
     PROVINCE = 'province',
     APPLICATION_ROOM_TYPE = 'application_room_type',
     APPLICATION_BUSINESS_PARTNER = 'application_business_partner',
-    APPLICATION_POPULAR_VISIT = 'application_popular_visit'
+    APPLICATION_POPULAR_VISIT = 'application_popular_visit',
+    APPLICATION_INFO_ROOM = 'application_info_room',
+    APPLICATION_LIST_SUGGEST = 'application_list_suggest',
+    APPLICATION_LIST_PROVINCE_NUMBER = 'application_LIST_PROVINCE_NUMBER'
 }
 
 export type IOption =  {

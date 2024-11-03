@@ -18,12 +18,13 @@ const ProposePlace = () => {
       const dataRoom = popularVisit.rooms.map((item) => ({
         image: item?.thumbnail,
         name: item?.name,
-        price: convertCurrency(item?.price),
+        price: item?.price,
         address: item?.address,
-      
-    }));
+        id: item?.id,
+        discount: item?.defaultDiscount,
+      }));
 
-      return  {
+      return {
         key: index.toString(),
         label: popularVisit?.name,
         children: <RoomComponent data={dataRoom} />,
