@@ -2,6 +2,7 @@ import { createContext, ReactNode, useEffect, useState } from 'react'
 import LoadingScreen from 'shared/components/loading-screen'
 import Token from 'shared/class/token'
 import handleAuthLocalStorage from 'services/auth-local-storage-service'
+import useDetailBusinessPartner from './hooks/useGetInfoUser'
 // import restApi from 'configs/api/restApi'
 // --------------------------------------------------------
 
@@ -13,12 +14,14 @@ interface IAuthContext {
   authState: AuthState
   logout: () => void
   type: string
+  isAuthTourist: boolean
 }
 
 const AuthContext = createContext<IAuthContext>({
   authState: 'INIT',
   logout: () => {},
-  type: ''
+  type: '',
+  isAuthTourist: false
 })
 
 type AuthState = 'INIT' | 'IS_AUTHENTICATED' | 'IS_NOT_AUTHENTICATED'
@@ -33,6 +36,8 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
   const { removeToken, getToken } = handleAuthLocalStorage()
   const [authState, setAuthState] = useState<AuthState>('INIT')
   const [type, setType] = useState<string>('');
+
+  const isAuthTourist = authState === 'IS_AUTHENTICATED' && type === TYPE_ACCOUNT_LOGIN.TOURIST;
 
   const logout = () => {
     removeToken()
@@ -67,6 +72,7 @@ export const AuthenticationProvider = ({ children }: AuthProviderProps) => {
         authState,
         logout,
         type,
+        isAuthTourist,
       }}
     >
       {children}

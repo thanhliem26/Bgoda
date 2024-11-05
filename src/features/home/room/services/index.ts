@@ -12,9 +12,17 @@ const useService = () => {
         })
     }
 
+    const getListRoomBusinessPartner = () => {
+        return RESTClientService.buildRequest({
+            endpoint: '/api/application/rooms/related-room',
+            method: 'GET'
+        })
+    }
+
     return {
         queryKey,
-        getListRoomInfo
+        getListRoomInfo,
+        getListRoomBusinessPartner
     }
 }
 

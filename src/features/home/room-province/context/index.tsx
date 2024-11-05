@@ -1,117 +1,142 @@
 import { createContext, ReactNode, useEffect, useState } from 'react'
-import dayjs from 'dayjs'
 import useGetAllRoomType from '../hooks/useGetAllRoomType'
 import { IOption } from 'shared/interfaces/common'
-import useGetListSuggest, { ListSuggestBPANDPROVINCE } from '../hooks/useGetSuggestProvince'
-// import restApi from 'configs/api/restApi'
-// --------------------------------------------------------
+import useGetListRoomByProvince, {
+  ResponseRoomByProvince,
+} from '../hooks/useGetRoomByProvince'
+import { useLocation, useParams } from 'react-router-dom'
+import dayjs from 'dayjs'
 
 // props type
 type MainWrapperProviderProps = { children: ReactNode }
 // --------------------------------------------------------
 
 type RangeDate = {
-    fromDate: Date | null
-    toDate: Date | null
+  fromDate: Date | null
+  toDate: Date | null
 }
 
 interface IMainWrapper {
-    state: {
-        search: string
-        rangeDate: RangeDate
-        roomTypeSelected: IOption | undefined
-        optionListSuggest: ListSuggestBPANDPROVINCE[]
-    },
-    action: {
-        onChangeSearch: (search: string) => void
-        onChangeRangeDate: (fromDate: Date | null, toDate: Date | null) => void
-        onChangeSelectRoomType: (id: string) => void
-    },
-    state_application: {
-        optionRoomTypes: IOption[]
-    }
+  state: {
+    rangeDate: RangeDate
+    roomTypeSelected: IOption | undefined
+    optionListRoomProvince: ResponseRoomByProvince
+    hasMore: boolean
+    rateList: number[]
+  }
+  action: {
+    onChangeRangeDate: (fromDate: Date | null, toDate: Date | null) => void
+    onChangeSelectRoomType: (id: string) => void
+    onChangeRateList: (list: number[]) => void
+    fetchNextRoom: () => void
+  }
+  state_application: {
+    optionRoomTypes: IOption[]
+  }
 }
 
 const MainWrapperContext = createContext<IMainWrapper>({
-    state: {
-        search: '',
-        rangeDate: {
-            fromDate: null,
-            toDate: null,
-        },
-        roomTypeSelected: undefined,
-        optionListSuggest: []
+  state: {
+    rangeDate: {
+      fromDate: null,
+      toDate: null,
     },
-    action: {
-        onChangeSearch: () => { },
-        onChangeRangeDate: () => { },
-        onChangeSelectRoomType: () => {}
+    hasMore: false,
+    rateList: [],
+    roomTypeSelected: undefined,
+    optionListRoomProvince: {
+      provinceData: {
+        id: '0',
+        image: '',
+        name: '',
+        roomNumber: 0,
+      },
+      rooms: [],
+      totalRecord: 0,
     },
-    state_application: {
-        optionRoomTypes: []
-    }
+  },
+  action: {
+    onChangeRangeDate: () => {},
+    onChangeSelectRoomType: () => {},
+    onChangeRateList: () => {},
+    fetchNextRoom: () => {},
+  },
+  state_application: {
+    optionRoomTypes: [],
+  },
 })
 
 export const MainWrapperProvider = ({ children }: MainWrapperProviderProps) => {
-    //state
-    const [search, setSearch] = useState<string>('');
-    const [rangeDate, setRangeDate] = useState<RangeDate>({
-        fromDate: null,
-        toDate: null,
-    })
+  //state
+  const [rangeDate, setRangeDate] = useState<RangeDate>({
+    fromDate: dayjs().toDate(),
+    toDate: dayjs().add(1, 'month').toDate(),
+  })
+  const [rateList, setRateList] = useState<number[]>([])
 
-    //state-application
-    const [roomTypeSelected, setRoomTypeSelected] = useState<IOption>();
-    const { optionRoomTypes } = useGetAllRoomType();
+  const onChangeRateList = (list: number[]) => {
+    setRateList(list)
+  }
 
-    const { optionListSuggest } = useGetListSuggest({searchInput: search});
+  //state-application
+  const [roomTypeSelected, setRoomTypeSelected] = useState<IOption>()
+  const { optionRoomTypes } = useGetAllRoomType()
 
-    //actions
-    const onChangeSearch = (search: string) => {
-        setSearch(search)
+  //data room
+  const { id } = useParams()
+  const { optionListRoomProvince, fetchNextRoom } = useGetListRoomByProvince({
+    provinceId: id as string,
+    roomTypeId: roomTypeSelected?.value as string,
+    stars: rateList,
+    checkIn: rangeDate?.fromDate as Date,
+    checkOut: rangeDate?.toDate as Date,
+  })
+  //actions
+  const hasMore =
+    optionListRoomProvince?.rooms?.length < optionListRoomProvince?.totalRecord
+
+  const onChangeRangeDate = (fromDate: Date | null, toDate: Date | null) => {
+    setRangeDate(() => ({
+      fromDate: fromDate,
+      toDate: toDate,
+    }))
+  }
+
+  const onChangeSelectRoomType = (id: string) => {
+    const roomType = optionRoomTypes.find((item) => item?.value == id)
+    setRoomTypeSelected(roomType)
+  }
+
+  useEffect(() => {
+    if (optionRoomTypes?.[0]) {
+      setRoomTypeSelected(optionRoomTypes?.[0])
     }
+  }, [optionRoomTypes])
 
-    const onChangeRangeDate = (fromDate: Date | null, toDate: Date | null) => {
-        setRangeDate(() => ({
-            fromDate: fromDate,
-            toDate: toDate
-        }))
-    }
-
-    const onChangeSelectRoomType = (id: string) => {
-        const roomType = optionRoomTypes.find((item) => item?.value == id);
-        setRoomTypeSelected(roomType);
-    }
-
-    useEffect(() => {
-        if(optionRoomTypes?.[0]) {
-            setRoomTypeSelected(optionRoomTypes?.[0])
-        }
-    }, [optionRoomTypes])
-
-
-    return (
-        <MainWrapperContext.Provider
-            value={{
-                state: {
-                    rangeDate,
-                    optionListSuggest,
-                    search,
-                    roomTypeSelected,
-                },
-                action: {
-                    onChangeRangeDate,
-                    onChangeSearch,
-                    onChangeSelectRoomType
-                },
-                state_application: {
-                    optionRoomTypes
-                }
-            }}
-        >
-            {children}
-        </MainWrapperContext.Provider>
-    )
+  return (
+    <MainWrapperContext.Provider
+      value={{
+        state: {
+          rangeDate,
+          roomTypeSelected,
+          optionListRoomProvince,
+          rateList,
+          hasMore,
+        },
+        action: {
+          onChangeRangeDate,
+          onChangeSelectRoomType,
+          onChangeRateList,
+          fetchNextRoom,
+        },
+        state_application: {
+          optionRoomTypes,
+        },
+      }}
+    >
+      {children}
+    </MainWrapperContext.Provider>
+  )
 }
 
 export default MainWrapperContext

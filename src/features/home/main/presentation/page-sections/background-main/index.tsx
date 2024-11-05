@@ -35,6 +35,7 @@ import {
 } from 'features/home/main/shared/style'
 import debounce from 'shared/utils/debounce'
 import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 const { RangePicker } = DatePicker
 
@@ -62,6 +63,7 @@ const BackgroundMain = () => {
             }
         })
     }, [optionRoomTypes])
+    const navigate = useNavigate();
 
     const [searchField, setSearchField] = useState('');
 
@@ -95,10 +97,15 @@ const BackgroundMain = () => {
     const handleSearch = debounce(onChangeSearch, 500)
 
     const handleFilter = () => {
-        if(!search || !rangeDate.fromDate || !rangeDate?.toDate || !roomTypeSelected) {
+        if(!searchField || !rangeDate.fromDate || !rangeDate?.toDate || !roomTypeSelected) {
             toast.error('Vui lòng nhập đủ thông tin!')
         } else {
             console.log("hehe")
+            navigate('/room-search', {state: {
+                search: state?.search,
+                rangeDate: state?.rangeDate,
+                roomTypeSelected: state?.roomTypeSelected
+            }})
         }
     }
 
@@ -144,7 +151,6 @@ const BackgroundMain = () => {
                             menu={{
                                 items: suggestList,
                                 onClick: (data) => {
-                                    console.log("data", data)
                                     setSearchField(data?.key);
                                     onChangeSearch(data?.key);
                                 },

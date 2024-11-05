@@ -1,7 +1,7 @@
 import { Button, Col, Divider, Image, Rate, Row } from 'antd'
 import { BoxWrapper, RoomInfoWrapper } from 'features/home/room/shared/style'
 import { Box, FlexBox } from 'shared/styles'
-import { CameraOutlined, CheckOutlined } from '@ant-design/icons'
+import { CameraOutlined } from '@ant-design/icons'
 import { H2, Span, Tiny } from 'shared/styles/Typography'
 import { useParams } from 'react-router-dom'
 import useGetInfoRoom from 'features/home/room/hooks/useGetRoomDetail'
@@ -9,14 +9,14 @@ import { useMemo, useState } from 'react'
 import { isEmpty } from 'lodash'
 import { getServiceByValue } from 'features/admin/service-room/shared/components/SelecIcon'
 import RoomComponent from '../room-component'
-import { convertCurrency } from 'shared/utils/convert-string'
 import PreviewImageRoomModal from '../modal-image'
+import useGetRoomBusinessPartner from 'features/home/room/hooks/useGetRoomBusinessPartner'
 
 const RoomInfo = () => {
     const [open, setOpen] = useState<boolean>(false);
     const { id } = useParams()
     const { roomInfo } = useGetInfoRoom({ id: id as string })
-    console.log('🚀 ~ id:', roomInfo)
+    const { roomBusinessPartner } = useGetRoomBusinessPartner({id: roomInfo?.businessPartnerId })
 
     const imageRoom = useMemo(() => {
         const imageList =
@@ -29,6 +29,19 @@ const RoomInfo = () => {
 
         return imageList.slice(0, 6)
     }, [roomInfo?.images])
+
+    const roomListBusiness = useMemo(() => {
+        return roomBusinessPartner?.map((item) => {
+            return  {
+                id: item?.id,
+                address: `${item?.province} ${item?.district} ${item?.address}`,
+                image: item?.thumbnail,
+                name: item?.name,
+                price: item?.price,
+                discount: item?.defaultDiscount,
+            }
+        })
+    }, [roomBusinessPartner])
 
     return (
         <RoomInfoWrapper>
@@ -153,15 +166,7 @@ const RoomInfo = () => {
                     Landmark Apartment
                 </H2>
                 <Box>
-                    <RoomComponent data={[
-                        {
-                            id: 1,
-                            address: 'ok ban oi',
-                            image: 'http://localhost:2002/resource/2655J20241103085426250.jpg',
-                            name: 'Vinhomes Luxury Residence at Binh Thanh - LUNA Landmark Apartment',
-                            price: convertCurrency(223245245),
-                        }
-                    ]} />
+                    <RoomComponent data={roomListBusiness} />
                 </Box>
             </BoxWrapper>
 

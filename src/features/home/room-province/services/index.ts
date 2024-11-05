@@ -25,11 +25,19 @@ const useService = () => {
         })
     }
 
+    const getListRoomByProvince = () => {
+        return RESTClientService.buildRequest({
+            endpoint: '/api/application/rooms',
+            method: 'POST',
+        })
+    }
+
     return {
         queryKey,
         getAllRoomType,
         getListSuggest,
-        getListProvince
+        getListProvince,
+        getListRoomByProvince
     }
 }
 

@@ -47,7 +47,9 @@ export enum MODLUE_QUERY_KEY {
     APPLICATION_POPULAR_VISIT = 'application_popular_visit',
     APPLICATION_INFO_ROOM = 'application_info_room',
     APPLICATION_LIST_SUGGEST = 'application_list_suggest',
-    APPLICATION_LIST_PROVINCE_NUMBER = 'application_LIST_PROVINCE_NUMBER'
+    APPLICATION_LIST_PROVINCE_NUMBER = 'application_LIST_PROVINCE_NUMBER',
+    APPLICATION_INFO_USER = 'application_info_user',
+    APPLICATION_ROOM_BUSINESS_PARTNER = 'application_room_business_partner'
 }
 
 export type IOption =  {

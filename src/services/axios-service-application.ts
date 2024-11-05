@@ -82,7 +82,7 @@ class RESTClientServiceApplication {
                     });
                     //@ts-ignore
                     config.data = formData;
-                } else { console.log("222")
+                } else { 
                     //@ts-ignore
                     config.data = params;
                 }

@@ -1,3 +1,4 @@
+import useAuth from 'features/authorization/hooks/useAuth'
 import LayoutFooter from 'layouts/layout-parts/LayoutFooter'
 import LayoutHeader from 'layouts/layout-parts/LayoutHeader'
 import { Outlet } from 'react-router-dom'
@@ -13,6 +14,7 @@ const DashboardWrapper = styled(Box)`
 
 interface DashboardHomeLayoutProps {}
 const DashboardHomeLayout = (props: DashboardHomeLayoutProps) => {
+
   return (
     <DashboardWrapper>
         <LayoutHeader />

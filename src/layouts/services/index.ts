@@ -11,10 +11,36 @@ const useService = () => {
         })
     }
 
+    const updateUser = () => {
+        return RESTClientService.buildRequest({
+            endpoint: '/api/application/accounts',
+            method: 'PUT',
+        })
+    }
+
+    const updatePassword = () => {
+        return RESTClientService.buildRequest({
+            endpoint: '/api/application/accounts/update-password',
+            method: 'POST',
+        })
+    }
+
+    const getUserDetail = () => {
+        return RESTClientService.buildRequest({
+            endpoint: '/api/application/accounts/info',
+            method: 'GET',
+            slash_id: true
+        })
+    }
+
     return {
         queryKey,
-        getAllBusinessPartner
+        getAllBusinessPartner,
+        updateUser,
+        getUserDetail,
+        updatePassword
     }
 }
 
 export default useService;
+

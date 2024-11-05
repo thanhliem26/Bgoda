@@ -7,12 +7,12 @@ function RoomProvince() {
 
   return (
     <MainWrapperProvider>
-      <BackgroundMain  />
-     <FlexBox style={{width: '100%', justifyContent: 'center'}}>
-     <FlexBox style={{marginTop: '10px', width: '1124px', maxWidth: '100%', flexDirection: 'column', gap: '100px', marginBottom: '50px'}}>
-        <ListRoom />
+      <BackgroundMain />
+      <FlexBox style={{ width: '100%', justifyContent: 'center' }}>
+        <FlexBox style={{ marginTop: '10px', width: '1124px', maxWidth: '100%', flexDirection: 'column', gap: '100px', marginBottom: '50px' }}>
+          <ListRoom />
+        </FlexBox>
       </FlexBox>
-     </FlexBox>
     </MainWrapperProvider>
   )
 }

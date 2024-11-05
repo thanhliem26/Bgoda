@@ -225,10 +225,10 @@ export const ListRoomWrapper = styled(FlexBox)`
   }
 
   & .room-list {
-   
     & .room-star {
       width: 20%;
       margin-right: 16px;
+      height: fit-content;
 
       & .room-checkbox {
         & .ant-checkbox-group {
@@ -251,6 +251,7 @@ export const ListRoomWrapper = styled(FlexBox)`
         width: 100%;
         padding: 16px;
         gap: 10px;
+        cursor: pointer;
 
         & .room__item-image {
           width: 30%;
@@ -263,8 +264,18 @@ export const ListRoomWrapper = styled(FlexBox)`
           flex: 1;
           flex-direction: column;
           gap: 10px;
+
+          & .room_description {
+            flex-direction: column;
+            p {
+              display: -webkit-box;
+              -webkit-line-clamp: 3;
+              -webkit-box-orient: vertical;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+          }
         }
-        
       }
     }
   }

@@ -14,7 +14,7 @@ const useGetInfoRoom = ({ id }: IUseGetInfoRoomProps) => {
     const { getListRoomInfo, queryKey } = useService()
 
     const { data } = useQuery({
-        queryKey: [queryKey],
+        queryKey: [queryKey, id],
         enabled: !!id,
         queryFn: async () =>
             RESTClientService.fetchREST(getListRoomInfo(), {id: id}),

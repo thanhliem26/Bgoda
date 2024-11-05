@@ -51,6 +51,8 @@ const MainPage = Loadable(lazy(() => import('../pages/home/main/index')))
 
 const RoomProvincePage = Loadable(lazy(() => import('../pages/home/room-province/index')))
 
+const RoomSearchPage = Loadable(lazy(() => import('../pages/home/room-search/index')))
+
 const RoomPage = Loadable(lazy(() => import('../pages/home/room/index')))
 
 const LoginPage = Loadable(lazy(() => import('../pages/home/login/index')))
@@ -79,6 +81,10 @@ const router = createBrowserRouter([
       {
         path: '/city/:id',
         element: <RoomProvincePage />,
+      },
+      {
+        path: '/room-search',
+        element: <RoomSearchPage />,
       },
       {
         path: '/city/room/:id',
