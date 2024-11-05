@@ -2,7 +2,6 @@ import { createContext, ReactNode, useEffect, useState } from 'react'
 import LoadingScreen from 'shared/components/loading-screen'
 import Token from 'shared/class/token'
 import handleAuthLocalStorage from 'services/auth-local-storage-service'
-import useDetailBusinessPartner from './hooks/useGetInfoUser'
 // import restApi from 'configs/api/restApi'
 // --------------------------------------------------------
 

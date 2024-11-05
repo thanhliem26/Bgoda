@@ -1,10 +1,9 @@
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
+import { useInfiniteQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
 import { isRight, unwrapEither } from 'shared/utils/handleEither'
 import useService from '../services'
 import RESTClientService from 'services/axios-service-application'
 import { Room } from 'shared/schema/room'
-import { CheckOutlined } from '@ant-design/icons';
 
 interface IUseGetAllSuggest {
     provinceId: string
@@ -29,7 +28,7 @@ const INIT_PER_PAGE = 3;
 const useGetListRoomByProvince = ({ provinceId, roomTypeId, stars, checkIn, checkOut }: IUseGetAllSuggest) => {
     const { getListRoomByProvince, queryKey } = useService()
 
-    const fetchRoomProvince = async ({ pageParam }: { pageParam: number }) => {
+    const fetchRoomProvince = async ({ }: { pageParam: number }) => {
         return RESTClientService.fetchREST(getListRoomByProvince(), {
             provinceId: provinceId,
             roomTypeId: roomTypeId,
@@ -45,7 +44,7 @@ const useGetListRoomByProvince = ({ provinceId, roomTypeId, stars, checkIn, chec
         queryKey: [queryKey, provinceId, roomTypeId, stars, checkIn, checkOut],
         queryFn: fetchRoomProvince,
         initialPageParam: 1,
-        getNextPageParam: (lastPage, allPages, lastPageParam, allPageParams) => {
+        getNextPageParam: (lastPage, allPages, lastPageParam) => {
             return lastPageParam + 1
         },
     })

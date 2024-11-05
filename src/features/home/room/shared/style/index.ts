@@ -1,5 +1,5 @@
-import { Box, FlexBox } from 'shared/styles'
-import styled, { keyframes } from 'styled-components'
+import { FlexBox } from 'shared/styles'
+import styled from 'styled-components'
 
 export const RoomInfoWrapper = styled(FlexBox)`
   width: 100%;

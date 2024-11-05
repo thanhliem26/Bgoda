@@ -9,7 +9,6 @@ import {
 } from '@ant-design/icons'
 import handleAuthLocalStorage from "services/auth-local-storage-service"
 import { toast } from "react-toastify"
-import useAuth from "features/authorization/hooks/useAuth"
 import AuthAdminContext from "contexts/AuthenticationAdmin"
 
 const pulseAnimation = keyframes`

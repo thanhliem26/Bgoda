@@ -23,7 +23,7 @@ function useUpdatePassword(props: TypeUseUpdatePassword) {
         queryKey: [MODLUE_QUERY_KEY.APPLICATION_INFO_USER],
         id: '',
         onSuccess,
-        formatDefaultValues(data) {
+        formatDefaultValues() {
 
             return {
                 newPassword: '',

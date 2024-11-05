@@ -4,7 +4,7 @@ import { IOption } from 'shared/interfaces/common'
 import useGetListRoomByProvince, {
   ResponseRoomByProvince,
 } from '../hooks/useGetRoomByProvince'
-import { useLocation, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import dayjs from 'dayjs'
 
 // props type

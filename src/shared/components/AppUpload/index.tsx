@@ -19,8 +19,6 @@ const AppUploadComponent = styled(Upload)`
     }
 `
 
-// type UploadFileStatus = 'error' | 'done' | 'uploading' | 'removed';
-
 type TypeValueUpload<Multiple extends boolean> = Multiple extends true ? string[] : string;
 
 type paramOnChange<Multiple extends boolean> = {file: TypeValueUpload<Multiple>}

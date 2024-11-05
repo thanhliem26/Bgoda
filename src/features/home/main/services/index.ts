@@ -32,12 +32,20 @@ const useService = () => {
         })
     }
 
+    const getDiscountList = () => {
+        return RESTClientService.buildRequest({
+            endpoint: '/api/application/discount-coupons',
+            method: 'GET',
+        })
+    }
+
     return {
         queryKey,
         getAllRoomType,
         getListSuggest,
         getListProvince,
-        getPopularVisit
+        getPopularVisit,
+        getDiscountList
     }
 }
 

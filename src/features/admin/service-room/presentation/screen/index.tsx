@@ -3,7 +3,6 @@ import { Box, FlexBox, WrapperContainer } from "shared/styles"
 import {
   CustomerServiceOutlined,
   PlusOutlined,
-  SettingOutlined,
 } from '@ant-design/icons'
 import SearchInput from "shared/components/table/components/SearchInput";
 import ButtonBase from "shared/components/AppButton";

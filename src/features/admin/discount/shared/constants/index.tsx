@@ -1,10 +1,8 @@
 import { TableProps } from "antd"
 import dayjs from "dayjs";
-import AppTag from "shared/components/AppTag";
 import { labelDiscountType } from "shared/components/autocomplete/discount-type-auto-complete";
 import { ActionGroupButtons } from "shared/components/table/components/ActionGroupButton";
 import { TOptionItem } from "shared/components/table/hooks/useBuildActionTable"
-import { BusinessPartner } from "shared/schema/business-partner";
 import { Discount } from "shared/schema/discount";
 import { Box, FlexBox } from "shared/styles";
 import { Tiny } from "shared/styles/Typography";

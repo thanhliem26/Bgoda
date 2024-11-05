@@ -4,7 +4,6 @@ import {
   PlusOutlined,
   TeamOutlined,
 } from '@ant-design/icons'
-import SearchInput from "shared/components/table/components/SearchInput";
 import ButtonBase from "shared/components/AppButton";
 import TableBase from "shared/components/table";
 import useDiscountTable from "../../hooks/useDiscountTable";

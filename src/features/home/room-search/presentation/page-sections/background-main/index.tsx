@@ -1,7 +1,7 @@
 import { useContext, useEffect, useMemo, useState } from 'react'
 import AppTextField from 'shared/components/form/AppTextField'
 import { Box, FlexBox } from 'shared/styles'
-import { H1, H2, Span, Tiny } from 'shared/styles/Typography'
+import { Span, Tiny } from 'shared/styles/Typography'
 import {
     CalendarOutlined,
     DownOutlined,

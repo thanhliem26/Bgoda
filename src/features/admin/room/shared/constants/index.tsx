@@ -1,9 +1,7 @@
 import { TableProps } from "antd"
 import dayjs from "dayjs";
-import AppTag from "shared/components/AppTag";
 import { ActionGroupButtons } from "shared/components/table/components/ActionGroupButton";
 import { TOptionItem } from "shared/components/table/hooks/useBuildActionTable"
-import { BusinessPartner } from "shared/schema/business-partner";
 import { Room } from "shared/schema/room";
 import { Box, FlexBox } from "shared/styles";
 import { Tiny } from "shared/styles/Typography";

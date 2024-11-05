@@ -12,7 +12,7 @@ export const schema = yup.object({
   }),
   endDate: yup.date().required(RULE_MESSAGES.MC1('end date')),
   discountMax: yup.number().required(RULE_MESSAGES.MC1('discount max')).min(1, RULE_MESSAGES.MC3('discount max', 1)),
-  roomApplyIds: yup.array().of(yup.number().required()).required().min(1, RULE_MESSAGES.MC1('room apply')),
+  roomApplyIds: yup.array().of(yup.number().required()),
   discountValue: yup.number().required(RULE_MESSAGES.MC1('discount apply')).nullable().test('is_null', function () {
     const discountValue = this.parent?.discountValue
     if (!discountValue) {
@@ -52,7 +52,7 @@ export const schemaUpdate = yup.object({
   }),
   endDate: yup.date().required(RULE_MESSAGES.MC1('end date')),
   discountMax: yup.number().required(RULE_MESSAGES.MC1('discount max')).min(1, RULE_MESSAGES.MC3('discount max', 1)),
-  roomApplyIds: yup.array().of(yup.number().required()).required().min(1, RULE_MESSAGES.MC1('room apply')),
+  roomApplyIds: yup.array().of(yup.number().required()),
   discountValue: yup.number().required(RULE_MESSAGES.MC1('discount apply')).nullable().test('is_null', function () {
     const discountValue = this.parent?.discountValue
     if (!discountValue) {
