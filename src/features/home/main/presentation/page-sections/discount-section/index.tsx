@@ -3,6 +3,8 @@ import { Box } from 'shared/styles'
 import { H2 } from 'shared/styles/Typography'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons'
 import { Carousel, CarouselProps } from 'antd'
+import useGetDiscount from 'features/home/main/hooks/useGetDiscount'
+import { useMemo } from 'react'
 
 
 const DiscountSection = () => {
@@ -45,43 +47,10 @@ const DiscountSection = () => {
     ],
   }
 
-  const data = [
-    {
-      src: 'https://cdn6.agoda.net/images/WebCampaign/pulse_localcampaign_superwednesday_newdesign/home_banner_web/vi-vn.png',
-      label: 'Hồ Chí Minh',
-      total: '15.416 chỗ ở',
-    },
-    {
-      src: 'https://cdn6.agoda.net/images/WebCampaign/wcPD20230127/home_banner_web4/vi-vn.png',
-      label: 'Đà Nẵng',
-      total: '15.416 chỗ ở',
-    },
-    {
-      src: 'https://cdn6.agoda.net/images/WebCampaign/pulse_localcampaign_muongthanh_vn/home_banner_web/en-us.png',
-      label: 'Hà Nội',
-      total: '15.416 chỗ ở',
-    },
-    {
-      src: 'https://cdn6.agoda.net/images/WebCampaign/pulse_globalcampaign_prestigesavings_ka/home_banner_web/vi-vn.png',
-      label: 'Vũng Tàu',
-      total: '15.416 chỗ ở',
-    },
-    {
-      src: 'https://cdn6.agoda.net/images/WebCampaign/pulse_globalcampaign_midnightmadness/home_banner_web2/vi-vn.png',
-      label: 'Đà Lạt',
-      total: '15.416 chỗ ở',
-    },
-    {
-      src: 'https://cdn6.agoda.net/images/WebCampaign/pulse_localcampaign_celebrateher_vn/home_banner_web/vi-vn.png',
-      label: 'Đà Lạt',
-      total: '15.416 chỗ ở',
-    },
-    {
-      src: 'https://cdn6.agoda.net/images/WebCampaign/wcM4S20230403Elite/home_banner_web2/vi-vn.png',
-      label: 'Đà Lạt',
-      total: '15.416 chỗ ở',
-    },
-  ]
+  const { discountList } = useGetDiscount();
+  const images = useMemo(() => {
+    return discountList.map((item) => item?.image)
+  }, [discountList])
 
   return (
     <FormBodyWrapper>
@@ -89,11 +58,11 @@ const DiscountSection = () => {
         <H2>Chương trình khuyến mãi chỗ ở</H2>
       </Box>
       <Carousel {...setting}>
-        {data?.map((item, key) => {
+        {images?.map((item, key) => {
           return (
             <BoxWrapper key={key}>
               <BoxImage style={{height: '185px'}}>
-                <img style={{borderRadius:'16px', height: '100%', width: '100%'}} src={item.src} />
+                <img style={{borderRadius:'16px', height: '100%', width: '100%'}} src={item} />
               </BoxImage>
             </BoxWrapper>
           )

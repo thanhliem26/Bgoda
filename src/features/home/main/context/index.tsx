@@ -1,5 +1,8 @@
-import { createContext, ReactNode, useState } from 'react'
+import { createContext, ReactNode, useEffect, useState } from 'react'
 import dayjs from 'dayjs'
+import useGetAllRoomType from '../hooks/useGetAllRoomType'
+import { IOption } from 'shared/interfaces/common'
+import useGetListSuggest, { ListSuggestBPANDPROVINCE } from '../hooks/useGetSuggestProvince'
 // import restApi from 'configs/api/restApi'
 // --------------------------------------------------------
 
@@ -13,59 +16,97 @@ type RangeDate = {
 }
 
 interface IMainWrapper {
-    search: string
-    rangeDate: RangeDate
-    roomTypeId: string
-    onChangeSearch: (search: string) => void
-    onChangeRangeDate: (fromDate: Date | null, toDate: null) => void
-    onChangeRoomType: (roomTypeId: string) => void
+    state: {
+        search: string
+        rangeDate: RangeDate
+        roomTypeSelected: IOption | undefined
+        optionListSuggest: ListSuggestBPANDPROVINCE[]
+    },
+    action: {
+        onChangeSearch: (search: string) => void
+        onChangeRangeDate: (fromDate: Date | null, toDate: Date | null) => void
+        onChangeSelectRoomType: (id: string) => void
+    },
+    state_application: {
+        optionRoomTypes: IOption[]
+    }
 }
 
 const MainWrapperContext = createContext<IMainWrapper>({
-    search: '',
-    rangeDate: {
-        fromDate: dayjs().toDate(),
-        toDate: dayjs().add(1, 'week').toDate(),
+    state: {
+        search: '',
+        rangeDate: {
+            fromDate: dayjs().toDate(),
+            toDate: dayjs().add(1, 'week').toDate(),
+        },
+        roomTypeSelected: undefined,
+        optionListSuggest: []
     },
-    roomTypeId: '',
-    onChangeSearch: () => { },
-    onChangeRangeDate: () => { },
-    onChangeRoomType: () => { }
+    action: {
+        onChangeSearch: () => { },
+        onChangeRangeDate: () => { },
+        onChangeSelectRoomType: () => {}
+    },
+    state_application: {
+        optionRoomTypes: []
+    }
 })
 
 export const MainWrapperProvider = ({ children }: MainWrapperProviderProps) => {
+    //state
     const [search, setSearch] = useState<string>('');
     const [rangeDate, setRangeDate] = useState<RangeDate>({
         fromDate: dayjs().toDate(),
         toDate: dayjs().add(1, 'week').toDate(),
     })
-    const [roomTypeId, setRoomTypeId] = useState<string>('')
 
+    //state-application
+    const [roomTypeSelected, setRoomTypeSelected] = useState<IOption>();
+    const { optionRoomTypes } = useGetAllRoomType();
+
+    const { optionListSuggest } = useGetListSuggest({searchInput: search});
+
+    //actions
     const onChangeSearch = (search: string) => {
         setSearch(search)
     }
 
-    const onChangeRoomType = (search: string) => {
-        setRoomTypeId(search)
-    }
-
-    const onChangeRangeDate = (fromDate: Date | null, toDate: null) => {
+    const onChangeRangeDate = (fromDate: Date | null, toDate: Date | null) => {
         setRangeDate(() => ({
             fromDate: fromDate,
             toDate: toDate
         }))
     }
 
+    const onChangeSelectRoomType = (id: string) => {
+        const roomType = optionRoomTypes.find((item) => item?.value == id);
+        setRoomTypeSelected(roomType);
+    }
+
+    useEffect(() => {
+        if(optionRoomTypes?.[0]) {
+            setRoomTypeSelected(optionRoomTypes?.[0])
+        }
+    }, [optionRoomTypes])
+
 
     return (
         <MainWrapperContext.Provider
             value={{
-                rangeDate,
-                roomTypeId,
-                search,
-                onChangeRangeDate,
-                onChangeRoomType,
-                onChangeSearch
+                state: {
+                    rangeDate,
+                    optionListSuggest,
+                    search,
+                    roomTypeSelected,
+                },
+                action: {
+                    onChangeRangeDate,
+                    onChangeSearch,
+                    onChangeSelectRoomType
+                },
+                state_application: {
+                    optionRoomTypes
+                }
             }}
         >
             {children}

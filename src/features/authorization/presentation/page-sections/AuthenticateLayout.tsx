@@ -2,6 +2,7 @@
 import { Fragment, ReactNode } from 'react'
 import { Navigate, useLocation } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth'
+import { TYPE_ACCOUNT_LOGIN } from 'contexts/Authentication'
 
 // component props interface
 interface AuthenticateLayoutProps {
@@ -9,10 +10,10 @@ interface AuthenticateLayoutProps {
 }
 
 const AuthenticateLayout = ({ children }: AuthenticateLayoutProps) => {
-  const { authState } = useAuth()
+  const { authState, type } = useAuth()
   let location = useLocation()
-  if (authState === 'IS_AUTHENTICATED') {
-    return <Navigate to="/admin" state={{ from: location }} replace />
+  if (authState === 'IS_AUTHENTICATED' && type === TYPE_ACCOUNT_LOGIN.TOURIST) {
+    return <Navigate to="/" state={{ from: location }} replace />
   }
   
   return <Fragment>{children}</Fragment>

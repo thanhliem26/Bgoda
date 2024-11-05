@@ -54,7 +54,7 @@ const AutoCompleteBase: FC<IAutoCompleteBaseProps> = (props) => {
                 optionFilterProp={'label'}
                 {...inputProps}
             />
-           {!value && <label className="floating-label">{label} {required && <Span style={{ color: 'red' }}>*</Span>}</label>} 
+           {(!value && value !== 0) && <label className="floating-label">{label} {required && <Span style={{ color: 'red' }}>*</Span>}</label>} 
         </Wrapper>
 
     )

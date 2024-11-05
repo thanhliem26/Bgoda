@@ -3,9 +3,14 @@ import { Box } from 'shared/styles'
 import { H2, Span, Tiny } from 'shared/styles/Typography'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons'
 import { Carousel, CarouselProps } from 'antd'
+import useGetListProvince from 'features/home/main/hooks/useGetProvince'
+import { useMemo } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 
 const AttractiveLocation = () => {
+  const { optionProvinceMain } = useGetListProvince();
+  const navigate = useNavigate();
   //@ts-ignore
   const SlickButton = ({ currentSlide, slideCount, children, ...props }) => {
     return <SlickButtonCarousel {...props} >{children}</SlickButtonCarousel>
@@ -43,43 +48,16 @@ const AttractiveLocation = () => {
     ],
   }
 
-  const data = [
-    {
-      src: 'https://pix6.agoda.net/geo/city/13170/1_13170_02.jpg?ca=6&ce=1&s=375x&ar=1x1',
-      label: 'Hồ Chí Minh',
-      total: '15.416 chỗ ở',
-    },
-    {
-      src: 'https://pix6.agoda.net/geo/city/16440/1_16440_02.jpg?ca=6&ce=1&s=375x&ar=1x1',
-      label: 'Đà Nẵng',
-      total: '15.416 chỗ ở',
-    },
-    {
-      src: 'https://pix6.agoda.net/geo/city/2758/065f4f2c9fa263611ab65239ecbeaff7.jpg?ce=0&s=375x&ar=1x1',
-      label: 'Hà Nội',
-      total: '15.416 chỗ ở',
-    },
-    {
-      src: 'https://pix6.agoda.net/geo/city/17190/1_17190_02.jpg?ca=6&ce=1&s=375x&ar=1x1',
-      label: 'Vũng Tàu',
-      total: '15.416 chỗ ở',
-    },
-    {
-      src: 'https://pix6.agoda.net/geo/city/15932/1_15932_02.jpg?ca=6&ce=1&s=375x&ar=1x1',
-      label: 'Đà Lạt',
-      total: '15.416 chỗ ở',
-    },
-    {
-      src: 'https://pix6.agoda.net/geo/city/15932/1_15932_02.jpg?ca=6&ce=1&s=375x&ar=1x1',
-      label: 'Đà Lạt',
-      total: '15.416 chỗ ở',
-    },
-    {
-      src: 'https://pix6.agoda.net/geo/city/15932/1_15932_02.jpg?ca=6&ce=1&s=375x&ar=1x1',
-      label: 'Đà Lạt',
-      total: '15.416 chỗ ở',
-    },
-  ]
+  const dataProvince = useMemo(() => {
+    return optionProvinceMain.map((item) => {
+      return {
+        src: item?.image,
+        label: item?.name,
+        total: `${item?.roomNumber ? item?.roomNumber : 0} chỗ ở`,
+        id: item?.id
+      }
+    })
+  }, [optionProvinceMain])
 
   return (
     <FormBodyWrapper>
@@ -87,9 +65,11 @@ const AttractiveLocation = () => {
         <H2>Các điểm đến thu hút việt nam</H2>
       </Box>
       <Carousel {...setting}>
-        {data?.map((item, key) => {
+        {dataProvince?.map((item, key) => {
           return (
-            <BoxWrapper key={key}>
+            <BoxWrapper key={key} onClick={() => {
+              navigate(`/city/${item.id}`)
+            }}>
               <BoxImage>
                 <img style={{borderRadius:'16px'}} src={item.src} />
               </BoxImage>

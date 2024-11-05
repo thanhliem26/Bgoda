@@ -43,6 +43,20 @@ export type UpdateTouristArguments = {
     phoneNumber: string
 }
 
+export type UpdateUserInfoArguments = {
+    fullName: string
+    address: string
+    avatar: string
+    dob: Date | null,
+    gender: string
+    phoneNumber: string
+}
+
+export type UpdatePasswordTouristArguments = {
+    oldPassword: string
+    newPassword: string
+}
+
 export type DeleteUserArguments = {
     id: string
 }

@@ -27,7 +27,6 @@ class RESTClientServiceApplication {
         const { endpoint, method, options, slash_id = false, upload = false } = props;
 
         const baseUrl = options?.baseURL || axiosService.defaults.baseURL;
-        console.log("🚀 ~ baseUrl:", baseUrl)
         const headers = options?.headers ?? {};
 
         const url = new URL(endpoint, baseUrl).toString();
@@ -83,7 +82,7 @@ class RESTClientServiceApplication {
                     });
                     //@ts-ignore
                     config.data = formData;
-                } else { console.log("222")
+                } else { 
                     //@ts-ignore
                     config.data = params;
                 }

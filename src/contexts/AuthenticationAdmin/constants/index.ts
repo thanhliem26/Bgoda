@@ -6,6 +6,7 @@ export const permissions = {
     rating_manage: 'rating_manage',
     room_manage: 'room_manage',
     service_manage: 'service_manage',
+    bank_manage: 'bank_manage'
 }
 
 export type TYPE_PERMISSION = keyof typeof permissions;

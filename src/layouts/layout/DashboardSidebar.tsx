@@ -1,4 +1,4 @@
-import React  from 'react'
+import React, { useContext }  from 'react'
 import type { MenuProps } from 'antd'
 import { Menu } from 'antd'
 import styled from 'styled-components'
@@ -7,6 +7,7 @@ import { navigation } from 'layouts/layout-parts/navigation'
 import Scrollbar from 'shared/components/ScrollBar'
 import { Link, useNavigate } from 'react-router-dom'
 import ProfilePopover from 'layouts/layout-parts/ProfileAvatar'
+import AuthAdminContext from 'contexts/AuthenticationAdmin'
 
 const MenuSidebar = styled(Menu)`
   & .ant-menu-item-group-title {
@@ -176,15 +177,35 @@ const NavWrapper = styled(Box)`
   height: 100%;
 `
 
+const filterNavigationRecursive = (items: any, permissions: any) => {
+  return items
+      .map((item: any) => {
+          if (item.children) {
+              const filteredChildren = filterNavigationRecursive(item?.children, permissions);
+
+            
+              return filteredChildren?.length > 0
+                  ? { ...item, children: filteredChildren }
+                  : null; 
+          }
+
+       
+          return !item?.permission || permissions?.includes(item.permission) ? item : null;
+      })
+      .filter((item: any) => item !== null); 
+};
+
 const TOP_HEADER_AREA = 70;
 
 const DashboardSidebar: React.FC = () => {
   const navigate = useNavigate();
+  const { permission } = useContext(AuthAdminContext);
 
   const onClick: MenuProps['onClick'] = (event) => {
     navigate(event.key);
   }
 
+const navigationPermission = filterNavigationRecursive(navigation, permission)
 
   return (
     <DashboardWrapper>
@@ -212,7 +233,7 @@ const DashboardSidebar: React.FC = () => {
             style={{ width: 265 }}
             defaultSelectedKeys={['user']}
             mode="inline"
-            items={navigation}
+            items={navigationPermission}
           />
         </NavWrapper>
       </Scrollbar>

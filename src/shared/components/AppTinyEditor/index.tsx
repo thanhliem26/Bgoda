@@ -15,13 +15,13 @@ interface TinyProps extends IAllProps {
 }
 
 export default function EditorBox({
-  label = "",
+  // label = "",
   initProps,
-  defaultValue,
-  callbackChange,
-  required = false,
+  // defaultValue,
+  // callbackChange,
+  // required = false,
   value,
-  loading,
+  // loading,
   ...props
 }: TinyProps) {
   const editorRef = useRef(null);

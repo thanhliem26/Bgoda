@@ -1,6 +1,7 @@
 import { Box, FlexBox } from 'shared/styles'
 import styled from 'styled-components'
 import { Tiny } from 'shared/styles/Typography';
+import useGetListBusinessPartner from 'layouts/hooks/useGetAllBusinessPartner';
 
 
 const Footer = styled.footer`
@@ -20,26 +21,21 @@ const TinyText = styled(Tiny)`
 `
 
 const LayoutFooter = () => {
+  const { optionBusinessPartner } = useGetListBusinessPartner();
+ 
   return (
     <Footer>
       <TinyText>Mọi nội dung tại đây © 2005 – 2024 Công ty TNHH Tư nhân Bgoda. Bảo Lưu Mọi Quyền.</TinyText>
       <TinyText>Bgoda.com là thành viên của Tập đoàn Booking Holdings, nhà cung cấp dịch vụ du lịch trực tuyến & các dịch vụ có liên quan hàng đầu thế giới.</TinyText>
       <FlexBox style={{ margin: '35px auto 50px', justifyContent: 'space-around', gap: '20px' }}>
         <Box>
-          <img style={{width: '100px'}} src='static/logo/logo.svg' />
+          <img style={{width: '100px'}} src='/static/logo/logo.svg' />
         </Box>
-        <Box>
-          <img style={{width: '100px'}} src='static/logo/priceline.svg' />
+        {optionBusinessPartner.map((item) => {
+          return <Box key={item?.id}>
+          <img style={{width: '144px', height: '48px', objectFit: 'cover'}} src={item?.logo} />
         </Box>
-        <Box>
-          <img style={{width: '100px'}} src='static/logo/opentable.svg' />
-        </Box>
-        <Box>
-          <img style={{width: '100px'}} src='static/logo/kayak.svg' />
-        </Box>
-        <Box>
-          <img style={{width: '100px'}} src='static/logo/booking-dot-com.svg' />
-        </Box>
+        })}
       </FlexBox>
     </Footer>
   )

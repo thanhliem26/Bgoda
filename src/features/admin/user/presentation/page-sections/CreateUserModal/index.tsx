@@ -36,17 +36,6 @@ function CreateUserModal({ open, setOpen }: ICreateUserModal) {
               <label htmlFor="image">
                 <img src={'/static/avatar/001-man.svg'} alt="avatar" />
               </label>
-              {/* <UploadComponent
-                id="image"
-                name="avatar"
-                control={control}
-                // errors={errors}
-                className="remove__border"
-                setValue={setValue}
-                maxCount={1}
-                uploadSelf={true}
-              // onChange={(file) => handleChange(file, FileListAvatar, "avatar")}
-              /> */}
             </Box>
           </WrapperAvatar>
         </FlexBox>

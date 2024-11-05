@@ -99,6 +99,7 @@ function UpdateUserModal({ open, setOpen, id }: IUpdateUserModal) {
                     required
                     value={field.value}
                     onChange={field.onChange}
+                    disabled={true}
                   />
                   <HelperTextForm>{fieldState.error?.message}</HelperTextForm>
                 </FlexBox>

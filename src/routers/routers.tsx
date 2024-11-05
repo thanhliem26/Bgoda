@@ -35,13 +35,25 @@ const BusinessPartnerPage = Loadable(
   lazy(() => import('../pages/admin/business-partner'))
 )
 
+const BusinessPartnerBankPage = Loadable(
+  lazy(() => import('../pages/admin/business-partner-bank'))
+)
+
 const SystemEmployeePage = Loadable(
   lazy(() => import('../pages/admin/system-employee'))
 )
 
-const RoomPage = Loadable(lazy(() => import('../pages/admin/room')))
+const RoomAdminPage = Loadable(lazy(() => import('../pages/admin/room')))
+
+const DiscountAdminPage = Loadable(lazy(() => import('../pages/admin/discount')))
 
 const MainPage = Loadable(lazy(() => import('../pages/home/main/index')))
+
+const RoomProvincePage = Loadable(lazy(() => import('../pages/home/room-province/index')))
+
+const RoomSearchPage = Loadable(lazy(() => import('../pages/home/room-search/index')))
+
+const RoomPage = Loadable(lazy(() => import('../pages/home/room/index')))
 
 const LoginPage = Loadable(lazy(() => import('../pages/home/login/index')))
 
@@ -65,6 +77,18 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <MainPage />,
+      },
+      {
+        path: '/city/:id',
+        element: <RoomProvincePage />,
+      },
+      {
+        path: '/room-search',
+        element: <RoomSearchPage />,
+      },
+      {
+        path: '/city/room/:id',
+        element: <RoomPage />,
       },
       {
         path: '/login',
@@ -97,6 +121,24 @@ const router = createBrowserRouter([
         element: <Cant module='account_manage'>
           <DashboardLayout>
             <AdminUserPage />
+          </DashboardLayout>
+
+        </Cant>,
+      },
+      {
+        path: 'discount',
+        element: <Cant module='discount_manage'>
+          <DashboardLayout>
+            <DiscountAdminPage />
+          </DashboardLayout>
+
+        </Cant>,
+      },
+      {
+        path: 'bank-business-partner',
+        element: <Cant module='bank_manage'>
+          <DashboardLayout>
+            <BusinessPartnerBankPage />
           </DashboardLayout>
 
         </Cant>,
@@ -151,7 +193,7 @@ const router = createBrowserRouter([
         element: (
           <Cant module="room_manage">
             <DashboardLayout>
-              <RoomPage />
+              <RoomAdminPage />
             </DashboardLayout>
           </Cant>
         ),

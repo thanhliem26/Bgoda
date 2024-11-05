@@ -1,4 +1,5 @@
 import {
+  BankOutlined,
   BoxPlotOutlined,
   CustomerServiceOutlined,
   HomeOutlined,
@@ -54,6 +55,7 @@ export const navigation: IMenuSideBar[] = [
     type: 'group',
     children: [
       { key: '/admin/business-partner', label: 'Business partner', icon: <TeamOutlined />, permission: 'account_manage' },
+      { key: '/admin/bank-business-partner', label: 'Business partner bank', icon: <BankOutlined />, permission: 'bank_manage' },
       { key: '/admin/room', label: 'Room', icon: <HomeOutlined />, permission: 'room_manage' },
       { key: '/admin/booking', label: 'Booking', icon: <SettingOutlined />, permission: 'booking_manage' },
       { key: '/admin/discount', label: 'Discount', icon: <SettingOutlined />, permission: 'discount_manage' },
