@@ -27,6 +27,7 @@ interface IMainWrapper {
     hasMore: boolean
     rateList: number[]
     serviceList: number[]
+    sliderPrice: number[]
   }
   action: {
     onChangeRangeDate: (fromDate: Date | null, toDate: Date | null) => void
@@ -36,6 +37,7 @@ interface IMainWrapper {
     onChangeSearch: (search: string) => void
     onChangeServiceList: (search: number[]) => void
     refetchPage: () => void
+    onChangePrice: (list: number[]) => void
   }
   state_application: {
     optionRoomTypes: IOption[]
@@ -48,6 +50,7 @@ const MainWrapperContext = createContext<IMainWrapper>({
       fromDate: null,
       toDate: null,
     },
+    sliderPrice: [],
     search: '',
     serviceList: [],
     optionRoomService: [],
@@ -67,6 +70,7 @@ const MainWrapperContext = createContext<IMainWrapper>({
     onChangeSearch: () => {},
     onChangeServiceList: () => {},
     refetchPage: () => {},
+    onChangePrice: () => {}
   },
   state_application: {
     optionRoomTypes: [],
@@ -84,9 +88,14 @@ export const MainWrapperProvider = ({ children }: MainWrapperProviderProps) => {
   const [rateList, setRateList] = useState<number[]>([])
   const [serviceList, setServiceList] = useState<number[]>([])
   const [search, setSearch] = useState<string>('')
+  const [sliderPrice, setSliderPrice] = useState<number[]>([0, 0])
 
   const onChangeRateList = (list: number[]) => {
     setRateList(list)
+  }
+  
+  const onChangePrice = (list: number[]) => {
+    setSliderPrice(list)
   }
 
   const onChangeServiceList = (list: number[]) => {
@@ -113,7 +122,9 @@ export const MainWrapperProvider = ({ children }: MainWrapperProviderProps) => {
       checkIn: rangeDate?.fromDate as Date,
       checkOut: rangeDate?.toDate as Date,
       searchInput: search,
-      services: serviceList
+      services: serviceList,
+      minPrice: sliderPrice?.[0],
+      maxPrice: sliderPrice?.[1],
     })
   //actions
   const hasMore = optionListRoom?.rooms?.length < optionListRoom?.totalRecord
@@ -158,6 +169,7 @@ export const MainWrapperProvider = ({ children }: MainWrapperProviderProps) => {
           search,
           optionRoomService: optionRoomService as IOption[],
           serviceList,
+          sliderPrice
         },
         action: {
           onChangeRangeDate,
@@ -167,6 +179,7 @@ export const MainWrapperProvider = ({ children }: MainWrapperProviderProps) => {
           onChangeSearch,
           onChangeServiceList,
           refetchPage,
+          onChangePrice
         },
         state_application: {
           optionRoomTypes,

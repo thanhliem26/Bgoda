@@ -32,9 +32,17 @@ const useService = () => {
         })
     }
 
-    const getRangePrice = () => {
+    const getDiscountInfo = () => {
         return RESTClientService.buildRequest({
-            endpoint: '/api/application/rooms/price-range',
+            endpoint: '/api/application/discount-coupons',
+            method: 'GET',
+            slash_id: true
+        })
+    }
+
+    const getRoomByDiscount = () => {
+        return RESTClientService.buildRequest({
+            endpoint: '/api/application/discount-coupons/use-able-room',
             method: 'GET',
         })
     }
@@ -45,7 +53,9 @@ const useService = () => {
         getListSuggest,
         getListProvince,
         getListRoomByProvince,
-        getRangePrice
+        //
+        getDiscountInfo,
+        getRoomByDiscount
     }
 }
 

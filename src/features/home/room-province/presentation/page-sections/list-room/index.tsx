@@ -1,12 +1,13 @@
-import { Checkbox, Col, Rate, Row } from 'antd'
+import { Checkbox, Col, Rate, Row, Slider } from 'antd'
 import MainWrapperContext from 'features/home/room-province/context'
 import { ListRoomWrapper } from 'features/home/room-province/shared/style'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { Box, FlexBox } from 'shared/styles'
 import { H2, H3, Span, Tiny } from 'shared/styles/Typography'
 import { convertCurrency } from 'shared/utils/convert-string'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { useNavigate } from 'react-router-dom'
+import useGetRangePrice from 'features/home/room-province/hooks/useGetRangePrice'
 
 const options_star = [
   {
@@ -33,12 +34,17 @@ const options_star = [
 
 const ListRoom = () => {
   const { state, action } = useContext(MainWrapperContext)
-  const { optionListRoomProvince, hasMore, rateList, serviceList, optionRoomService } = state
- 
-  const { onChangeRateList, fetchNextRoom, onChangeServiceList } = action
+  const { optionListRoomProvince, hasMore, rateList, serviceList, optionRoomService, sliderPrice } = state
+
+  const { onChangeRateList, fetchNextRoom, onChangeServiceList, onChangePrice } = action
   const { provinceData, rooms } = optionListRoomProvince
+  const { rangePrice } = useGetRangePrice();
 
   const navigate = useNavigate()
+
+  useEffect(() => {
+    onChangePrice([rangePrice?.min, rangePrice?.max])
+  }, [rangePrice?.min, rangePrice?.max])
 
   return (
     <ListRoomWrapper>
@@ -46,7 +52,7 @@ const ListRoom = () => {
         <H2>Các khách sạn tốt nhất {provinceData?.name}</H2>
       </Box>
       <FlexBox className="room-list">
-        <FlexBox className="room-star" style={{flexDirection: 'column', gap: 16}}>
+        <FlexBox className="room-star" style={{ flexDirection: 'column', gap: 16 }}>
           <FlexBox
             style={{
               border: '1px solid #d7d7db',
@@ -110,6 +116,34 @@ const ListRoom = () => {
               </Row>
             </Checkbox.Group>
           </FlexBox>
+
+          <FlexBox
+            style={{
+              border: '1px solid #d7d7db',
+              padding: '16px',
+              borderRadius: '4px',
+              width: '100%',
+              flexDirection: 'column',
+              gap: '20px',
+            }}
+          >
+            <Box>
+              <Tiny>Range price</Tiny>
+            </Box>
+            <FlexBox>
+              <Slider
+                style={{width: '100%'}}
+                range={true}
+                tooltip={{formatter: (value) => `${convertCurrency(value as number)} VND`}}
+                value={sliderPrice}
+                min={rangePrice?.min}
+                max={rangePrice.max}
+                onChange={(value) => {
+                  onChangePrice(value)
+                }}
+              />
+            </FlexBox>
+          </FlexBox>
         </FlexBox>
         <FlexBox className="room-city">
           <InfiniteScroll
@@ -130,7 +164,7 @@ const ListRoom = () => {
                   : room?.images
 
               return (
-                <FlexBox className="room-item" style={{marginBottom: '20px'}} onClick={() => {
+                <FlexBox className="room-item" style={{ marginBottom: '20px' }} onClick={() => {
                   navigate(`/city/room/${room?.id}`)
                 }}>
                   <FlexBox className="room__item-image">

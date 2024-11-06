@@ -1,12 +1,13 @@
-import { Checkbox, Col, Rate, Row } from 'antd'
+import { Checkbox, Col, Rate, Row, Slider } from 'antd'
 import MainWrapperContext from 'features/home/room-search/context'
 import { ListRoomWrapper } from 'features/home/room-search/shared/style'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { Box, FlexBox } from 'shared/styles'
 import { H2, H3, Span, Tiny } from 'shared/styles/Typography'
 import { convertCurrency } from 'shared/utils/convert-string'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { useNavigate } from 'react-router-dom'
+import useGetRangePrice from 'features/home/room-province/hooks/useGetRangePrice'
 
 const options_star = [
   {
@@ -33,12 +34,18 @@ const options_star = [
 
 const ListRoom = () => {
   const { state, action } = useContext(MainWrapperContext)
-  const { optionListRoom, hasMore, rateList, optionRoomService, serviceList } = state
+  const { optionListRoom, hasMore, rateList, optionRoomService, serviceList, sliderPrice } = state
  
-  const { onChangeRateList, fetchNextRoom, onChangeServiceList } = action
+  const { onChangeRateList, fetchNextRoom, onChangeServiceList, onChangePrice } = action
   const { rooms } = optionListRoom
 
   const navigate = useNavigate()
+
+  const { rangePrice } = useGetRangePrice();
+
+  useEffect(() => {
+    onChangePrice([rangePrice?.min, rangePrice?.max])
+  }, [rangePrice?.min, rangePrice?.max])
 
   return (
     <ListRoomWrapper>
@@ -109,6 +116,34 @@ const ListRoom = () => {
                 })}
               </Row>
             </Checkbox.Group>
+          </FlexBox>
+
+          <FlexBox
+            style={{
+              border: '1px solid #d7d7db',
+              padding: '16px',
+              borderRadius: '4px',
+              width: '100%',
+              flexDirection: 'column',
+              gap: '20px',
+            }}
+          >
+            <Box>
+              <Tiny>Range price</Tiny>
+            </Box>
+            <FlexBox>
+              <Slider
+                style={{width: '100%'}}
+                range={true}
+                tooltip={{formatter: (value) => `${convertCurrency(value as number)} VND`}}
+                value={sliderPrice}
+                min={rangePrice?.min}
+                max={rangePrice.max}
+                onChange={(value) => {
+                  onChangePrice(value)
+                }}
+              />
+            </FlexBox>
           </FlexBox>
         </FlexBox>
         <FlexBox className="room-city">

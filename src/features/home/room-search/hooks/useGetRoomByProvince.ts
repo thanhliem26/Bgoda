@@ -14,6 +14,8 @@ interface IUseGetAllSuggest {
     checkOut: Date
     searchInput: string
     services: number[]
+    minPrice: number
+    maxPrice: number
 }
 
 export type ResponseRoomByProvince = {
@@ -22,7 +24,7 @@ export type ResponseRoomByProvince = {
 }
 
 const INIT_PER_PAGE = 3;
-const useGetListRoomByProvince = ({ provinceId, roomTypeId, stars, checkIn, checkOut, searchInput, services }: IUseGetAllSuggest) => {
+const useGetListRoomByProvince = ({ provinceId, roomTypeId, stars, checkIn, checkOut, searchInput, services, minPrice, maxPrice }: IUseGetAllSuggest) => {
     const { getListRoomSearch, queryKey } = useService()
 
     const fetchRoomProvince = async ({  pageParam }: { pageParam: number }) => {
@@ -35,13 +37,15 @@ const useGetListRoomByProvince = ({ provinceId, roomTypeId, stars, checkIn, chec
             page: pageParam,
             perPage: INIT_PER_PAGE,
             searchInput: searchInput,
-            services: !isEmpty(services) ? services : null
+            services: !isEmpty(services) ? services : null,
+            minPrice,
+            maxPrice
         })
     }
 
     const { data, fetchNextPage, refetch } = useInfiniteQuery({
         queryKey: [queryKey,
-            roomTypeId
+            roomTypeId, minPrice, maxPrice
             // , provinceId, roomTypeId, stars, checkIn, checkOut, searchInput
         ],
         enabled: !!roomTypeId,
