@@ -39,13 +39,24 @@ const useService = () => {
         })
     }
 
+    const getAllDistrict = ({id_province}:  {id_province: string}) => {
+        return new Promise((resolve) => {
+            resolve(fetch(`https://esgoo.net/api-tinhthanh/2/${id_province}.htm`)
+                .then(response => response.json()))
+        }).then((res) => {
+            //@ts-ignore
+            return res?.data || [];
+        })
+    }
+
     return {
         queryKey,
         getAllRoomType,
         getListSuggest,
         getListProvince,
         getListRoomByProvince,
-        getRangePrice
+        getRangePrice,
+        getAllDistrict
     }
 }
 

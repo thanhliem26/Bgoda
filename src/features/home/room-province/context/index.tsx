@@ -27,6 +27,7 @@ interface IMainWrapper {
     serviceList: number[]
     optionRoomService: IOption[]
     sliderPrice: number[]
+    districtIds: string[]
   }
   action: {
     onChangeRangeDate: (fromDate: Date | null, toDate: Date | null) => void
@@ -36,6 +37,7 @@ interface IMainWrapper {
     onChangeServiceList: (list: number[]) => void
     refetchPage: () => void
     onChangePrice: (list: number[]) => void
+    onChangeDistricts: (list: string[]) => void
   }
   state_application: {
     optionRoomTypes: IOption[]
@@ -48,6 +50,7 @@ const MainWrapperContext = createContext<IMainWrapper>({
       fromDate: null,
       toDate: null,
     },
+    districtIds: [],
     sliderPrice: [],
     serviceList: [],
     optionRoomService: [],
@@ -72,7 +75,8 @@ const MainWrapperContext = createContext<IMainWrapper>({
     fetchNextRoom: () => {},
     onChangeServiceList: () => {},
     refetchPage: () => {},
-    onChangePrice: () => {}
+    onChangePrice: () => {},
+    onChangeDistricts: () => {},
   },
   state_application: {
     optionRoomTypes: [],
@@ -88,9 +92,14 @@ export const MainWrapperProvider = ({ children }: MainWrapperProviderProps) => {
   const [rateList, setRateList] = useState<number[]>([])
   const [serviceList, setServiceList] = useState<number[]>([])
   const [sliderPrice, setSliderPrice] = useState<number[]>([0, 0])
+  const [districtIds, setDistrictIds] = useState<string[]>([])
 
   const onChangeServiceList = (list: number[]) => {
     setServiceList(list)
+  }
+
+  const onChangeDistricts = (list: string[]) => {
+    setDistrictIds(list)
   }
 
   const onChangePrice = (list: number[]) => {
@@ -109,16 +118,18 @@ export const MainWrapperProvider = ({ children }: MainWrapperProviderProps) => {
 
   //data room
   const { id } = useParams()
-  const { optionListRoomProvince, fetchNextRoom, refetchPage } = useGetListRoomByProvince({
-    provinceId: id as string,
-    roomTypeId: roomTypeSelected?.value as string,
-    stars: rateList,
-    checkIn: rangeDate?.fromDate as Date,
-    checkOut: rangeDate?.toDate as Date,
-    services: serviceList,
-    minPrice: sliderPrice?.[0],
-    maxPrice: sliderPrice?.[1],
-  })
+  const { optionListRoomProvince, fetchNextRoom, refetchPage } =
+    useGetListRoomByProvince({
+      provinceId: id as string,
+      roomTypeId: roomTypeSelected?.value as string,
+      stars: rateList,
+      checkIn: rangeDate?.fromDate as Date,
+      checkOut: rangeDate?.toDate as Date,
+      services: serviceList,
+      minPrice: sliderPrice?.[0],
+      maxPrice: sliderPrice?.[1],
+      districtIds: districtIds,
+    })
   //actions
   const hasMore =
     optionListRoomProvince?.rooms?.length < optionListRoomProvince?.totalRecord
@@ -150,9 +161,10 @@ export const MainWrapperProvider = ({ children }: MainWrapperProviderProps) => {
           optionListRoomProvince,
           rateList,
           hasMore,
-          optionRoomService:  optionRoomService as IOption[],
+          optionRoomService: optionRoomService as IOption[],
           serviceList,
-          sliderPrice
+          sliderPrice,
+          districtIds,
         },
         action: {
           onChangeRangeDate,
@@ -161,7 +173,8 @@ export const MainWrapperProvider = ({ children }: MainWrapperProviderProps) => {
           fetchNextRoom,
           onChangeServiceList,
           refetchPage,
-          onChangePrice
+          onChangePrice,
+          onChangeDistricts,
         },
         state_application: {
           optionRoomTypes,
