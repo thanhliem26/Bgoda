@@ -1,12 +1,14 @@
-import { Checkbox, Col, Rate, Row } from 'antd'
+import { Checkbox, Col, Rate, Row, Slider } from 'antd'
 import MainWrapperContext from 'features/home/room-province/context'
 import { ListRoomWrapper } from 'features/home/room-province/shared/style'
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Box, FlexBox } from 'shared/styles'
 import { H2, H3, Span, Tiny } from 'shared/styles/Typography'
 import { convertCurrency } from 'shared/utils/convert-string'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import useGetRangePrice from 'features/home/room-province/hooks/useGetRangePrice'
+import useService from 'features/home/room-province/services'
 
 const options_star = [
   {
@@ -31,14 +33,43 @@ const options_star = [
   },
 ]
 
+type District = {
+  full_name: string
+  full_name_en: string
+  id: string
+  latitude: string
+  longitude: string
+  name: string
+  name_en: string
+}
+
 const ListRoom = () => {
   const { state, action } = useContext(MainWrapperContext)
-  const { optionListRoomProvince, hasMore, rateList } = state
- 
-  const { onChangeRateList, fetchNextRoom } = action
+  const { optionListRoomProvince, hasMore, rateList, serviceList, optionRoomService, sliderPrice, districtIds } = state
+
+  const { onChangeRateList, fetchNextRoom, onChangeServiceList, onChangePrice, onChangeDistricts } = action
   const { provinceData, rooms } = optionListRoomProvince
+  const { rangePrice } = useGetRangePrice();
+  const { getAllDistrict } = useService();
 
   const navigate = useNavigate()
+  const { id } = useParams();
+
+  useEffect(() => {
+    onChangePrice([rangePrice?.min, rangePrice?.max])
+  }, [rangePrice?.min, rangePrice?.max])
+
+  const [data, setData] = useState<District[]>([]);
+  useEffect(() => {
+    (async () => {
+        if(!id) {
+            setData([]);
+            return;
+        }
+        const response: District[] = await getAllDistrict({id_province: id as string});
+        setData(response)
+    })()
+}, [id])
 
   return (
     <ListRoomWrapper>
@@ -46,7 +77,7 @@ const ListRoom = () => {
         <H2>Các khách sạn tốt nhất {provinceData?.name}</H2>
       </Box>
       <FlexBox className="room-list">
-        <FlexBox className="room-star">
+        <FlexBox className="room-star" style={{ flexDirection: 'column', gap: 16 }}>
           <FlexBox
             style={{
               border: '1px solid #d7d7db',
@@ -78,6 +109,101 @@ const ListRoom = () => {
               </Row>
             </Checkbox.Group>
           </FlexBox>
+
+          <FlexBox
+            style={{
+              border: '1px solid #d7d7db',
+              padding: '16px',
+              borderRadius: '4px',
+              width: '100%',
+              flexDirection: 'column',
+              gap: '20px',
+            }}
+          >
+            <Box>
+              <Tiny>Service room</Tiny>
+            </Box>
+            <Checkbox.Group
+              style={{ width: '100%' }}
+              onChange={(data) => {
+                onChangeServiceList(data)
+              }}
+              value={serviceList}
+            >
+              <Row gutter={[10, 10]}>
+                {optionRoomService.map((item) => {
+                  return (
+                    <Col span={24}>
+                      <Checkbox value={item?.value}>{item?.label}</Checkbox>
+                    </Col>
+                  )
+                })}
+              </Row>
+            </Checkbox.Group>
+          </FlexBox>
+
+          <FlexBox
+            style={{
+              border: '1px solid #d7d7db',
+              padding: '16px',
+              borderRadius: '4px',
+              width: '100%',
+              flexDirection: 'column',
+              gap: '20px',
+            }}
+          >
+            <Box>
+              <Tiny>Range price</Tiny>
+            </Box>
+            <FlexBox>
+              <Slider
+                style={{ width: '100%' }}
+                range={true}
+                tooltip={{ formatter: (value) => `${convertCurrency(value as number)} VND` }}
+                value={sliderPrice}
+                min={rangePrice?.min}
+                max={rangePrice.max}
+                onChange={(value) => {
+                  onChangePrice(value)
+                }}
+              />
+            </FlexBox>
+          </FlexBox>
+
+          <FlexBox
+            style={{
+              border: '1px solid #d7d7db',
+              padding: '16px',
+              borderRadius: '4px',
+              width: '100%',
+              flexDirection: 'column',
+              gap: '20px',
+            }}
+          >
+            <Box>
+              <Tiny>Huyện</Tiny>
+            </Box>
+            <FlexBox>
+              <Checkbox.Group
+                style={{ width: '100%' }}
+                onChange={(data) => {
+                  onChangeDistricts(data)
+                }}
+                value={districtIds}
+              >
+                <Row gutter={[10, 10]}>
+                  {data.map((item) => {
+                    return (
+                      <Col span={24}>
+                        <Checkbox value={item?.id}>{item?.name}</Checkbox>
+                      </Col>
+                    )
+                  })}
+                </Row>
+              </Checkbox.Group>
+            </FlexBox>
+          </FlexBox>
+
         </FlexBox>
         <FlexBox className="room-city">
           <InfiniteScroll
@@ -98,7 +224,7 @@ const ListRoom = () => {
                   : room?.images
 
               return (
-                <FlexBox className="room-item" style={{marginBottom: '20px'}} onClick={() => {
+                <FlexBox className="room-item" style={{ marginBottom: '20px' }} onClick={() => {
                   navigate(`/city/room/${room?.id}`)
                 }}>
                   <FlexBox className="room__item-image">

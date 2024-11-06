@@ -4,6 +4,7 @@ import { isRight, unwrapEither } from 'shared/utils/handleEither'
 import useService from '../services'
 import RESTClientService from 'services/axios-service-application'
 import { Room } from 'shared/schema/room'
+import { isEmpty } from 'lodash'
 
 interface IUseGetAllSuggest {
     provinceId: string
@@ -11,37 +12,43 @@ interface IUseGetAllSuggest {
     stars: number[]
     checkIn: Date
     checkOut: Date
+    searchInput: string
+    services: number[]
+    minPrice: number
+    maxPrice: number
 }
 
 export type ResponseRoomByProvince = {
-    provinceData: {
-        id: string
-        image: string
-        roomNumber: number
-        name: string
-    }
     rooms: Room[]
     totalRecord: number
 }
 
 const INIT_PER_PAGE = 3;
-const useGetListRoomByProvince = ({ provinceId, roomTypeId, stars, checkIn, checkOut }: IUseGetAllSuggest) => {
+const useGetListRoomByProvince = ({ provinceId, roomTypeId, stars, checkIn, checkOut, searchInput, services, minPrice, maxPrice }: IUseGetAllSuggest) => {
     const { getListRoomSearch, queryKey } = useService()
 
-    const fetchRoomProvince = async ({  }: { pageParam: number }) => {
+    const fetchRoomProvince = async ({  pageParam }: { pageParam: number }) => {
         return RESTClientService.fetchREST(getListRoomSearch(), {
             provinceId: provinceId,
             roomTypeId: roomTypeId,
-            stars: stars,
+            stars: !isEmpty(stars) ? stars : null,
             checkOut: checkOut,
             checkIn: checkIn,
-            page: 1,
+            page: pageParam,
             perPage: INIT_PER_PAGE,
+            searchInput: searchInput,
+            services: !isEmpty(services) ? services : null,
+            minPrice,
+            maxPrice
         })
     }
 
-    const { data, fetchNextPage } = useInfiniteQuery({
-        queryKey: [queryKey, provinceId, roomTypeId, stars, checkIn, checkOut],
+    const { data, fetchNextPage, refetch } = useInfiniteQuery({
+        queryKey: [queryKey,
+            roomTypeId, minPrice, maxPrice
+            // , provinceId, roomTypeId, stars, checkIn, checkOut, searchInput
+        ],
+        enabled: !!roomTypeId,
         queryFn: fetchRoomProvince,
         initialPageParam: 1,
         getNextPageParam: (lastPage, allPages, lastPageParam) => {
@@ -50,12 +57,12 @@ const useGetListRoomByProvince = ({ provinceId, roomTypeId, stars, checkIn, chec
     })
 
     const roomList: ResponseRoomByProvince = useMemo(() => {
-        let provinceData = {
-            id: '',
-            image: '',
-            name: '',
-            roomNumber: 0
-        }
+        // let provinceData = {
+        //     id: '',
+        //     image: '',
+        //     name: '',
+        //     roomNumber: 0
+        // }
         let totalRecord = 0;
 
         const pages = data?.pages;
@@ -64,23 +71,23 @@ const useGetListRoomByProvince = ({ provinceId, roomTypeId, stars, checkIn, chec
                 if(roomProvinceItem && isRight(roomProvinceItem)) {
                     const { metaData, options } = unwrapEither(roomProvinceItem);
                     if(!totalRecord) {totalRecord = options?.totalRecords}
-                    if(!provinceData.id) {
-                        provinceData = {
-                            id: metaData?.id,
-                            image: metaData?.image,
-                            name: metaData?.name,
-                            roomNumber: metaData?.roomNumber
-                        }
-                    }
+                    // if(!provinceData.id) {
+                    //     provinceData = {
+                    //         id: metaData?.id,
+                    //         image: metaData?.image,
+                    //         name: metaData?.name,
+                    //         roomNumber: metaData?.roomNumber
+                    //     }
+                    // }
 
-                    return metaData?.rooms;
+                    return metaData;
                 }
 
                 return [];
             })
             
             return {
-                provinceData: provinceData,
+                // provinceData: provinceData,
                 rooms: response,
                 totalRecord: totalRecord,
             }
@@ -88,14 +95,15 @@ const useGetListRoomByProvince = ({ provinceId, roomTypeId, stars, checkIn, chec
 
         return {
             totalRecord: totalRecord,
-            provinceData: provinceData,
+            // provinceData: provinceData,
             rooms: []
         }
     }, [data])
 
     return {
         optionListRoom: roomList,
-        fetchNextRoom: fetchNextPage
+        fetchNextRoom: fetchNextPage,
+        refetchPage: refetch,
     }
 }
 

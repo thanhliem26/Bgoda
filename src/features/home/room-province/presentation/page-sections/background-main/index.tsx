@@ -9,6 +9,7 @@ import {
     UsergroupAddOutlined,
 } from '@ant-design/icons'
 import {
+    Button,
     DatePicker,
     Divider,
     Dropdown,
@@ -43,7 +44,7 @@ const BackgroundMain = () => {
     const { provinceData } = optionListRoomProvince;
 
     const { optionRoomTypes } = state_application
-    const { onChangeRangeDate, onChangeSelectRoomType } = action
+    const { onChangeRangeDate, onChangeSelectRoomType, refetchPage } = action
 
     const roomTypes: MenuProps['items'] = useMemo(() => {
         return optionRoomTypes.map((item) => {
@@ -67,14 +68,14 @@ const BackgroundMain = () => {
                 </FlexBox>
                 <FlexBox className="background-action-filter">
                     <Box className="filter-search">
-                            <SearchField>
-                                <SearchOutlined />
-                                <AppTextField
+                        <SearchField>
+                            <SearchOutlined />
+                            <AppTextField
                                 disabled={true}
-                                    style={{ height: '66px' }}
-                                    value={provinceData?.name}
-                                />
-                            </SearchField>
+                                style={{ height: '66px' }}
+                                value={provinceData?.name}
+                            />
+                        </SearchField>
                     </Box>
                     <Box className="filter-date-range">
                         <FlexBox gap={'16px'}>
@@ -91,7 +92,7 @@ const BackgroundMain = () => {
                                         padding: 0,
                                         border: 'none',
                                     }}
-                                    value={ (rangeDate?.fromDate || rangeDate?.toDate) ? [dayjs(rangeDate?.fromDate), dayjs(rangeDate?.toDate)] : [dayjs(), dayjs().add(1, 'month')]}
+                                    value={(rangeDate?.fromDate || rangeDate?.toDate) ? [dayjs(rangeDate?.fromDate), dayjs(rangeDate?.toDate)] : [dayjs(), dayjs().add(1, 'month')]}
                                     onChange={(dateRange) => {
                                         const fromDate = dateRange?.[0]?.toDate() ?? new Date()
                                         const toDate = dateRange?.[1]?.toDate() ?? new Date()
@@ -192,7 +193,22 @@ const BackgroundMain = () => {
                             </BoxWrapperMain>
                         </Dropdown>
                     </Box>
+                    <Box>
+                    <Button
+                        style={{
+                            height: '100%',
+                            backgroundColor: '#5392f9',
+                            boxShadow: '0 4px 10px 0 rgba(0, 0, 0, .15)',
+                            color: '#fff',
+                            fontWeight: 500
+                        }}
+                        onClick={refetchPage}
+                    >
+                        Tìm kiếm
+                    </Button>
+                </Box>
                 </FlexBox>
+               
             </Box>
         </SectionBackground>
     )

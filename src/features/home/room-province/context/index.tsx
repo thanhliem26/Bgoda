@@ -6,6 +6,7 @@ import useGetListRoomByProvince, {
 } from '../hooks/useGetRoomByProvince'
 import { useParams } from 'react-router-dom'
 import dayjs from 'dayjs'
+import useGetAllServiceRoom from 'features/home/room-search/hooks/useGetAllServiceRoom'
 
 // props type
 type MainWrapperProviderProps = { children: ReactNode }
@@ -23,12 +24,20 @@ interface IMainWrapper {
     optionListRoomProvince: ResponseRoomByProvince
     hasMore: boolean
     rateList: number[]
+    serviceList: number[]
+    optionRoomService: IOption[]
+    sliderPrice: number[]
+    districtIds: string[]
   }
   action: {
     onChangeRangeDate: (fromDate: Date | null, toDate: Date | null) => void
     onChangeSelectRoomType: (id: string) => void
     onChangeRateList: (list: number[]) => void
     fetchNextRoom: () => void
+    onChangeServiceList: (list: number[]) => void
+    refetchPage: () => void
+    onChangePrice: (list: number[]) => void
+    onChangeDistricts: (list: string[]) => void
   }
   state_application: {
     optionRoomTypes: IOption[]
@@ -41,6 +50,10 @@ const MainWrapperContext = createContext<IMainWrapper>({
       fromDate: null,
       toDate: null,
     },
+    districtIds: [],
+    sliderPrice: [],
+    serviceList: [],
+    optionRoomService: [],
     hasMore: false,
     rateList: [],
     roomTypeSelected: undefined,
@@ -60,6 +73,10 @@ const MainWrapperContext = createContext<IMainWrapper>({
     onChangeSelectRoomType: () => {},
     onChangeRateList: () => {},
     fetchNextRoom: () => {},
+    onChangeServiceList: () => {},
+    refetchPage: () => {},
+    onChangePrice: () => {},
+    onChangeDistricts: () => {},
   },
   state_application: {
     optionRoomTypes: [],
@@ -73,6 +90,23 @@ export const MainWrapperProvider = ({ children }: MainWrapperProviderProps) => {
     toDate: dayjs().add(1, 'month').toDate(),
   })
   const [rateList, setRateList] = useState<number[]>([])
+  const [serviceList, setServiceList] = useState<number[]>([])
+  const [sliderPrice, setSliderPrice] = useState<number[]>([0, 0])
+  const [districtIds, setDistrictIds] = useState<string[]>([])
+
+  const onChangeServiceList = (list: number[]) => {
+    setServiceList(list)
+  }
+
+  const onChangeDistricts = (list: string[]) => {
+    setDistrictIds(list)
+  }
+
+  const onChangePrice = (list: number[]) => {
+    setSliderPrice(list)
+  }
+
+  const { optionRoomService } = useGetAllServiceRoom()
 
   const onChangeRateList = (list: number[]) => {
     setRateList(list)
@@ -84,13 +118,18 @@ export const MainWrapperProvider = ({ children }: MainWrapperProviderProps) => {
 
   //data room
   const { id } = useParams()
-  const { optionListRoomProvince, fetchNextRoom } = useGetListRoomByProvince({
-    provinceId: id as string,
-    roomTypeId: roomTypeSelected?.value as string,
-    stars: rateList,
-    checkIn: rangeDate?.fromDate as Date,
-    checkOut: rangeDate?.toDate as Date,
-  })
+  const { optionListRoomProvince, fetchNextRoom, refetchPage } =
+    useGetListRoomByProvince({
+      provinceId: id as string,
+      roomTypeId: roomTypeSelected?.value as string,
+      stars: rateList,
+      checkIn: rangeDate?.fromDate as Date,
+      checkOut: rangeDate?.toDate as Date,
+      services: serviceList,
+      minPrice: sliderPrice?.[0],
+      maxPrice: sliderPrice?.[1],
+      districtIds: districtIds,
+    })
   //actions
   const hasMore =
     optionListRoomProvince?.rooms?.length < optionListRoomProvince?.totalRecord
@@ -122,12 +161,20 @@ export const MainWrapperProvider = ({ children }: MainWrapperProviderProps) => {
           optionListRoomProvince,
           rateList,
           hasMore,
+          optionRoomService: optionRoomService as IOption[],
+          serviceList,
+          sliderPrice,
+          districtIds,
         },
         action: {
           onChangeRangeDate,
           onChangeSelectRoomType,
           onChangeRateList,
           fetchNextRoom,
+          onChangeServiceList,
+          refetchPage,
+          onChangePrice,
+          onChangeDistricts,
         },
         state_application: {
           optionRoomTypes,

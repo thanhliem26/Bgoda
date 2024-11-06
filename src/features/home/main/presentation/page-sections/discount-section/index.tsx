@@ -5,6 +5,7 @@ import { LeftOutlined, RightOutlined } from '@ant-design/icons'
 import { Carousel, CarouselProps } from 'antd'
 import useGetDiscount from 'features/home/main/hooks/useGetDiscount'
 import { useMemo } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 
 const DiscountSection = () => {
@@ -49,8 +50,13 @@ const DiscountSection = () => {
 
   const { discountList } = useGetDiscount();
   const images = useMemo(() => {
-    return discountList.map((item) => item?.image)
+    return discountList.map((item) => ({
+      id: item?.id,
+      image: item?.image,
+    }))
   }, [discountList])
+
+  const navigate = useNavigate()
 
   return (
     <FormBodyWrapper>
@@ -60,9 +66,11 @@ const DiscountSection = () => {
       <Carousel {...setting}>
         {images?.map((item, key) => {
           return (
-            <BoxWrapper key={key}>
+            <BoxWrapper key={key} onClick={() => {
+              navigate(`/discount/${item?.id}`)
+            }}>
               <BoxImage style={{height: '185px'}}>
-                <img style={{borderRadius:'16px', height: '100%', width: '100%'}} src={item} />
+                <img style={{borderRadius:'16px', height: '100%', width: '100%'}} src={item?.image} />
               </BoxImage>
             </BoxWrapper>
           )

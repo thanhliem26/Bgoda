@@ -132,9 +132,9 @@ export const ImageAdd = ({ onChange }: { onChange: (file: string) => void }) => 
     return <ImageWrapper className="item__image">
         <button className="btn__image" type="button">
             <AppUpload
-                //   value={field.value ?? ''}
+                multiple={true}
                 onChangeUpload={({ file }) => {
-                    onChange(file)
+                    onChange(file[0])
                 }}
             >
                 <label style={{ cursor: 'pointer' }}>
