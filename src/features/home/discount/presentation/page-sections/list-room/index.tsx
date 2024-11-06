@@ -3,7 +3,7 @@ import { ListRoomWrapper } from 'features/home/discount/shared/style'
 import { Box, FlexBox } from 'shared/styles'
 import {  H2, H4, Span, Tiny } from 'shared/styles/Typography'
 import { convertCurrency } from 'shared/utils/convert-string'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import useGetRoomByDiscount from 'features/home/discount/hooks/useGetRoomByDiscount'
 import { useContext } from 'react'
 import MainWrapperContext from 'features/home/discount/context'
@@ -13,6 +13,7 @@ const ListRoom = () => {
 
   const { id } = useParams()
   const { roomByDiscount } = useGetRoomByDiscount({ id: id as string });
+  const navigate = useNavigate();
 
   return (
     <ListRoomWrapper>
@@ -22,6 +23,9 @@ const ListRoom = () => {
             {roomByDiscount?.map((room) => {
               return <Col span={6} key={room?.id}>
                 <FlexBox
+                  onClick={() => {
+                    navigate(`/city/room/${room?.id}`)
+                  }}
                   style={{
                     flexDirection: 'column',
                     gap: '4px',

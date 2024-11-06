@@ -49,6 +49,7 @@ const AppUpload = <Multiple extends boolean = false>(props: IAppUpload<Multiple>
                 if (file.status !== 'done') return;
                 handleChangeUpload(file)
             }}
+            multiple={multiple}
             {...inputProps}>
             {children}
         </AppUploadComponent>
