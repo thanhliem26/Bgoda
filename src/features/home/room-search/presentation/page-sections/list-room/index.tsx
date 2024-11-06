@@ -36,14 +36,14 @@ const ListRoom = () => {
   const { optionListRoom, hasMore, rateList, optionRoomService, serviceList } = state
  
   const { onChangeRateList, fetchNextRoom, onChangeServiceList } = action
-  const { provinceData, rooms } = optionListRoom
+  const { rooms } = optionListRoom
 
   const navigate = useNavigate()
 
   return (
     <ListRoomWrapper>
       <Box className="room-title">
-        <H2>Các khách sạn tốt nhất {provinceData?.name}</H2>
+        <H2>Các khách sạn tốt nhất</H2>
       </Box>
       <FlexBox className="room-list">
         <FlexBox className="room-star" style={{flexDirection: 'column', gap: 16}}>
@@ -258,136 +258,7 @@ const ListRoom = () => {
               )
             })}
           </InfiniteScroll>
-          {/* {rooms.map((room) => {
-            const newPrice = Math.round(
-              room?.price - (room?.price * room?.defaultDiscount) / 100
-            )
-
-            //@ts-ignore
-            const images: string[] = room?.images?.length > 8 ? room?.images.slice(0, 8) : room?.images;
-
-            return (
-              <FlexBox className="room-item">
-                <FlexBox className="room__item-image">
-                  <Box>
-                    <img
-                      style={{
-                        width: '252px',
-                        height: '200px',
-                        borderRadius: '4px 4px 0px 0px',
-                      }}
-                      src={room?.thumbnail}
-                    />
-                  </Box>
-                  <Box style={{ overflow: 'hidden' }}>
-                    <Row gutter={[16, 16]}>
-                      {images?.map((item) => {
-                        return (
-                          <Col span={6}>
-                            <img
-                              style={{
-                                width: '62px',
-                                height: '45px',
-                                objectFit: 'cover',
-                              }}
-                              src={item}
-                            />
-                          </Col>
-                        )
-                      })}
-                    </Row>
-                  </Box>
-                </FlexBox>
-                <FlexBox className="room__item-description">
-                  <H3>{room?.name}</H3>
-                  <FlexBox style={{ gap: '8px', flexDirection: 'column' }}>
-                    <FlexBox style={{ alignItems: 'center', gap: '20px' }}>
-                      <Rate
-                        style={{ fontSize: '13px' }}
-                        disabled
-                        value={room?.star}
-                      />
-                      <Tiny style={{ color: '#5392f9' }}>
-                        {room?.province} {room?.district} {room?.address}
-                      </Tiny>
-                    </FlexBox>
-                    <Tiny>Available room: {room?.avaiable}</Tiny>
-                    <FlexBox className='room_description'>
-                      <Span>Mô tả</Span>
-                      <Tiny dangerouslySetInnerHTML={{ __html: room?.description }}></Tiny>
-                    </FlexBox>
-                  </FlexBox>
-                  <FlexBox
-                    style={{
-                      marginTop: 'auto',
-                      flexDirection: 'column',
-                      alignItems: 'flex-end',
-                    }}
-                  >
-                    <FlexBox
-                      style={{
-                        flexDirection: 'column',
-                        alignItems: 'flex-end',
-                      }}
-                    >
-                      <Tiny
-                        style={{
-                          fontWeight: 500,
-                          fontSize: '10px',
-                          lineHeight: '14px',
-                          color: 'rgb(144, 148, 156)',
-                        }}
-                      >
-                        Giá trung bình mỗi đêm
-                      </Tiny>
-                      <Span
-                        style={{
-                          color: room?.defaultDiscount ? '#737373' : 'black',
-                          fontWeight: 'bold',
-                          fontSize: room?.defaultDiscount ? '18px' : '24px',
-                          textDecoration: room?.defaultDiscount
-                            ? 'line-through'
-                            : 'auto',
-                          textDecorationColor: 'red'
-                        }}
-                      >
-                        {convertCurrency(room?.price)} ₫
-                      </Span>
-                    </FlexBox>
-
-                    {!!room?.defaultDiscount && (
-                      <FlexBox
-                        style={{
-                          flexDirection: 'column',
-                          alignItems: 'flex-end',
-                        }}
-                      >
-                        <Tiny
-                          style={{
-                            fontWeight: 'bold',
-                            background: 'red',
-                            color: 'white',
-                            padding: '5px 10px',
-                          }}
-                        >
-                          Giảm {room?.defaultDiscount}%
-                        </Tiny>
-                        <Span
-                          style={{
-                            color: 'black',
-                            fontWeight: 'bold',
-                            fontSize: '24px',
-                          }}
-                        >
-                          {convertCurrency(newPrice)} ₫
-                        </Span>
-                      </FlexBox>
-                    )}
-                  </FlexBox>
-                </FlexBox>
-              </FlexBox>
-            )
-          })} */}
+         
         </FlexBox>
       </FlexBox>
     </ListRoomWrapper>

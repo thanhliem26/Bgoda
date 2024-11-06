@@ -33,9 +33,9 @@ const options_star = [
 
 const ListRoom = () => {
   const { state, action } = useContext(MainWrapperContext)
-  const { optionListRoomProvince, hasMore, rateList } = state
+  const { optionListRoomProvince, hasMore, rateList, serviceList, optionRoomService } = state
  
-  const { onChangeRateList, fetchNextRoom } = action
+  const { onChangeRateList, fetchNextRoom, onChangeServiceList } = action
   const { provinceData, rooms } = optionListRoomProvince
 
   const navigate = useNavigate()
@@ -46,7 +46,7 @@ const ListRoom = () => {
         <H2>Các khách sạn tốt nhất {provinceData?.name}</H2>
       </Box>
       <FlexBox className="room-list">
-        <FlexBox className="room-star">
+        <FlexBox className="room-star" style={{flexDirection: 'column', gap: 16}}>
           <FlexBox
             style={{
               border: '1px solid #d7d7db',
@@ -69,6 +69,38 @@ const ListRoom = () => {
             >
               <Row gutter={[10, 10]}>
                 {options_star.map((item) => {
+                  return (
+                    <Col span={24}>
+                      <Checkbox value={item?.value}>{item?.label}</Checkbox>
+                    </Col>
+                  )
+                })}
+              </Row>
+            </Checkbox.Group>
+          </FlexBox>
+
+          <FlexBox
+            style={{
+              border: '1px solid #d7d7db',
+              padding: '16px',
+              borderRadius: '4px',
+              width: '100%',
+              flexDirection: 'column',
+              gap: '20px',
+            }}
+          >
+            <Box>
+              <Tiny>Service room</Tiny>
+            </Box>
+            <Checkbox.Group
+              style={{ width: '100%' }}
+              onChange={(data) => {
+                onChangeServiceList(data)
+              }}
+              value={serviceList}
+            >
+              <Row gutter={[10, 10]}>
+                {optionRoomService.map((item) => {
                   return (
                     <Col span={24}>
                       <Checkbox value={item?.value}>{item?.label}</Checkbox>

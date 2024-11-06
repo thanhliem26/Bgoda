@@ -6,7 +6,6 @@ import useGetListRoomByProvince, {
 } from '../hooks/useGetRoomByProvince'
 import { useLocation, useParams } from 'react-router-dom'
 import dayjs from 'dayjs'
-import useGetListSuggest, { ListSuggestBPANDPROVINCE } from '../hooks/useGetSuggestProvince'
 import useGetAllServiceRoom from '../hooks/useGetAllServiceRoom'
 
 // props type
@@ -21,7 +20,6 @@ type RangeDate = {
 interface IMainWrapper {
   state: {
     search: string
-    optionListSuggest: ListSuggestBPANDPROVINCE[]
     rangeDate: RangeDate
     roomTypeSelected: IOption | undefined
     optionListRoom: ResponseRoomByProvince
@@ -37,6 +35,7 @@ interface IMainWrapper {
     fetchNextRoom: () => void
     onChangeSearch: (search: string) => void
     onChangeServiceList: (search: number[]) => void
+    refetchPage: () => void
   }
   state_application: {
     optionRoomTypes: IOption[]
@@ -52,17 +51,10 @@ const MainWrapperContext = createContext<IMainWrapper>({
     search: '',
     serviceList: [],
     optionRoomService: [],
-    optionListSuggest: [],
     hasMore: false,
     rateList: [],
     roomTypeSelected: undefined,
     optionListRoom: {
-      provinceData: {
-        id: '0',
-        image: '',
-        name: '',
-        roomNumber: 0,
-      },
       rooms: [],
       totalRecord: 0,
     },
@@ -73,7 +65,8 @@ const MainWrapperContext = createContext<IMainWrapper>({
     onChangeRateList: () => {},
     fetchNextRoom: () => {},
     onChangeSearch: () => {},
-    onChangeServiceList: () => {}
+    onChangeServiceList: () => {},
+    refetchPage: () => {},
   },
   state_application: {
     optionRoomTypes: [],
@@ -82,15 +75,15 @@ const MainWrapperContext = createContext<IMainWrapper>({
 
 export const MainWrapperProvider = ({ children }: MainWrapperProviderProps) => {
   //state
-  const location = useLocation();
+  const location = useLocation()
 
   const [rangeDate, setRangeDate] = useState<RangeDate>({
     fromDate: dayjs().toDate(),
     toDate: dayjs().add(1, 'month').toDate(),
   })
   const [rateList, setRateList] = useState<number[]>([])
-  const [serviceList, setServiceList] = useState<number[]>([]);
-  const [search, setSearch] = useState<string>('');
+  const [serviceList, setServiceList] = useState<number[]>([])
+  const [search, setSearch] = useState<string>('')
 
   const onChangeRateList = (list: number[]) => {
     setRateList(list)
@@ -103,27 +96,27 @@ export const MainWrapperProvider = ({ children }: MainWrapperProviderProps) => {
   //state-application
   const [roomTypeSelected, setRoomTypeSelected] = useState<IOption>()
   const { optionRoomTypes } = useGetAllRoomType()
-  const { optionRoomService } = useGetAllServiceRoom();
-
-  const { optionListSuggest } = useGetListSuggest({searchInput: search});
-
+  const { optionRoomService } = useGetAllServiceRoom()
+  
   //actions
   const onChangeSearch = (search: string) => {
-      setSearch(search)
+    setSearch(search)
   }
 
   //data room
   const { id } = useParams()
-  const { optionListRoom, fetchNextRoom } = useGetListRoomByProvince({
-    provinceId: id as string,
-    roomTypeId: roomTypeSelected?.value as string,
-    stars: rateList,
-    checkIn: rangeDate?.fromDate as Date,
-    checkOut: rangeDate?.toDate as Date,
-  })
+  const { optionListRoom, fetchNextRoom, refetchPage } =
+    useGetListRoomByProvince({
+      provinceId: id as string,
+      roomTypeId: roomTypeSelected?.value as string,
+      stars: rateList,
+      checkIn: rangeDate?.fromDate as Date,
+      checkOut: rangeDate?.toDate as Date,
+      searchInput: search,
+      services: serviceList
+    })
   //actions
-  const hasMore =
-  optionListRoom?.rooms?.length < optionListRoom?.totalRecord
+  const hasMore = optionListRoom?.rooms?.length < optionListRoom?.totalRecord
 
   const onChangeRangeDate = (fromDate: Date | null, toDate: Date | null) => {
     setRangeDate(() => ({
@@ -144,9 +137,12 @@ export const MainWrapperProvider = ({ children }: MainWrapperProviderProps) => {
   }, [optionRoomTypes])
 
   useEffect(() => {
-    const stateLocation = location?.state;
-    setRoomTypeSelected((stateLocation?.roomTypeSelected))
-    onChangeRangeDate(stateLocation?.rangeDate?.fromDate, stateLocation?.rangeDate?.toDate)
+    const stateLocation = location?.state
+    setRoomTypeSelected(stateLocation?.roomTypeSelected)
+    onChangeRangeDate(
+      stateLocation?.rangeDate?.fromDate,
+      stateLocation?.rangeDate?.toDate
+    )
     onChangeSearch(stateLocation?.search)
   }, [location?.state])
 
@@ -160,7 +156,6 @@ export const MainWrapperProvider = ({ children }: MainWrapperProviderProps) => {
           rateList,
           hasMore,
           search,
-          optionListSuggest,
           optionRoomService: optionRoomService as IOption[],
           serviceList,
         },
@@ -170,7 +165,8 @@ export const MainWrapperProvider = ({ children }: MainWrapperProviderProps) => {
           onChangeRateList,
           fetchNextRoom,
           onChangeSearch,
-          onChangeServiceList
+          onChangeServiceList,
+          refetchPage,
         },
         state_application: {
           optionRoomTypes,

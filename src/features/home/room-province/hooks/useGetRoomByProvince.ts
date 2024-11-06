@@ -4,6 +4,7 @@ import { isRight, unwrapEither } from 'shared/utils/handleEither'
 import useService from '../services'
 import RESTClientService from 'services/axios-service-application'
 import { Room } from 'shared/schema/room'
+import { isEmpty } from 'lodash'
 
 interface IUseGetAllSuggest {
     provinceId: string
@@ -11,6 +12,7 @@ interface IUseGetAllSuggest {
     stars: number[]
     checkIn: Date
     checkOut: Date
+    services: number[]
 }
 
 export type ResponseRoomByProvince = {
@@ -25,23 +27,26 @@ export type ResponseRoomByProvince = {
 }
 
 const INIT_PER_PAGE = 3;
-const useGetListRoomByProvince = ({ provinceId, roomTypeId, stars, checkIn, checkOut }: IUseGetAllSuggest) => {
+const useGetListRoomByProvince = ({ provinceId, roomTypeId, stars, checkIn, checkOut, services }: IUseGetAllSuggest) => {
     const { getListRoomByProvince, queryKey } = useService()
 
-    const fetchRoomProvince = async ({ }: { pageParam: number }) => {
+    const fetchRoomProvince = async ({ pageParam }: { pageParam: number }) => {
         return RESTClientService.fetchREST(getListRoomByProvince(), {
             provinceId: provinceId,
             roomTypeId: roomTypeId,
-            stars: stars,
+            stars: !isEmpty(stars) ? stars : null,
             checkOut: checkOut,
             checkIn: checkIn,
-            page: 1,
+            page: pageParam,
             perPage: INIT_PER_PAGE,
+            services: !isEmpty(services) ? services : null
         })
     }
 
-    const { data, fetchNextPage } = useInfiniteQuery({
-        queryKey: [queryKey, provinceId, roomTypeId, stars, checkIn, checkOut],
+    const { data, fetchNextPage, refetch } = useInfiniteQuery({
+        queryKey: [queryKey, provinceId, 
+            // roomTypeId, stars, checkIn, checkOut
+        ],
         queryFn: fetchRoomProvince,
         initialPageParam: 1,
         getNextPageParam: (lastPage, allPages, lastPageParam) => {
@@ -95,7 +100,8 @@ const useGetListRoomByProvince = ({ provinceId, roomTypeId, stars, checkIn, chec
 
     return {
         optionListRoomProvince: roomByProvince,
-        fetchNextRoom: fetchNextPage
+        fetchNextRoom: fetchNextPage,
+        refetchPage: refetch
     }
 }
 

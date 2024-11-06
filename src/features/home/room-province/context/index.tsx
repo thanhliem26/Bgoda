@@ -6,6 +6,7 @@ import useGetListRoomByProvince, {
 } from '../hooks/useGetRoomByProvince'
 import { useParams } from 'react-router-dom'
 import dayjs from 'dayjs'
+import useGetAllServiceRoom from 'features/home/room-search/hooks/useGetAllServiceRoom'
 
 // props type
 type MainWrapperProviderProps = { children: ReactNode }
@@ -23,12 +24,17 @@ interface IMainWrapper {
     optionListRoomProvince: ResponseRoomByProvince
     hasMore: boolean
     rateList: number[]
+    serviceList: number[]
+    optionRoomService: IOption[]
+   
   }
   action: {
     onChangeRangeDate: (fromDate: Date | null, toDate: Date | null) => void
     onChangeSelectRoomType: (id: string) => void
     onChangeRateList: (list: number[]) => void
     fetchNextRoom: () => void
+    onChangeServiceList: (list: number[]) => void
+    refetchPage: () => void
   }
   state_application: {
     optionRoomTypes: IOption[]
@@ -41,6 +47,8 @@ const MainWrapperContext = createContext<IMainWrapper>({
       fromDate: null,
       toDate: null,
     },
+    serviceList: [],
+    optionRoomService: [],
     hasMore: false,
     rateList: [],
     roomTypeSelected: undefined,
@@ -60,6 +68,8 @@ const MainWrapperContext = createContext<IMainWrapper>({
     onChangeSelectRoomType: () => {},
     onChangeRateList: () => {},
     fetchNextRoom: () => {},
+    onChangeServiceList: () => {},
+    refetchPage: () => {}
   },
   state_application: {
     optionRoomTypes: [],
@@ -73,6 +83,13 @@ export const MainWrapperProvider = ({ children }: MainWrapperProviderProps) => {
     toDate: dayjs().add(1, 'month').toDate(),
   })
   const [rateList, setRateList] = useState<number[]>([])
+  const [serviceList, setServiceList] = useState<number[]>([])
+
+  const onChangeServiceList = (list: number[]) => {
+    setServiceList(list)
+  }
+
+  const { optionRoomService } = useGetAllServiceRoom()
 
   const onChangeRateList = (list: number[]) => {
     setRateList(list)
@@ -84,12 +101,13 @@ export const MainWrapperProvider = ({ children }: MainWrapperProviderProps) => {
 
   //data room
   const { id } = useParams()
-  const { optionListRoomProvince, fetchNextRoom } = useGetListRoomByProvince({
+  const { optionListRoomProvince, fetchNextRoom, refetchPage } = useGetListRoomByProvince({
     provinceId: id as string,
     roomTypeId: roomTypeSelected?.value as string,
     stars: rateList,
     checkIn: rangeDate?.fromDate as Date,
     checkOut: rangeDate?.toDate as Date,
+    services: serviceList
   })
   //actions
   const hasMore =
@@ -122,12 +140,16 @@ export const MainWrapperProvider = ({ children }: MainWrapperProviderProps) => {
           optionListRoomProvince,
           rateList,
           hasMore,
+          optionRoomService:  optionRoomService as IOption[],
+          serviceList
         },
         action: {
           onChangeRangeDate,
           onChangeSelectRoomType,
           onChangeRateList,
           fetchNextRoom,
+          onChangeServiceList,
+          refetchPage
         },
         state_application: {
           optionRoomTypes,
