@@ -2,7 +2,6 @@ import IconScreen from "shared/components/utils/IconScreen"
 import { Box, FlexBox, WrapperContainer } from "shared/styles"
 import {
   PlusOutlined,
-  TeamOutlined,
 } from '@ant-design/icons'
 import ButtonBase from "shared/components/AppButton";
 import TableBase from "shared/components/table";
@@ -15,6 +14,9 @@ import useBuildActionsTableBusinessPartner from "../../hooks/useBuildActionTable
 import useBuildColumnTable from "shared/components/table/hooks/useBuildColumnTable";
 import { columns } from "../../shared/constants";
 import DetailBusinessPartnerModal from "../page-sections/DetailBusinessPartnerModal";
+import DiscountIcon from '@mui/icons-material/Discount';
+import useAuth from "features/authorization/hooks/useAuth";
+import { TYPE_ACCOUNT_LOGIN } from "contexts/Authentication";
 
 const AdminUser = () => {
   const useActionTableReturn = useActionTable()
@@ -29,6 +31,8 @@ const AdminUser = () => {
     setOpenDetail,
     rowId } = useActionTableReturn
 
+  const { type } = useAuth()
+  const showAdd = TYPE_ACCOUNT_LOGIN.BUSINESS_PARTNER === type;
   const { actions } = useBuildActionsTableBusinessPartner(useActionTableReturn)
 
   const { useTableReturn } = useDiscountTable({});
@@ -40,7 +44,7 @@ const AdminUser = () => {
   return (
     <Box style={{ paddingTop: 16, paddingBottom: 32 }}>
       <Box>
-        <IconScreen textLabel={"Discount"} Icon={<TeamOutlined />} />
+        <IconScreen textLabel={"Discount"} Icon={<DiscountIcon />} />
       </Box>
       <WrapperContainer style={{ marginTop: '20px' }}>
         <FlexBox style={{ justifyContent: 'space-between', padding: '12px', marginTop: '16px' }}>
@@ -50,9 +54,9 @@ const AdminUser = () => {
             }} /> */}
           </Box>
           <Box>
-            <ButtonBase icon={<PlusOutlined />} onClick={() => setOpenCreate(true)}>
+            {showAdd && <ButtonBase icon={<PlusOutlined />} onClick={() => setOpenCreate(true)}>
               Add a new discount
-            </ButtonBase>
+            </ButtonBase>}
           </Box>
         </FlexBox>
         <FlexBox>

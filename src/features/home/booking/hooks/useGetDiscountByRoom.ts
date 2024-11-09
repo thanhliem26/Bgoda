@@ -3,7 +3,6 @@ import { useMemo } from 'react'
 import { isRight, unwrapEither } from 'shared/utils/handleEither'
 import useService from '../services'
 import RESTClientService from 'services/axios-service-application'
-import { Room } from 'shared/schema/room'
 import { Discount } from 'shared/schema/discount'
 
 interface IUseGetDiscountRoomProps {
@@ -11,7 +10,7 @@ interface IUseGetDiscountRoomProps {
 }
 
 const useGetDiscountRoom = ({ id }: IUseGetDiscountRoomProps) => {
-    const { getDiscountRoom, queryKey } = useService()
+    const { getDiscountRoom } = useService()
 
     const { data } = useQuery({
         queryKey: ['discount-room', id],

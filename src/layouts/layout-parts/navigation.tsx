@@ -8,7 +8,8 @@ import {
   UserOutlined,
 } from '@ant-design/icons'
 import { TYPE_PERMISSION } from 'contexts/AuthenticationAdmin/constants';
-
+import DiscountIcon from '@mui/icons-material/Discount';
+import MoreIcon from '@mui/icons-material/More';
 interface BaseMenu {
   key: string;
 }
@@ -57,8 +58,8 @@ export const navigation: IMenuSideBar[] = [
       { key: '/admin/business-partner', label: 'Business partner', icon: <TeamOutlined />, permission: 'account_manage' },
       { key: '/admin/bank-business-partner', label: 'Business partner bank', icon: <BankOutlined />, permission: 'bank_manage' },
       { key: '/admin/room', label: 'Room', icon: <HomeOutlined />, permission: 'room_manage' },
-      { key: '/admin/booking', label: 'Booking', icon: <SettingOutlined />, permission: 'booking_manage' },
-      { key: '/admin/discount', label: 'Discount', icon: <SettingOutlined />, permission: 'discount_manage' },
+      { key: '/admin/booking', label: 'Booking', icon: <MoreIcon />, permission: 'booking_manage' },
+      { key: '/admin/discount', label: 'Discount', icon: <DiscountIcon />, permission: 'discount_manage' },
     ],
   },
   {

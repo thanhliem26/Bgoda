@@ -1,4 +1,3 @@
-import { MainWrapperProvider } from '../../context'
 import { Box, FlexBox, FormControl, HelperTextForm } from 'shared/styles'
 import { BoxWrapper } from '../../shared/style'
 import useCreateBooking from '../../hooks/useBooking'
@@ -10,7 +9,7 @@ import dayjs from 'dayjs'
 import weekday from 'dayjs/plugin/weekday'
 import localeData from 'dayjs/plugin/localeData'
 import 'dayjs/locale/vi'
-import { useMemo, useState } from 'react'
+import { Fragment, useMemo, useState } from 'react'
 import useGetInfoRoom from '../../hooks/useGetRoom'
 import { useParams } from 'react-router-dom'
 import { getServiceByValue } from 'features/admin/service-room/shared/components/SelecIcon'
@@ -92,7 +91,7 @@ function BookingRoom() {
   }, [discountSelect, dayDiff, roomInfo]);
 
   return (
-    <MainWrapperProvider>
+    <Fragment>
       <FlexBox style={{ width: '100%', justifyContent: 'center', gap: '16px' }}>
         <FlexBox
           style={{
@@ -437,7 +436,7 @@ function BookingRoom() {
           </FlexBox>
         </FlexBox>
       </FlexBox>
-    </MainWrapperProvider>
+    </Fragment>
   )
 }
 

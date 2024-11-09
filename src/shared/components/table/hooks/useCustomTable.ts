@@ -81,6 +81,7 @@ const useCustomTable = ({
           //   perPage: pagination.perPage,
           // },
           // ...variables
+          ...filters,
           ...search,
           page: pagination.page,
           perPage: pagination.perPage,

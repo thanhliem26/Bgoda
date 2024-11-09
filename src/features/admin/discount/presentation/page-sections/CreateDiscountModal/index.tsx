@@ -251,6 +251,7 @@ function CreateDiscountModal({
                     required
                     value={field.value}
                     onChange={field.onChange}
+                    mode='tags'
                   />
                   <HelperTextForm>{fieldState.error?.message}</HelperTextForm>
                 </FlexBox>

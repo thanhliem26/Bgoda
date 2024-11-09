@@ -1,7 +1,7 @@
 import AutoCompleteBase, { IAutoCompleteBaseProps } from '../auto-complete-base'
 import useGetOptions from './hooks/useGetOptions';
 
-const RoomAutoComplete = (props: IAutoCompleteBaseProps) => {
+const DiscountAutoComplete = (props: IAutoCompleteBaseProps) => {
     const { options } = useGetOptions();
 
     return (
@@ -9,4 +9,4 @@ const RoomAutoComplete = (props: IAutoCompleteBaseProps) => {
     )
 }
 
-export default RoomAutoComplete
+export default DiscountAutoComplete

@@ -16,7 +16,6 @@ import { BoxImageUser, FeatureInfo, Header, LogoPage, MenuFeature, Section } fro
 import { useContext, useState } from 'react';
 import UpdateUserModal from 'layouts/components/UpdateUesrModal';
 import UpdatePasswordModal from 'layouts/components/UpdatePasswordModal';
-import useDetailBusinessPartner from 'contexts/Authentication/hooks/useGetInfoUser';
 import AuthUserContext from 'layouts/context';
 
 const LayoutHeader = () => {
