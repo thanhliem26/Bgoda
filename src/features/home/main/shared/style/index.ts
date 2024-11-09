@@ -99,7 +99,7 @@ export const SectionBackground = styled.section`
     right: 0px;
 
     &::before {
-      background: url('static/background/bg-agoda-homepage.png') center center /
+      background: url('/static/background/bg-agoda-homepage.png') center center /
         cover no-repeat;
       position: absolute;
       width: 100%;

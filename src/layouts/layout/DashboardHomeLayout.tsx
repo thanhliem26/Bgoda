@@ -1,3 +1,4 @@
+import { AuthenticateUserProvider } from 'layouts/context'
 import LayoutFooter from 'layouts/layout-parts/LayoutFooter'
 import LayoutHeader from 'layouts/layout-parts/LayoutHeader'
 import { Outlet } from 'react-router-dom'
@@ -11,15 +12,18 @@ const DashboardWrapper = styled(Box)`
     overflow: hidden;
 `
 
-interface DashboardHomeLayoutProps {}
+interface DashboardHomeLayoutProps { }
 const DashboardHomeLayout = (props: DashboardHomeLayoutProps) => {
 
   return (
-    <DashboardWrapper>
+    <AuthenticateUserProvider>
+      <DashboardWrapper>
         <LayoutHeader />
         <Outlet />
         <LayoutFooter />
-    </DashboardWrapper>
+      </DashboardWrapper>
+    </AuthenticateUserProvider>
+
   )
 }
 
