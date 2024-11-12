@@ -1,3 +1,5 @@
+import { TYPE_ACCOUNT_LOGIN } from 'contexts/Authentication'
+import useAuth from 'features/authorization/hooks/useAuth'
 import { FC, useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Box, FlexBox } from 'shared/styles'
@@ -6,6 +8,8 @@ import { ThemeContext } from 'styled-components'
 
 const DoNotAllow: FC = () => {
   const theme = useContext(ThemeContext)
+  const { type } = useAuth()
+  const link = TYPE_ACCOUNT_LOGIN.TOURIST === type ? '/' : '/admin/room'
 
   return (
     <FlexBox
@@ -41,7 +45,7 @@ const DoNotAllow: FC = () => {
       </Paragraph>
 
       <NavLink
-        to="/"
+        to={link}
         style={{
           display: 'block',
           marginTop: '1.5rem',

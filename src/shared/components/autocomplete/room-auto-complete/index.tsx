@@ -5,7 +5,7 @@ const RoomAutoComplete = (props: IAutoCompleteBaseProps) => {
     const { options } = useGetOptions();
 
     return (
-        <AutoCompleteBase options={options} mode='tags' {...props} />
+        <AutoCompleteBase options={options} {...props} />
     )
 }
 

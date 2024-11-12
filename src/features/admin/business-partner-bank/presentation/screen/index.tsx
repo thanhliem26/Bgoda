@@ -15,6 +15,9 @@ import useBuildActionsTableBusinessPartner from "../../hooks/useBuildActionTable
 import useBuildColumnTable from "shared/components/table/hooks/useBuildColumnTable";
 import { columns } from "../../shared/constants";
 import DetailBankModal from "../page-sections/DetailBankModal";
+import useAuth from "features/authorization/hooks/useAuth";
+import { TYPE_ACCOUNT_LOGIN } from "contexts/Authentication";
+import { useMemo } from "react";
 
 const AdminBusinessPartnerBank = () => {
   const useActionTableReturn = useActionTable()
@@ -29,12 +32,21 @@ const AdminBusinessPartnerBank = () => {
     setOpenDetail,
     rowId } = useActionTableReturn
 
+    const { type } = useAuth()
+    const showAdd = TYPE_ACCOUNT_LOGIN.BUSINESS_PARTNER === type;
+
+    
   const { actions } = useBuildActionsTableBusinessPartner(useActionTableReturn)
+  const newActions = useMemo(() => {
+    if(showAdd) return actions;
+    
+    return actions.filter((item) => item.key === 'detail')
+  }, [showAdd])
 
   const { useTableReturn } = useBusinessPartnerBankTable({});
   const { columnTable } = useBuildColumnTable({
     columns: columns,
-    actions
+    actions: newActions
   })
 
   return (
@@ -47,9 +59,9 @@ const AdminBusinessPartnerBank = () => {
           <Box style={{ width: '400px', maxWidth: '100%' }}>
           </Box>
           <Box>
-            <ButtonBase icon={<PlusOutlined />} onClick={() => setOpenCreate(true)}>
+            {showAdd && <ButtonBase icon={<PlusOutlined />} onClick={() => setOpenCreate(true)}>
               Add a new bank
-            </ButtonBase>
+            </ButtonBase>}
           </Box>
         </FlexBox>
         <FlexBox>

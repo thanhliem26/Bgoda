@@ -18,10 +18,13 @@ import { columns } from "../../shared/constants";
 import DetailBusinessPartnerModal from "../page-sections/DetailBusinessPartnerModal";
 import { useState } from "react";
 import debounce from "shared/utils/debounce";
+import useAuth from "features/authorization/hooks/useAuth";
+import { TYPE_ACCOUNT_LOGIN } from "contexts/Authentication";
 
 const AdminUser = () => {
   const useActionTableReturn = useActionTable()
   const [search, setSearch] = useState<string>('');
+  const { type } = useAuth()
 
   const { openCreate,
     setOpenCreate,
@@ -33,9 +36,10 @@ const AdminUser = () => {
     setOpenDetail,
     rowId } = useActionTableReturn
 
+  const showAdd = TYPE_ACCOUNT_LOGIN.BUSINESS_PARTNER === type;
   const { actions } = useBuildActionsTableBusinessPartner(useActionTableReturn)
 
-  const { useTableReturn } = useRoleTemplateTable({search: {searchName: search}});
+  const { useTableReturn } = useRoleTemplateTable({ search: { searchName: search } });
   const { columnTable } = useBuildColumnTable({
     columns: columns,
     actions
@@ -56,9 +60,9 @@ const AdminUser = () => {
             }} />
           </Box>
           <Box>
-            <ButtonBase icon={<PlusOutlined />} onClick={() => setOpenCreate(true)}>
+            {showAdd && <ButtonBase icon={<PlusOutlined />} onClick={() => setOpenCreate(true)}>
               Add a new role template
-            </ButtonBase>
+            </ButtonBase>}
           </Box>
         </FlexBox>
         <FlexBox>

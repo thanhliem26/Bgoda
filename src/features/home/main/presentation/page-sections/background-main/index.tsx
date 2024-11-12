@@ -46,7 +46,7 @@ const BackgroundMain = () => {
     }
 
     const { state, action, state_application } = useContext(MainWrapperContext)
-    const { rangeDate, roomTypeSelected, optionListSuggest, search } = state
+    const { rangeDate, roomTypeSelected, optionListSuggest } = state
 
     const { optionRoomTypes } = state_application
     const { onChangeRangeDate, onChangeSelectRoomType, onChangeSearch } = action
@@ -285,30 +285,3 @@ const BackgroundMain = () => {
 }
 
 export default BackgroundMain
-
-const MenuComponent = styled(FlexBox)`
-  flex-direction: column;
-  width: 200px;
-  gap: 2px;
-
-  & .menu_item {
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.04);
-    }
-  }
-`
-
-const RenderRoomType = () => {
-    return (
-        <MenuComponent
-            style={{ flexDirection: 'column', width: '200px', gap: '2px' }}
-        >
-            <Box className="menu_item">Phòng đơn</Box>
-            <Box className="menu_item">Phòng đôi</Box>
-            <Box className="menu_item">Phòng gia đình</Box>
-        </MenuComponent>
-    )
-}

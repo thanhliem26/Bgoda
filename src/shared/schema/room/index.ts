@@ -11,6 +11,7 @@ export interface Room {
     services: ServiceRoom[]
     commune: string
     defaultDiscount: number
+    businessPartnerName: string
     district: string
     map: string
     province: string

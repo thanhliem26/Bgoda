@@ -13,10 +13,10 @@ import { Dropdown, MenuProps } from 'antd';
 import handleAuthLocalStorage from 'services/auth-local-storage-service';
 import { toast } from 'react-toastify';
 import { BoxImageUser, FeatureInfo, Header, LogoPage, MenuFeature, Section } from 'layouts/shared/styles';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import UpdateUserModal from 'layouts/components/UpdateUesrModal';
 import UpdatePasswordModal from 'layouts/components/UpdatePasswordModal';
-import useDetailBusinessPartner from 'contexts/Authentication/hooks/useGetInfoUser';
+import AuthUserContext from 'layouts/context';
 
 const LayoutHeader = () => {
   const navigate = useNavigate();
@@ -55,8 +55,7 @@ const LayoutHeader = () => {
     },
   ]
 
-  const { userInfo } = useDetailBusinessPartner({ authenticate: isAuthTourist });
-  console.log("🚀 ~ userInfo:", userInfo)
+  const { userInfo } = useContext(AuthUserContext)
 
   return (
     <Header>
@@ -75,14 +74,14 @@ const LayoutHeader = () => {
           {isAuthTourist ? <FlexBox style={{ gap: 20, alignItems: 'center' }}>
             <Tiny>Hi, {userInfo?.name}</Tiny>
             <Dropdown
-              trigger={['click']}
+              trigger={['hover']}
               menu={{
                 items: suggestList,
               }}
-              placement="bottomCenter"
+              placement="bottomLeft"
             >
               <BoxImageUser>
-                <img src='/static/avatar/001-man.svg' />
+                <img src={userInfo?.avatar ? userInfo?.avatar : '/static/avatar/001-man.svg'} />
               </BoxImageUser>
             </Dropdown>
 
