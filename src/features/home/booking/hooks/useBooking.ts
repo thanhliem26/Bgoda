@@ -7,6 +7,7 @@ import dayjs from "dayjs"
 import { CreateBookingArguments } from "shared/schema/booking"
 import { useContext, useEffect } from "react"
 import AuthUserContext from "layouts/context"
+import { useParams } from "react-router-dom"
 
 interface ICreateBookingProps {
     onSuccess?: (value: any) => void
@@ -15,6 +16,7 @@ interface ICreateBookingProps {
 function useCreateBooking(props: ICreateBookingProps = {}) {
     const { onSuccess } = props
     const { userInfo } = useContext(AuthUserContext)
+    const { id } = useParams()
 
     const { createBooking, queryKey } = useService()
     const { useCreateReturn, useFormReturn } = useCreateResource<
@@ -30,7 +32,7 @@ function useCreateBooking(props: ICreateBookingProps = {}) {
             name: '',
             phoneNumber: '',
             email: '',
-            roomId: 0,
+            roomId: Number(id),
         },
         resolver: yupResolver(schema),
         onSuccess: onSuccess,
@@ -46,7 +48,7 @@ function useCreateBooking(props: ICreateBookingProps = {}) {
             const payload: CreateBookingArguments = {
                 checkInDate: value?.checkInDate,
                 checkOutDate: value?.checkOutDate,
-                couponId: value?.couponId ?? '',
+                couponId: value?.couponId ?? null,
                 name: value?.name,
                 phoneNumber: value?.phoneNumber,
                 roomId: value?.roomId

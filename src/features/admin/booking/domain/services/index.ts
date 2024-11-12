@@ -2,60 +2,52 @@ import RESTClientService from 'services/axios-service'
 import { MODLUE_QUERY_KEY } from 'shared/interfaces/common'
 
 const useService = () => {
-    const queryKey = MODLUE_QUERY_KEY.ADMIN_DISCOUNT
+    const queryKey = MODLUE_QUERY_KEY.ADMIN_BOOKING
 
-    const getAllDiscount = () => {
+    const getAllBooking = () => {
         return RESTClientService.buildRequest({
-            endpoint: '/api/admin/discount-coupons',
+            endpoint: '/api/admin/bookings',
             method: 'GET',
         })
     }
 
-    const createDiscount = () => {
+    const createBooking = () => {
         return RESTClientService.buildRequest({
-            endpoint: '/api/admin/discount-coupons',
+            endpoint: '/api/admin/Booking-coupons',
             method: 'POST',
         })
     }
 
-    const updateDiscount = () => {
+    const updateReceiveBooking = () => {
         return RESTClientService.buildRequest({
-            endpoint: '/api/admin/discount-coupons',
-            method: 'PUT',
+            endpoint: '/api/admin/bookings/received',
+            method: 'POST',
         })
     }
 
-    const getDiscount = () => {
+    const getBooking = () => {
         return RESTClientService.buildRequest({
-            endpoint: '/api/admin/discount-coupons',
+            endpoint: '/api/admin/bookings',
             method: 'GET',
             slash_id: true
         })
     }
 
-    const deleteDiscount = () => {
+    const deleteBooking = () => {
         return RESTClientService.buildRequest({
-            endpoint: '/api/admin/discount-coupons',
+            endpoint: '/api/admin/bookings',
             method: 'DELETE',
-        })
-    }
-
-    const getAllRoom = () => {
-        return RESTClientService.buildRequest({
-            endpoint: '/api/admin/discount-coupons/get-rooms',
-            method: 'GET',
         })
     }
 
 
     return {
         queryKey,
-        getAllDiscount,
-        createDiscount,
-        updateDiscount,
-        getDiscount,
-        deleteDiscount,
-        getAllRoom
+        getAllBooking,
+        createBooking,
+        updateReceiveBooking,
+        getBooking,
+        deleteBooking,
     }
 }
 

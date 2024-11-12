@@ -4,24 +4,25 @@ import RESTClientService from "services/axios-service"
 import { isRight, unwrapEither } from "shared/utils/handleEither"
 import { useMemo } from "react"
 import { Discount } from "shared/schema/discount"
+import { Booking } from "shared/schema/booking"
 
-type UseDetailDiscountProps = {
+type UseDetailBookingProps = {
     id: string
 }
 
-function useDetailDiscount(props: UseDetailDiscountProps) {
+function useDetailBooking(props: UseDetailBookingProps) {
     const { id } = props
-    const { queryKey, getDiscount } = useService()
+    const { queryKey, getBooking } = useService()
 
     const { data } = useQuery({
         queryKey: [queryKey],
         queryFn: async () =>
-            RESTClientService.fetchREST(getDiscount(), {
+            RESTClientService.fetchREST(getBooking(), {
                 id,
             }),
     })
 
-    const discount: Discount = useMemo(() => {
+    const booking: Booking = useMemo(() => {
         if (data && isRight(data)) {
             const response = unwrapEither(data)
 
@@ -31,7 +32,7 @@ function useDetailDiscount(props: UseDetailDiscountProps) {
     }, [data])
 
     return {
-        discount
+        booking
     }
 }
-export default useDetailDiscount
+export default useDetailBooking

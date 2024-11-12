@@ -109,9 +109,9 @@ function Login() {
                 <Box className='form_link_item'>
                   <Link to={'/register'}>Tạo tài khoản</Link>
                 </Box>
-                <Box className='form_link_item'>
+                {/* <Box className='form_link_item'>
                   <Link to={'/'}> <UnlockOutlined /> Quên mật khẩu?</Link>
-                </Box>
+                </Box> */}
 
               </FlexBox>
               <FlexBox>

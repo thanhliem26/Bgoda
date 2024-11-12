@@ -14,20 +14,19 @@ type DeleteArguments = {
 
 function useDeleteBooking(props: UseDeleteBookingProps) {
   const { id, onSuccess, onError } = props
-  const { queryKey, deleteDiscount } = useService()
+  const { queryKey, deleteBooking } = useService()
   const { useDeleteReturn } = useDeleteResource<DeleteArguments>({
     mutationKey: [queryKey],
     onSuccess,
     onError,
-    queryString: deleteDiscount,
+    queryString: deleteBooking,
   })
 
   const { mutate, isPending } = useDeleteReturn
 
   function onDelete() {
-    mutate({
-      id,
-    })
+    //@ts-ignore
+    mutate([id])
   }
 
   return {

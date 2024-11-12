@@ -4,7 +4,7 @@ import useCreateBooking from '../../hooks/useBooking'
 import { Controller } from 'react-hook-form'
 import AppTextField from 'shared/components/form/AppTextField'
 import { Span, Tiny } from 'shared/styles/Typography'
-import { Col, DatePicker, Rate, Row } from 'antd'
+import { Col, DatePicker, Image, Rate, Row } from 'antd'
 import dayjs from 'dayjs'
 import weekday from 'dayjs/plugin/weekday'
 import localeData from 'dayjs/plugin/localeData'
@@ -34,15 +34,18 @@ const SpanIcon = styled(Span)`
 
 function BookingRoom() {
   const [open, setOpen] = useState(false)
+  const [imageBank, setImageBank] = useState('');
+  console.log("🚀 ~ imageBank:", imageBank)
   const handleButtonClick = () => {
     setOpen(true)
   }
 
   const { onSubmit, control, isPending, isValid, setValue, watch, getValues } =
     useCreateBooking({
-      // onSuccess: () => {
-      //   setOpen(false)
-      // },
+      onSuccess: (data) => {
+        const first = data?.metaData[0];
+        setImageBank(first?.qrurl)
+      },
     })
 
   const { id } = useParams()
@@ -92,6 +95,18 @@ function BookingRoom() {
 
   return (
     <Fragment>
+       <Image
+        width={200}
+        style={{ display: 'none' }}
+        src={imageBank}
+        preview={{
+          visible: !!imageBank,
+          src: imageBank,
+          onVisibleChange: (value) => {
+            setImageBank('')
+          },
+        }}
+      />
       <FlexBox style={{ width: '100%', justifyContent: 'center', gap: '16px' }}>
         <FlexBox
           style={{
@@ -284,9 +299,9 @@ function BookingRoom() {
             </BoxWrapper>
 
             <FlexBox>
-              <AppButton style={{ width: '100%' }} disabled={isValid} onClick={onSubmit} loading={isPending}>
+              {!imageBank && <AppButton style={{ width: '100%' }} disabled={isValid} onClick={onSubmit} loading={isPending}>
                 Đặt phòng
-              </AppButton>
+              </AppButton>}
             </FlexBox>
           </FlexBox>
 
@@ -431,7 +446,7 @@ function BookingRoom() {
             <BoxWrapper
               style={{ color: '#c53829', backgroundColor: '#fee9e5' }}
             >
-              <Tiny>Chúng tôi còn 4 phòng như thế này</Tiny>
+              <Tiny>Chúng tôi còn {roomInfo?.avaiable} phòng như thế này</Tiny>
             </BoxWrapper>
           </FlexBox>
         </FlexBox>

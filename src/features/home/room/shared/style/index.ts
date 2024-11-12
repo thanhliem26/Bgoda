@@ -66,6 +66,74 @@ export const BoxWrapper = styled(FlexBox)`
     margin: 0px;
     flex-direction: column;
 
+    &.feedback {
+      border: none;
+      padding: 0;
+      gap: 16;
+
+      & .feedback_progress {
+        flex-direction: column;
+        gap: 8;
+
+        & .progress_title {
+          width: 100px;
+          color: '#1e1915';
+          font-size: 16px;
+          font-weight: 700;
+        }
+
+        & .line_progress {
+
+        }
+      }
+
+      & .feedback_review {
+        margin-top: 16px;
+
+        & .feedback_review_item {
+          gap: 16px;
+          width: 100%;
+
+          .box_image {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+
+            & img {
+              width: 100%;
+            }
+          }
+
+          & .box_review {
+            flex-direction: column;
+            width: 100%;
+
+            & .box_review_name {
+              font-size: 12px;
+              font-weight: 600;
+            }
+
+            & .box_review_rate {
+              & .ant-rate-star  {
+                font-size: 12px;
+              }
+            }
+
+            & .box_review_date {
+              color: #bbb;
+            }
+
+            & .box_description {
+              margin-top: 10px;
+    background-color: #f5f5f5;
+    padding: 20px 10px;
+            }
+          }
+        }
+      }
+    }
+
     &.room_description {
     
       h2 {

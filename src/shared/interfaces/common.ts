@@ -42,6 +42,7 @@ export enum MODLUE_QUERY_KEY {
     PERMISSION = 'permission',
     LOGIN_USER = 'login',
     PROVINCE = 'province',
+    ADMIN_BOOKING = 'admin_booking',
     APPLICATION_ROOM_TYPE = 'application_room_type',
     APPLICATION_BUSINESS_PARTNER = 'application_business_partner',
     APPLICATION_POPULAR_VISIT = 'application_popular_visit',
@@ -52,6 +53,8 @@ export enum MODLUE_QUERY_KEY {
     APPLICATION_ROOM_BUSINESS_PARTNER = 'application_room_business_partner',
     APPLICATION_LIST_DISCOUNT = 'application_list_discount',
     APPLICATION_BOOKING = 'application_booking',
+    APPLICATION_BOOKED = 'application_booked',
+    APPLICATION_RATING = 'application_rating'
 }
 
 export type IOption =  {

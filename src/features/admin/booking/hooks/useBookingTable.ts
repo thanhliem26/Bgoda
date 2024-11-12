@@ -2,12 +2,12 @@ import useCustomTable from "shared/components/table/hooks/useCustomTable"
 import { IUseCustomCommonTable } from "shared/components/table/interfaces"
 import useService from "../domain/services"
 
-const useDiscountTable = (props: IUseCustomCommonTable) => {
-  const { getAllDiscount, queryKey } = useService()
+const useBookingTable = (props: IUseCustomCommonTable) => {
+  const { getAllBooking, queryKey } = useService()
   const { search, filters, variables = {} } = props
 
   const useTableReturn = useCustomTable({
-    buildQuery: getAllDiscount,
+    buildQuery: getAllBooking,
     queryKey,
     filters,
     search,
@@ -19,4 +19,4 @@ const useDiscountTable = (props: IUseCustomCommonTable) => {
   }
 }
 
-export default useDiscountTable
+export default useBookingTable

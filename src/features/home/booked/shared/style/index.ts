@@ -19,10 +19,19 @@ export const BoxImage = styled(Box)`
 `
 
 export const BoxWrapper = styled(FlexBox)`
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
+   border-radius: 16px;
+    border-color: rgb(221, 223, 226);
+    border-style: solid;
+    border-width: 1px;
+    padding: 16px;
+    box-shadow: none;
+    margin: 0px;
+    flex-direction: column;
+    width: 100%;
+
+    & .form_user {
+
+    }
 `
 
 export const BoxTitle = styled(FlexBox)`
@@ -89,7 +98,7 @@ export const fadein = keyframes`
 
 export const SectionBackground = styled.section`
   width: 100%;
-  height: 150px;
+  height: 300px;
   position: relative;
   margin-bottom: 24px;
 
@@ -267,7 +276,7 @@ export const ListRoomWrapper = styled(FlexBox)`
 
           & .room_description {
             flex-direction: column;
-            & .overflow_text {
+            p {
               display: -webkit-box;
               -webkit-line-clamp: 3;
               -webkit-box-orient: vertical;

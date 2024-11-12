@@ -100,6 +100,7 @@ function UpdateSystemEmployeeModal({ open, setOpen, id }: IUpdateEmployeeModal) 
                     required
                     value={field.value}
                     onChange={field.onChange}
+                    disabled
                   />
                   <HelperTextForm>{fieldState.error?.message}</HelperTextForm>
                 </FlexBox>

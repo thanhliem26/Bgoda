@@ -267,7 +267,7 @@ export const ListRoomWrapper = styled(FlexBox)`
 
           & .room_description {
             flex-direction: column;
-            p {
+            & .overflow_text {
               display: -webkit-box;
               -webkit-line-clamp: 3;
               -webkit-box-orient: vertical;

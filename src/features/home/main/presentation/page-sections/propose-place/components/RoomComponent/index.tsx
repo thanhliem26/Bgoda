@@ -98,9 +98,9 @@ const RoomComponent = ({ data }: IRoomComponentProps) => {
             </FlexBox>
             <FlexBox className="box-text">
               <Tiny className="room-name">{item?.name}</Tiny>
-              <FlexBox className="room-address">
-                <Rate disabled defaultValue={5} />
+              <FlexBox className="room-address" style={{flexDirection: "column", gap: 4}}>
                 <Span className="address">{item?.address}</Span>
+                <Rate disabled defaultValue={5} />
               </FlexBox>
               <FlexBox>
                 <Tiny className="room-price">{convertCurrency(discountPrice)} VND</Tiny>

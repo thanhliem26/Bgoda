@@ -48,6 +48,15 @@ const LayoutHeader = () => {
     },
     {
       key: '3',
+      label: <FlexBox style={{ padding: '5px 10px', gap: 8 }} onClick={() => {
+        navigate('/room/booked')
+      }}>
+        <EditOutlined />
+        <Tiny>Booked</Tiny>
+      </FlexBox>
+    },
+    {
+      key: '4',
       label: <FlexBox style={{ padding: '5px 10px', gap: 8 }} onClick={handleLogout}>
         <LogoutOutlined />
         <Tiny>Logout</Tiny>
@@ -64,12 +73,12 @@ const LayoutHeader = () => {
           <Link to={'/'}>
             <img src="/static/logo/logo.svg" /></Link>
         </LogoPage>
-        <MenuFeature>
+        {/* <MenuFeature>
           <Box className='feature_item'>
             <Link to={'/'}>
               <Span>Phiếu giảm giá và ưu đãi</Span></Link>
           </Box>
-        </MenuFeature>
+        </MenuFeature> */}
         <FeatureInfo gap={'8px'}>
           {isAuthTourist ? <FlexBox style={{ gap: 20, alignItems: 'center' }}>
             <Tiny>Hi, {userInfo?.name}</Tiny>
