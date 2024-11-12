@@ -10,6 +10,7 @@ import ProtectedLayout from 'features/authorization/presentation/page-sections/P
 import AuthenticateLayout from 'features/authorization/presentation/page-sections/AuthenticateLayout'
 import Cant from 'contexts/AuthenticationAdmin/components/Cant'
 import AuthenticateLayoutAdmin from 'features/authorization/presentation/page-sections/AuthenticateLayouAdmin'
+import CantApplication from 'contexts/AuthenticationAdmin/components/CantApplication'
 
 const Loadable = (Component: LazyExoticComponent<FC>) => (props: any) => {
   return (
@@ -67,6 +68,8 @@ const VerifyEmailPage = Loadable(lazy(() => import('../pages/home/verify-email/i
 
 const SystemLoginPage = Loadable(lazy(() => import('../pages/admin/system-login/index')))
 
+const BookedPage = Loadable(lazy(() => import('../pages/home/booked/index')))
+
 const RegisterPage = Loadable(
   lazy(() => import('../pages/home/register/index'))
 )
@@ -89,6 +92,10 @@ const router = createBrowserRouter([
         element: <RoomProvincePage />,
       },
       {
+        path: '/room/booked',
+        element: <BookedPage />,
+      },
+      {
         path: '/discount/:id',
         element: <DiscountPage />,
       },
@@ -98,7 +105,9 @@ const router = createBrowserRouter([
       },
       {
         path: '/room/booking/:id',
-        element: <BookingPage />,
+        element: <CantApplication>
+          <BookingPage />
+          </CantApplication>,
       },
       {
         path: '/city/room/:id',

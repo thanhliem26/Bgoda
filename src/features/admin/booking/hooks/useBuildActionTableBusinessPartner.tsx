@@ -5,7 +5,7 @@ import {
   EditOutlined,
   SearchOutlined,
 } from '@ant-design/icons'
-import { Discount } from 'shared/schema/discount'
+import { Booking } from 'shared/schema/booking'
 
 export enum ActionsTableRoleTemplate {
   DELETE = 'delete',
@@ -20,7 +20,7 @@ function useBuildActionsTableBusinessPartner({
 }: IuseUserActionTableReturn) {
   const useBuildActionsTableReturn = useBuildActionsTable<
     ActionsTableRoleTemplate,
-    Discount
+    Booking
   >({
     actions: {
       detail: {
@@ -36,7 +36,7 @@ function useBuildActionsTableBusinessPartner({
         onClick: (id) => {
           handleOpenEdit(id)
         },
-        label: "Edit",
+        label: "Received",
         icon: <EditOutlined />,
       },
       delete: {

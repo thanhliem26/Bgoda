@@ -1,4 +1,4 @@
-import React, { useContext }  from 'react'
+import React, { useContext, useMemo } from 'react'
 import type { MenuProps } from 'antd'
 import { Menu } from 'antd'
 import styled from 'styled-components'
@@ -8,6 +8,8 @@ import Scrollbar from 'shared/components/ScrollBar'
 import { Link, useNavigate } from 'react-router-dom'
 import ProfilePopover from 'layouts/layout-parts/ProfileAvatar'
 import AuthAdminContext from 'contexts/AuthenticationAdmin'
+import useAuth from 'features/authorization/hooks/useAuth'
+import { TYPE_ACCOUNT_LOGIN } from 'contexts/Authentication'
 
 const MenuSidebar = styled(Menu)`
   & .ant-menu-item-group-title {
@@ -179,20 +181,20 @@ const NavWrapper = styled(Box)`
 
 const filterNavigationRecursive = (items: any, permissions: any) => {
   return items
-      .map((item: any) => {
-          if (item.children) {
-              const filteredChildren = filterNavigationRecursive(item?.children, permissions);
+    .map((item: any) => {
+      if (item.children) {
+        const filteredChildren = filterNavigationRecursive(item?.children, permissions);
 
-            
-              return filteredChildren?.length > 0
-                  ? { ...item, children: filteredChildren }
-                  : null; 
-          }
 
-       
-          return !item?.permission || permissions?.includes(item.permission) ? item : null;
-      })
-      .filter((item: any) => item !== null); 
+        return filteredChildren?.length > 0
+          ? { ...item, children: filteredChildren }
+          : null;
+      }
+
+
+      return !item?.permission || permissions?.includes(item.permission) ? item : null;
+    })
+    .filter((item: any) => item !== null);
 };
 
 const TOP_HEADER_AREA = 70;
@@ -205,13 +207,22 @@ const DashboardSidebar: React.FC = () => {
     navigate(event.key);
   }
 
-const navigationPermission = filterNavigationRecursive(navigation, permission)
+  const { type } = useAuth()
+  const navigationPermission = filterNavigationRecursive(navigation, permission)
+
+  const navigationPermissionUser = useMemo(() => {
+    if(type === TYPE_ACCOUNT_LOGIN.SYSTEM_EMPLOYEE) return navigationPermission;
+
+    return (navigationPermission as any[]).filter((item) => {
+      return item?.key !== ''
+    })
+  }, [navigationPermission, type])
 
   return (
     <DashboardWrapper>
-      <FlexBox style={{ alignItems: 'center', justifyContent: 'space-between', paddingTop: 24, paddingRight: 16, paddingLeft: 35, paddingBottom: 8, height:  TOP_HEADER_AREA}}>
+      <FlexBox style={{ alignItems: 'center', justifyContent: 'space-between', paddingTop: 24, paddingRight: 16, paddingLeft: 35, paddingBottom: 8, height: TOP_HEADER_AREA }}>
         {/* LOGO */}
-        <FlexBox style={{alignItems: 'center'}}>
+        <FlexBox style={{ alignItems: 'center' }}>
           <Link to={'/admin'} style={{ display: 'flex' }}>
             <img src="/static/logo/logo.svg" alt="logo" width={70} />
           </Link>
@@ -233,7 +244,7 @@ const navigationPermission = filterNavigationRecursive(navigation, permission)
             style={{ width: 265 }}
             defaultSelectedKeys={['user']}
             mode="inline"
-            items={navigationPermission}
+            items={navigationPermissionUser}
           />
         </NavWrapper>
       </Scrollbar>

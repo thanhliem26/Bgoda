@@ -34,4 +34,8 @@ export const schemaUpdate = yup.object({
   cccd: yup.string(),
 })
 
-export type FormDataSchemaUpdate = yup.InferType<typeof schemaUpdate>
+export const schemaReceived = yup.object({
+  received: yup.array()
+})
+
+export type FormDataSchemaReceive = yup.InferType<typeof schemaReceived>

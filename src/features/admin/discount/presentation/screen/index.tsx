@@ -17,6 +17,7 @@ import DetailBusinessPartnerModal from "../page-sections/DetailBusinessPartnerMo
 import DiscountIcon from '@mui/icons-material/Discount';
 import useAuth from "features/authorization/hooks/useAuth";
 import { TYPE_ACCOUNT_LOGIN } from "contexts/Authentication";
+import { useMemo } from "react";
 
 const AdminUser = () => {
   const useActionTableReturn = useActionTable()
@@ -35,10 +36,16 @@ const AdminUser = () => {
   const showAdd = TYPE_ACCOUNT_LOGIN.BUSINESS_PARTNER === type;
   const { actions } = useBuildActionsTableBusinessPartner(useActionTableReturn)
 
+  const newActions = useMemo(() => {
+    if (showAdd) return actions;
+
+    return actions.filter((item) => item.key === 'detail')
+  }, [showAdd])
+
   const { useTableReturn } = useDiscountTable({});
   const { columnTable } = useBuildColumnTable({
     columns: columns,
-    actions
+    actions: newActions
   })
 
   return (

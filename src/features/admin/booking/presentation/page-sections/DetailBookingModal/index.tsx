@@ -1,5 +1,6 @@
+import { Switch } from 'antd'
 import dayjs from 'dayjs'
-import useDetailBusinessPartner from 'features/admin/booking/hooks/useDetailBusinessPartner'
+import useDetailBooking from 'features/admin/booking/hooks/useDetailBooking'
 import { WrapperAvatar } from 'features/admin/booking/shared/styles'
 import AppButton from 'shared/components/AppButton'
 import { labelDiscountType } from 'shared/components/autocomplete/discount-type-auto-complete'
@@ -32,15 +33,15 @@ const TinyValue = styled(Tiny)`
 `
 
 function DetailBookingModal({ open, setOpen, id }: IDetailBookingModal) {
-  const { discount } = useDetailBusinessPartner({
+  const { booking } = useDetailBooking({
     id: id,
   })
-  console.log('discount', discount)
+  console.log('booking', booking)
 
   return (
     <ModalBase title="Detail booking" open={open} setOpen={setOpen}>
       <FlexBox style={{ flexDirection: 'column', gap: '16px' }}>
-        <FlexBox>
+        {/* <FlexBox>
           <WrapperAvatar>
             <Box className="image_wrapper">
               <label htmlFor="image_background">
@@ -70,7 +71,7 @@ function DetailBookingModal({ open, setOpen, id }: IDetailBookingModal) {
               </label>
             </Box>
           </WrapperAvatar>
-        </FlexBox>
+        </FlexBox> */}
 
         <FlexBox>
           <FlexBox
@@ -84,7 +85,7 @@ function DetailBookingModal({ open, setOpen, id }: IDetailBookingModal) {
           >
             <SpanField>Name</SpanField>
             <Box>
-              <TinyValue>{discount?.name}</TinyValue>
+              <TinyValue>{booking?.name}</TinyValue>
             </Box>
           </FlexBox>
 
@@ -97,10 +98,10 @@ function DetailBookingModal({ open, setOpen, id }: IDetailBookingModal) {
               flex: 1,
             }}
           >
-            <SpanField>Discount type</SpanField>
+            <SpanField>Phone number</SpanField>
             <Box>
               <TinyValue>
-                {labelDiscountType(discount?.discountType)?.label}
+                {booking?.phoneNumber}
               </TinyValue>
             </Box>
           </FlexBox>
@@ -116,9 +117,9 @@ function DetailBookingModal({ open, setOpen, id }: IDetailBookingModal) {
               flex: 1,
             }}
           >
-            <SpanField>Discount value</SpanField>
+            <SpanField>Total price</SpanField>
             <Box>
-              <TinyValue>{discount?.discountValue}</TinyValue>
+              <TinyValue>{convertCurrency(booking?.totalPrice)} VND</TinyValue>
             </Box>
           </FlexBox>
 
@@ -131,65 +132,12 @@ function DetailBookingModal({ open, setOpen, id }: IDetailBookingModal) {
               flex: 1,
             }}
           >
-            <SpanField>Discount max</SpanField>
-            <Box>
-              <TinyValue>
-                {convertCurrency(discount?.discountMax)} VND
-              </TinyValue>
-            </Box>
-          </FlexBox>
-        </FlexBox>
-
-        <FlexBox>
-          <FlexBox
-            style={{
-              justifyContent: 'center',
-              alignContent: 'center',
-              marginTop: 8,
-              flexDirection: 'column',
-              flex: 1,
-            }}
-          >
-            <SpanField>Start date</SpanField>
+            <SpanField>Received</SpanField>
             <Box>
               <TinyValue>
-                {dayjs(discount?.startDate).format('DD-MM-YYYY')}
+                <Switch checked={booking?.approved} />
               </TinyValue>
             </Box>
-          </FlexBox>
-
-          <FlexBox
-            style={{
-              justifyContent: 'center',
-              alignContent: 'center',
-              marginTop: 8,
-              flexDirection: 'column',
-              flex: 1,
-            }}
-          >
-            <SpanField>End date</SpanField>
-            <Box>
-              <TinyValue>
-                {dayjs(discount?.endDate).format('DD-MM-YYYY')}
-              </TinyValue>
-            </Box>
-          </FlexBox>
-        </FlexBox>
-
-        <FlexBox>
-          <FlexBox
-            style={{
-              justifyContent: 'center',
-              alignContent: 'center',
-              marginTop: 8,
-              flexDirection: 'column',
-              flex: 1,
-            }}
-          >
-            <SpanField>Description</SpanField>
-            <Box
-              dangerouslySetInnerHTML={{ __html: discount?.description }}
-            ></Box>
           </FlexBox>
         </FlexBox>
       </FlexBox>

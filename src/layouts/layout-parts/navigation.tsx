@@ -42,14 +42,14 @@ export type IMenuSideBar = GroupMenu | SubMenu | DividerMenu | NormalMenu;
 
 
 export const navigation: IMenuSideBar[] = [
-  {
-    key: 'report',
-    label: 'REPORT',
-    type: 'group',
-    children: [
-      { key: '/admin/evaluates', label: 'Evaluates', icon: <SettingOutlined />, permission: null },
-    ],
-  },
+  // {
+  //   key: 'report',
+  //   label: 'REPORT',
+  //   type: 'group',
+  //   children: [
+  //     { key: '/admin/evaluates', label: 'Evaluates', icon: <SettingOutlined />, permission: null },
+  //   ],
+  // },
   {
     key: 'function',
     label: 'FUNCTION',

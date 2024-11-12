@@ -16,7 +16,7 @@ import useBuildActionsTableBusinessPartner from "../../hooks/useBuildActionTable
 import useBuildColumnTable from "shared/components/table/hooks/useBuildColumnTable";
 import { columns } from "../../shared/constants";
 import DetailRoomModal from "../page-sections/DetailRoomModal";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import debounce from "shared/utils/debounce";
 import useAuth from "features/authorization/hooks/useAuth";
 import { TYPE_ACCOUNT_LOGIN } from "contexts/Authentication";
@@ -42,11 +42,16 @@ const AdminRoom = () => {
   const { type } = useAuth()
   const showAdd = TYPE_ACCOUNT_LOGIN.BUSINESS_PARTNER === type;
   const { actions } = useBuildActionsTableBusinessPartner(useActionTableReturn)
+  const newActions = useMemo(() => {
+    if(showAdd) return actions;
+    
+    return actions.filter((item) => item.key === 'detail')
+  }, [showAdd])
 
   const { useTableReturn } = useRoleTemplateTable({ search: { searchName: search }, filters: { roomTypeId: roomType, businessPartnerId: businessPartner } });
   const { columnTable } = useBuildColumnTable({
     columns: columns,
-    actions
+    actions: newActions
   })
 
   const handleSearch = debounce(setSearch, 500)

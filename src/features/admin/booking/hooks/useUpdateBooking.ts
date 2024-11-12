@@ -2,8 +2,8 @@ import { BaseRecord } from "shared/interfaces/common"
 import useService from "../domain/services"
 import { yupResolver } from "@hookform/resolvers/yup"
 import useEditResource from "shared/hooks/crud-hook/useEditResource"
-import { FormDataSchemaUpdate, schemaUpdate } from "../shared/constants/schema"
-import { Booking, UpdateBookingArguments } from "shared/schema/booking"
+import { FormDataSchemaReceive, schemaReceived } from "../shared/constants/schema"
+import { Booking, UpdateReceivedBookingArguments } from "shared/schema/booking"
 
 type TypeUseUpdateBooking = {
     id: string | number
@@ -13,28 +13,22 @@ type TypeUseUpdateBooking = {
 function useUpdateBooking(props: TypeUseUpdateBooking) {
     const { id, onSuccess } = props
 
-    const { updateDiscount, getDiscount, queryKey } = useService()
+    const { updateReceiveBooking, getBooking, queryKey } = useService()
     const { useEditReturn, useFormReturn, isGetting } = useEditResource<
         Booking,
-        FormDataSchemaUpdate,
-        UpdateBookingArguments
+        FormDataSchemaReceive,
+        UpdateReceivedBookingArguments
     >({
-        resolver: yupResolver(schemaUpdate),
-        editBuildQuery: updateDiscount,
-        oneBuildQuery: getDiscount,
+        resolver: yupResolver(schemaReceived),
+        editBuildQuery: updateReceiveBooking,
+        oneBuildQuery: getBooking,
         queryKey: [queryKey],
         id,
         onSuccess,
         formatDefaultValues(data) {
 
             return {
-                checkInDate: data?.checkInDate ?? new Date(),
-                checkOutDate: data?.checkOutDate ?? new Date(),
-                couponId: data?.couponId ?? null,
-                name: data?.name ?? '',
-                phoneNumber: data?.phoneNumber ?? '',
-                roomId: data?.roomId ?? null,
-                cccd: data?.cccd ?? '',
+                received: [id]
             }
         },
     })
@@ -49,18 +43,12 @@ function useUpdateBooking(props: TypeUseUpdateBooking) {
     function onSubmit() {
         handleSubmit((value) => {
 
-            const payload: UpdateBookingArguments = {
-                id: id as string,
-                cccd: value?.cccd ?? '',
-                checkInDate: value?.checkInDate,
-                checkOutDate: value?.checkOutDate,
-                couponId: value?.couponId,
-                name: value?.name,
-                phoneNumber: value?.phoneNumber,
-                roomId: value?.roomId,
+            const payload: UpdateReceivedBookingArguments = {
+               received: value?.received as string[]
             }
 
-            mutate(payload)
+            //@ts-ignore
+            mutate(payload.received)
         })()
     }
 

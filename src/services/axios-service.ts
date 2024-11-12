@@ -54,7 +54,7 @@ class RESTClientService {
             let finalUrl = url;
             const config = { ...requestOptions };
 
-            if ((config.method === 'GET' || config.method === 'DELETE') && params) {
+            if ((config.method === 'GET' || config.method === 'DELETE') && params && !Array.isArray(params)) {
                 const paramsClone = cloneDeep(params);
                 if(slash_id && paramsClone?.id) {
                     delete paramsClone['id'];
@@ -67,6 +67,11 @@ class RESTClientService {
                     }
                 });
                 finalUrl = urlWithParams.toString();
+            }
+
+            if(config.method === 'DELETE' && Array.isArray(params)) {
+                 //@ts-ignore
+                 config.data = params;
             }
 
             // if (['POST', 'PUT', 'PATCH'].includes(config.method) && params) {

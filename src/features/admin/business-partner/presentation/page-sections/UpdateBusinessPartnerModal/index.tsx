@@ -101,6 +101,7 @@ function UpdateBusinessPartnerModal({ open, setOpen, id }: IUpdateRoleTemplateMo
                     required
                     value={field.value}
                     onChange={field.onChange}
+                    disabled
                   />
                   <HelperTextForm>{fieldState.error?.message}</HelperTextForm>
                 </FlexBox>

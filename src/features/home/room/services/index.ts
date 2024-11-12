@@ -19,10 +19,34 @@ const useService = () => {
         })
     }
 
+    const createRating = () => {
+        return RESTClientService.buildRequest({
+            endpoint: '/api/application/ratings',
+            method: 'POST'
+        })
+    }
+
+    const getAllRating = () => {
+        return RESTClientService.buildRequest({
+            endpoint: '/api/application/ratings',
+            method: 'GET'
+        })
+    }
+
+    const updateRating = () => {
+        return RESTClientService.buildRequest({
+            endpoint: '/api/application/ratings',
+            method: 'PUT'
+        })
+    }
+
     return {
         queryKey,
         getListRoomInfo,
-        getListRoomBusinessPartner
+        getListRoomBusinessPartner,
+        createRating,
+        getAllRating,
+        updateRating
     }
 }
 

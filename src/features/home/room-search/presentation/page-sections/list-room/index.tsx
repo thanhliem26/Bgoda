@@ -35,7 +35,7 @@ const options_star = [
 const ListRoom = () => {
   const { state, action } = useContext(MainWrapperContext)
   const { optionListRoom, hasMore, rateList, optionRoomService, serviceList, sliderPrice } = state
- 
+
   const { onChangeRateList, fetchNextRoom, onChangeServiceList, onChangePrice } = action
   const { rooms } = optionListRoom
 
@@ -53,7 +53,7 @@ const ListRoom = () => {
         <H2>Các khách sạn tốt nhất</H2>
       </Box>
       <FlexBox className="room-list">
-        <FlexBox className="room-star" style={{flexDirection: 'column', gap: 16}}>
+        <FlexBox className="room-star" style={{ flexDirection: 'column', gap: 16 }}>
           <FlexBox
             style={{
               border: '1px solid #d7d7db',
@@ -133,9 +133,9 @@ const ListRoom = () => {
             </Box>
             <FlexBox>
               <Slider
-                style={{width: '100%'}}
+                style={{ width: '100%' }}
                 range={true}
-                tooltip={{formatter: (value) => `${convertCurrency(value as number)} VND`}}
+                tooltip={{ formatter: (value) => `${convertCurrency(value as number)} VND` }}
                 value={sliderPrice}
                 min={rangePrice?.min}
                 max={rangePrice.max}
@@ -165,7 +165,7 @@ const ListRoom = () => {
                   : room?.images
 
               return (
-                <FlexBox className="room-item" style={{marginBottom: '20px'}} onClick={() => {
+                <FlexBox className="room-item" style={{ marginBottom: '20px' }} onClick={() => {
                   navigate(`/city/room/${room?.id}`)
                 }}>
                   <FlexBox className="room__item-image">
@@ -201,20 +201,22 @@ const ListRoom = () => {
                   <FlexBox className="room__item-description">
                     <H3>{room?.name}</H3>
                     <FlexBox style={{ gap: '8px', flexDirection: 'column' }}>
-                      <FlexBox style={{ alignItems: 'center', gap: '20px' }}>
+                      <FlexBox style={{ gap: '8px', flexDirection: "column" }}>
+
+                        <Tiny style={{ color: '#5392f9' }}>
+                          {room?.province} {room?.district} {room?.address}
+                        </Tiny>
                         <Rate
                           style={{ fontSize: '13px' }}
                           disabled
                           value={room?.star}
                         />
-                        <Tiny style={{ color: '#5392f9' }}>
-                          {room?.province} {room?.district} {room?.address}
-                        </Tiny>
                       </FlexBox>
                       <Tiny>Available room: {room?.avaiable}</Tiny>
                       <FlexBox className="room_description">
                         <Span>Mô tả</Span>
                         <Tiny
+                          className='overflow_text'
                           dangerouslySetInnerHTML={{
                             __html: room?.description,
                           }}
@@ -293,7 +295,7 @@ const ListRoom = () => {
               )
             })}
           </InfiniteScroll>
-         
+
         </FlexBox>
       </FlexBox>
     </ListRoomWrapper>

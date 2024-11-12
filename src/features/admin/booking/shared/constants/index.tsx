@@ -1,49 +1,48 @@
-import { TableProps } from "antd"
+import { Switch, TableProps } from "antd"
 import dayjs from "dayjs";
-import { labelDiscountType } from "shared/components/autocomplete/discount-type-auto-complete";
 import { ActionGroupButtons } from "shared/components/table/components/ActionGroupButton";
 import { TOptionItem } from "shared/components/table/hooks/useBuildActionTable"
-import { Discount } from "shared/schema/discount";
-import { Box, FlexBox } from "shared/styles";
+import { Booking } from "shared/schema/booking";
 import { Tiny } from "shared/styles/Typography";
+import { convertCurrency } from "shared/utils/convert-string";
 
 export const columns = (
-  actions: TOptionItem<Discount>[],
-): TableProps<Discount>['columns'] => [
+  actions: TOptionItem<Booking>[],
+): TableProps<Booking>['columns'] => [
     {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
       render: (text, rowData) => {
-        return <FlexBox style={{alignItems: 'center', gap: '8px'}}>
-          <Box style={{ width: '50px', height: '50px', overflow: 'hidden', borderRadius: '50%' }}><img style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            objectPosition: 'center',
-
-          }} src={rowData?.image ? rowData?.image : '/static/avatar/001-man.svg'} /></Box>
-          <Tiny style={{fontWeight: 'bold'}}>{text}</Tiny>
-        </FlexBox>
+        return  <Tiny style={{fontWeight: 'bold'}}>{text}</Tiny>
       },
       width: 300,
     },
     {
-      title: 'Discount type',
-      dataIndex: 'discountType',
-      key: 'discountType',
+      title: 'Phone number',
+      dataIndex: 'phoneNumber',
+      key: 'phoneNumber',
       width: 300,
-      render: (discountType) => {
-        return <Tiny>{labelDiscountType(discountType)?.label}</Tiny>
+      render: (phoneNumber) => {
+        return <Tiny>{phoneNumber}</Tiny>
       },
     },
     {
-      title: 'Discount value',
-      dataIndex: 'discountValue',
-      key: 'discountValue',
+      title: 'Total price',
+      dataIndex: 'totalPrice',
+      key: 'totalPrice',
       width: 200,
-      render: (discountValue) => {
-        return <Tiny>{discountValue}</Tiny>
+      render: (totalPrice) => {
+        return <Tiny>{convertCurrency(totalPrice)} VND</Tiny>
+      },
+    },
+    {
+      title: 'Received',
+      dataIndex: 'approved',
+      key: 'approved',
+      width: 200,
+      render: (approved) => {
+        return  <Switch checked={approved} />
       },
     },
     {
