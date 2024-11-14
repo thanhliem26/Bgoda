@@ -43,6 +43,7 @@ export enum MODLUE_QUERY_KEY {
     LOGIN_USER = 'login',
     PROVINCE = 'province',
     ADMIN_BOOKING = 'admin_booking',
+    ADMIN_RATING = 'admin_rating',
     APPLICATION_ROOM_TYPE = 'application_room_type',
     APPLICATION_BUSINESS_PARTNER = 'application_business_partner',
     APPLICATION_POPULAR_VISIT = 'application_popular_visit',

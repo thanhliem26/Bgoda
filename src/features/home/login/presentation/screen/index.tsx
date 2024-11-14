@@ -10,9 +10,6 @@ import useLogin from '../../hooks/useLogin'
 import InputBase from 'shared/components/input'
 import AppButton from 'shared/components/AppButton'
 import { Link } from 'react-router-dom'
-import {
-  UnlockOutlined
-} from '@ant-design/icons';
 
 function Login() {
   const { onSubmit, control, isPending } = useLogin();

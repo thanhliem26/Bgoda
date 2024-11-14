@@ -5,23 +5,23 @@ import useEditResource from "shared/hooks/crud-hook/useEditResource"
 import { FormDataSchemaReceive, schemaReceived } from "../shared/constants/schema"
 import { Booking, UpdateReceivedBookingArguments } from "shared/schema/booking"
 
-type TypeUseUpdateBooking = {
+type TypeUseUnApproveRating = {
     id: string | number
     onSuccess: (data: BaseRecord) => void
 }
 
-function useUpdateBooking(props: TypeUseUpdateBooking) {
+function useUnApproveRating(props: TypeUseUnApproveRating) {
     const { id, onSuccess } = props
 
-    const { updateReceiveBooking, getBooking, queryKey } = useService()
+    const { updateUnApproveRating, getRating, queryKey } = useService()
     const { useEditReturn, useFormReturn, isGetting } = useEditResource<
         Booking,
         FormDataSchemaReceive,
         UpdateReceivedBookingArguments
     >({
         resolver: yupResolver(schemaReceived),
-        editBuildQuery: updateReceiveBooking,
-        oneBuildQuery: getBooking,
+        editBuildQuery: updateUnApproveRating,
+        oneBuildQuery: getRating,
         queryKey: [queryKey],
         id,
         onSuccess,
@@ -64,4 +64,4 @@ function useUpdateBooking(props: TypeUseUpdateBooking) {
     }
 }
 
-export default useUpdateBooking
+export default useUnApproveRating

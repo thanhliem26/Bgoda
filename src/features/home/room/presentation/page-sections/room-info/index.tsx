@@ -5,7 +5,7 @@ import { CameraOutlined, EditOutlined } from '@ant-design/icons'
 import { H2, H3, Span, Tiny } from 'shared/styles/Typography'
 import { useNavigate, useParams } from 'react-router-dom'
 import useGetInfoRoom from 'features/home/room/hooks/useGetRoomDetail'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { isEmpty } from 'lodash'
 import { getServiceByValue } from 'features/admin/service-room/shared/components/SelecIcon'
 import RoomComponent from '../room-component'
@@ -261,13 +261,13 @@ const RoomInfo = () => {
               <FlexBox className='box_review'>
                 <FlexBox style={{ gap: 8 }}>
                   <Tiny className='box_review_name'>{rating?.fullName}</Tiny>
-                  {/* {rating?.updateAble && <EditOutlined  onClick={() => {
+                  {rating?.updateAble && <EditOutlined  onClick={() => {
                   setOpenUpdateRating(true)
                   setDataUpdate({
                     id: Number(rating?.id),
                     comment: rating?.comment
                   })
-                }}/>} */}
+                }}/>}
                 </FlexBox>
                 <Rate disabled className='box_review_rate' value={rating?.rate} />
                 <Tiny className='box_review_date'>{dayjs(rating?.lastUpdatedDate).format('YYYY-MM-DD HH:mm')}</Tiny>

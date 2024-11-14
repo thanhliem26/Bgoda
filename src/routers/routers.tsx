@@ -48,6 +48,8 @@ const RoomAdminPage = Loadable(lazy(() => import('../pages/admin/room')))
 
 const DiscountAdminPage = Loadable(lazy(() => import('../pages/admin/discount')))
 
+const RatingAdminPage = Loadable(lazy(() => import('../pages/admin/feedback')))
+
 const BookingAdminPage = Loadable(lazy(() => import('../pages/admin/booking')))
 
 const MainPage = Loadable(lazy(() => import('../pages/home/main/index')))
@@ -144,6 +146,15 @@ const router = createBrowserRouter([
         element: <Cant module='account_manage'>
           <DashboardLayout>
             <AdminUserPage />
+          </DashboardLayout>
+
+        </Cant>,
+      },
+      {
+        path: 'feedback',
+        element: <Cant module='rating_manage'>
+          <DashboardLayout>
+            <RatingAdminPage />
           </DashboardLayout>
 
         </Cant>,

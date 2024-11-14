@@ -59,6 +59,7 @@ export const navigation: IMenuSideBar[] = [
       { key: '/admin/bank-business-partner', label: 'Business partner bank', icon: <BankOutlined />, permission: 'bank_manage' },
       { key: '/admin/room', label: 'Room', icon: <HomeOutlined />, permission: 'room_manage' },
       { key: '/admin/booking', label: 'Booking', icon: <MoreIcon />, permission: 'booking_manage' },
+      { key: '/admin/feedback', label: 'Rating', icon: <MoreIcon />, permission: 'rating_manage' },
       { key: '/admin/discount', label: 'Discount', icon: <DiscountIcon />, permission: 'discount_manage' },
     ],
   },

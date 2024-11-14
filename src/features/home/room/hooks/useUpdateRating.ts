@@ -15,7 +15,7 @@ interface IUpdateRatingProps {
 function useUpdateRating(props: IUpdateRatingProps) {
     const { onSuccess, id, comment } = props
 
-    const { updateRating, queryKey } = useService()
+    const { updateRating } = useService()
     const { useCreateReturn, useFormReturn } = useCreateResource<
     UpdateRatingArguments,
     FormDataSchemaUpdate
