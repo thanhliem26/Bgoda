@@ -13,7 +13,7 @@ const AuthenticateLayoutAdmin = ({ children }: AuthenticateLayoutProps) => {
  
   let location = useLocation()
   if (authState === 'IS_AUTHENTICATED' && (type === TYPE_ACCOUNT_LOGIN.BUSINESS_PARTNER || type === TYPE_ACCOUNT_LOGIN.SYSTEM_EMPLOYEE)) {
-    return <Navigate to="/admin" state={{ from: location }} replace />
+    return <Navigate to="/admin/room" state={{ from: location }} replace />
   }
   
   return <Fragment>{children}</Fragment>
