@@ -36,6 +36,7 @@ export const getServiceByValue = (value: string) => {
 }
  
 const SelectIcon = (props: Omit<IAutoCompleteBaseProps, 'options' | 'popupClassName'>) => {
+
   return (
     <AutoCompleteBase
       options={options}
