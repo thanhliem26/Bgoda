@@ -24,7 +24,7 @@ const RoomInfo = () => {
   const [openRating, setOpenRating] = useState<boolean>(false)
   const [openUpdateRating, setOpenUpdateRating] = useState<boolean>(false)
 
-  const [dataUpdate, setDataUpdate] = useState({ id: 0, comment: '' })
+  const [dataUpdate, setDataUpdate] = useState({ id: 0, comment: '', rate: 5 })
   const { authState } = useAuth()
 
   const { id } = useParams()
@@ -265,7 +265,8 @@ const RoomInfo = () => {
                   setOpenUpdateRating(true)
                   setDataUpdate({
                     id: Number(rating?.id),
-                    comment: rating?.comment
+                    comment: rating?.comment,
+                    rate: rating?.rate
                   })
                 }}/>}
                 </FlexBox>
@@ -298,7 +299,7 @@ const RoomInfo = () => {
       )}
 
       {openRating && (<CreateRatingModal open={openRating} setOpen={setOpenRating} roomId={Number(id)} />)}
-      {openUpdateRating && (<UpdateRatingModal id={dataUpdate?.id} comment={dataUpdate?.comment} open={openUpdateRating} setOpen={setOpenUpdateRating} />)}
+      {openUpdateRating && (<UpdateRatingModal rate={dataUpdate?.rate} id={dataUpdate?.id} comment={dataUpdate?.comment} open={openUpdateRating} setOpen={setOpenUpdateRating} />)}
     </RoomInfoWrapper>
   )
 }

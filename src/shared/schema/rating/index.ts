@@ -20,4 +20,5 @@ export type CreateRatingArguments = {
 export type UpdateRatingArguments = {
     id: number
     updateComment: string
+    rate: number
 }

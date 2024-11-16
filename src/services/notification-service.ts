@@ -5,8 +5,9 @@ class NotificationService {
   static showError(message: string) {
     return toast.error(message)
   }
-  static showSuccess(action: Action) {
-    return toast.success(NotificationService.generateMessage(action))
+
+  static showSuccess(action: Action, message = '') {
+    return toast.success(message ? message :  NotificationService.generateMessage(action))
   }
 
   static generateMessage(action: Action): string {

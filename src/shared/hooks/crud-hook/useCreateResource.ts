@@ -51,7 +51,7 @@ function useCreateResource<T, P extends FieldValues>({
       queryClient.invalidateQueries({ queryKey: mutationKey })
       onSuccess?.(unwrapEither(data) as ResponseServer)
 
-      return NotificationService.showSuccess('CREATE')
+      return NotificationService.showSuccess('CREATE', unwrapEither(data)?.message)
     },
     onError(error) {
       if (onError) {
