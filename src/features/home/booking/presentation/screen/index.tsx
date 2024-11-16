@@ -4,7 +4,7 @@ import useCreateBooking from '../../hooks/useBooking'
 import { Controller } from 'react-hook-form'
 import AppTextField from 'shared/components/form/AppTextField'
 import { Span, Tiny } from 'shared/styles/Typography'
-import { Col, DatePicker, Image, Rate, Row } from 'antd'
+import { Button, Col, DatePicker, Image, Rate, Row } from 'antd'
 import dayjs from 'dayjs'
 import weekday from 'dayjs/plugin/weekday'
 import localeData from 'dayjs/plugin/localeData'
@@ -34,8 +34,11 @@ const SpanIcon = styled(Span)`
 
 function BookingRoom() {
   const [open, setOpen] = useState(false)
-  const [imageBank, setImageBank] = useState('');
-  console.log("🚀 ~ imageBank:", imageBank)
+  const [imageBank, setImageBank] = useState({
+    url: '',
+    open: false
+  });
+
   const handleButtonClick = () => {
     setOpen(true)
   }
@@ -44,7 +47,10 @@ function BookingRoom() {
     useCreateBooking({
       onSuccess: (data) => {
         const first = data?.metaData[0];
-        setImageBank(first?.qrurl)
+        setImageBank({
+          open: true,
+          url: first?.qrurl,
+        })
       },
     })
 
@@ -98,12 +104,15 @@ function BookingRoom() {
        <Image
         width={200}
         style={{ display: 'none' }}
-        src={imageBank}
+        src={imageBank.url}
         preview={{
-          visible: !!imageBank,
-          src: imageBank,
+          visible: imageBank.open,
+          src: imageBank.url,
           onVisibleChange: (value) => {
-            setImageBank('')
+            setImageBank({
+              url: imageBank.url,
+              open: false
+            })
           },
         }}
       />
@@ -299,9 +308,15 @@ function BookingRoom() {
             </BoxWrapper>
 
             <FlexBox>
-              {!imageBank && <AppButton style={{ width: '100%' }} disabled={isValid} onClick={onSubmit} loading={isPending}>
+              {!imageBank.url && <AppButton style={{ width: '100%' }} disabled={isValid} onClick={onSubmit} loading={isPending}>
                 Đặt phòng
               </AppButton>}
+              {imageBank.url && <Button onClick={() => {
+              setImageBank({
+                open: true,
+                url: imageBank.url
+              })
+            }} style={{ background: '#2067da', color: 'white' }}>Show QR</Button>}
             </FlexBox>
           </FlexBox>
 

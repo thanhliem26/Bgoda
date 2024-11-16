@@ -242,7 +242,7 @@ const DashboardSidebar: React.FC = () => {
           <MenuSidebar
             onClick={onClick}
             style={{ width: 265 }}
-            defaultSelectedKeys={['user']}
+            defaultSelectedKeys={['/admin/room']}
             mode="inline"
             items={navigationPermissionUser}
           />

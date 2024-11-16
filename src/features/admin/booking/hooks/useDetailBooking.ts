@@ -3,7 +3,6 @@ import { useQuery } from "@tanstack/react-query"
 import RESTClientService from "services/axios-service"
 import { isRight, unwrapEither } from "shared/utils/handleEither"
 import { useMemo } from "react"
-import { Discount } from "shared/schema/discount"
 import { Booking } from "shared/schema/booking"
 
 type UseDetailBookingProps = {

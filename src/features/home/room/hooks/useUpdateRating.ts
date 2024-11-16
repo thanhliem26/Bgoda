@@ -10,21 +10,23 @@ interface IUpdateRatingProps {
     onSuccess?: (value: any) => void
     id: number
     comment: string
+    rate: number
 }
 
 function useUpdateRating(props: IUpdateRatingProps) {
-    const { onSuccess, id, comment } = props
+    const { onSuccess, id, comment, rate } = props
 
-    const { updateRating, queryKey } = useService()
+    const { updateRating } = useService()
     const { useCreateReturn, useFormReturn } = useCreateResource<
-    UpdateRatingArguments,
-    FormDataSchemaUpdate
+        UpdateRatingArguments,
+        FormDataSchemaUpdate
     >({
         mutationKey: [MODLUE_QUERY_KEY.APPLICATION_RATING],
         queryString: updateRating,
         defaultValues: {
             id: id,
-            updateComment: comment
+            updateComment: comment,
+            rate: rate,
         },
         resolver: yupResolver(schemaUpdate),
         onSuccess: onSuccess,
@@ -39,7 +41,8 @@ function useUpdateRating(props: IUpdateRatingProps) {
         handleSubmit((value) => {
             const payload: UpdateRatingArguments = {
                 id: value?.id ?? 0,
-                updateComment: value?.updateComment ?? ''
+                updateComment: value?.updateComment ?? '',
+                rate: value?.rate ?? 5,
             }
 
             mutate(payload)

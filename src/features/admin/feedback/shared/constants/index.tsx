@@ -1,48 +1,29 @@
-import { Switch, TableProps } from "antd"
+import { TableProps } from "antd"
 import dayjs from "dayjs";
 import { ActionGroupButtons } from "shared/components/table/components/ActionGroupButton";
 import { TOptionItem } from "shared/components/table/hooks/useBuildActionTable"
-import { Booking } from "shared/schema/booking";
+import { Rating } from "shared/schema/rating";
 import { Tiny } from "shared/styles/Typography";
-import { convertCurrency } from "shared/utils/convert-string";
 
 export const columns = (
-  actions: TOptionItem<Booking>[],
-): TableProps<Booking>['columns'] => [
+  actions: TOptionItem<Rating>[],
+): TableProps<Rating>['columns'] => [
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
+      title: 'Comment',
+      dataIndex: 'comment',
+      key: 'Comment',
       render: (text) => {
         return  <Tiny style={{fontWeight: 'bold'}}>{text}</Tiny>
       },
       width: 300,
     },
     {
-      title: 'Phone number',
-      dataIndex: 'phoneNumber',
-      key: 'phoneNumber',
+      title: 'Rate',
+      dataIndex: 'rate',
+      key: 'Rate',
       width: 300,
-      render: (phoneNumber) => {
-        return <Tiny>{phoneNumber}</Tiny>
-      },
-    },
-    {
-      title: 'Total price',
-      dataIndex: 'totalPrice',
-      key: 'totalPrice',
-      width: 200,
-      render: (totalPrice) => {
-        return <Tiny>{convertCurrency(totalPrice)} VND</Tiny>
-      },
-    },
-    {
-      title: 'Received',
-      dataIndex: 'approved',
-      key: 'approved',
-      width: 200,
-      render: (approved) => {
-        return  <Switch checked={approved} />
+      render: (rate) => {
+        return <Tiny>{rate}</Tiny>
       },
     },
     {

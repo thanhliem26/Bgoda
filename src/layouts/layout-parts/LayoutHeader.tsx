@@ -1,18 +1,18 @@
-import { Box, FlexBox } from 'shared/styles'
+import { FlexBox } from 'shared/styles'
 import AppButton from 'shared/components/AppButton'
 import {
   EditOutlined,
   LogoutOutlined,
   SettingOutlined,
 } from '@ant-design/icons';
-import { Span, Tiny } from 'shared/styles/Typography';
+import { Tiny } from 'shared/styles/Typography';
 import { Link, useNavigate } from 'react-router-dom';
 import useAuth from 'features/authorization/hooks/useAuth';
 import { Fragment } from 'react/jsx-runtime';
 import { Dropdown, MenuProps } from 'antd';
 import handleAuthLocalStorage from 'services/auth-local-storage-service';
 import { toast } from 'react-toastify';
-import { BoxImageUser, FeatureInfo, Header, LogoPage, MenuFeature, Section } from 'layouts/shared/styles';
+import { BoxImageUser, FeatureInfo, Header, LogoPage, Section } from 'layouts/shared/styles';
 import { useContext, useState } from 'react';
 import UpdateUserModal from 'layouts/components/UpdateUesrModal';
 import UpdatePasswordModal from 'layouts/components/UpdatePasswordModal';
