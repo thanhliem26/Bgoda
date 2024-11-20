@@ -40,10 +40,10 @@ jobs:
           sudo apt-get update && sudo apt-get install -y sshpass
 
           # Sync folder `dist` to server
-          sshpass -p "$SERVER_PASSWORD" rsync -avz -e "ssh -o StrictHostKeyChecking=no" ./dist/ $SERVER_USERNAME@$SERVER_IP:/var/www/bgoda/dist --rsync-path="sudo rsync"
+           sshpass -p "$SERVER_PASSWORD" rsync -avz -e "ssh -o StrictHostKeyChecking=no" ./build/ $SERVER_USERNAME@$SERVER_IP:/var/www/bgoda/build --rsync-path="sudo rsync"
 
-          # connect SSH to restart nginx
+          # Restart nginx
           sshpass -p "$SERVER_PASSWORD" ssh -o StrictHostKeyChecking=no $SERVER_USERNAME@$SERVER_IP "
-            cd /var/www/bgoda/dist &&
+            cd /var/www/bgoda/build &&
             sudo service nginx restart
           "
