@@ -9,7 +9,7 @@ import dayjs from 'dayjs'
 import weekday from 'dayjs/plugin/weekday'
 import localeData from 'dayjs/plugin/localeData'
 import 'dayjs/locale/vi'
-import { Fragment, useMemo, useState } from 'react'
+import { Fragment, useEffect, useMemo, useState } from 'react'
 import useGetInfoRoom from '../../hooks/useGetRoom'
 import { useParams } from 'react-router-dom'
 import { getServiceByValue } from 'features/admin/service-room/shared/components/SelecIcon'
@@ -19,6 +19,7 @@ import { convertDiscountPrice } from 'shared/utils/number'
 import useGetDiscountRoom from '../../hooks/useGetDiscountByRoom'
 import DiscountRoomAutoComplete from 'shared/components/autocomplete/discount-of-room-auto-complete'
 import AppButton from 'shared/components/AppButton'
+import useGetBank from '../../hooks/useGetBank'
 
 const { RangePicker } = DatePicker
 
@@ -42,20 +43,26 @@ function BookingRoom() {
   const handleButtonClick = () => {
     setOpen(true)
   }
+  const [pricePay, setPricePay] = useState<number>(0);
+  const [namePay, setNamePay] = useState<string>('');
+ 
+  const { id } = useParams()
+  const { roomInfo } = useGetInfoRoom({ id: id as string })
+  const { handleGetQRCode } = useGetBank({ id: roomInfo?.businessPartnerId })
 
   const { onSubmit, control, isPending, isValid, setValue, watch, getValues } =
     useCreateBooking({
-      onSuccess: (data) => {
-        const first = data?.metaData[0];
+      onSuccess: async (data) => {
+        const qrCode = await handleGetQRCode(namePay, roomInfo?.name, pricePay)
+
         setImageBank({
           open: true,
-          url: first?.qrurl,
+          url: qrCode,
         })
       },
     })
 
-  const { id } = useParams()
-  const { roomInfo } = useGetInfoRoom({ id: id as string })
+
   const { discountList } = useGetDiscountRoom({ id: id as string })
 
   const checkInDate = getValues('checkInDate')
@@ -99,9 +106,17 @@ function BookingRoom() {
     }
   }, [discountSelect, dayDiff, roomInfo]);
 
+  useEffect(() => {
+    const numberPay = priceDiscountDefault?.price ? Number(priceDiscountDefault?.price.replace(/,/g, '')) : 0;
+    setPricePay(numberPay)
+  }, [priceDiscountDefault])
+
+  useEffect(() => {
+    setNamePay(watch('name'))
+  }, [watch('name')])
   return (
     <Fragment>
-       <Image
+      <Image
         width={200}
         style={{ display: 'none' }}
         src={imageBank.url}
@@ -312,11 +327,11 @@ function BookingRoom() {
                 Đặt phòng
               </AppButton>}
               {imageBank.url && <Button onClick={() => {
-              setImageBank({
-                open: true,
-                url: imageBank.url
-              })
-            }} style={{ background: '#2067da', color: 'white' }}>Show QR</Button>}
+                setImageBank({
+                  open: true,
+                  url: imageBank.url
+                })
+              }} style={{ background: '#2067da', color: 'white' }}>Show QR</Button>}
             </FlexBox>
           </FlexBox>
 
