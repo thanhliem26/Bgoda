@@ -31,6 +31,7 @@ type ParamQrCode = {
     addInfo: string
     amount: number
 }
+
 const getQRCode = (param: ParamQrCode) => {
   return new Promise((resolve) => {
     resolve(
