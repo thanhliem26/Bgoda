@@ -26,6 +26,7 @@ jobs:
           echo "VITE_ENDPOINT_BE=${{ secrets.SECRECT_ENDPOINT_BE }}" >> $GITHUB_ENV
           echo "VITE_ENDPOINT_BE_APPLICATION=${{ secrets.SECRECT_ENDPOINT_BE_APPLICATION }}" >> $GITHUB_ENV
           echo "VITE_TINY_API_KEY=${{ secrets.SECRECT_TINY_API_KEY }}" >> $GITHUB_ENV
+          echo "VITE_ENDPOINT_BE_NODE=${{ secrets.SECRECT_ENDPOINT_BE_NODE }}" >> $GITHUB_ENV
 
       - name: Build the application
         run: npm run build

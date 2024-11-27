@@ -1,3 +1,4 @@
+import envConfig from 'configs/env'
 import RESTClientService from 'services/axios-service-application'
 import { MODLUE_QUERY_KEY } from 'shared/interfaces/common'
 
@@ -26,11 +27,22 @@ const useService = () => {
         })
     }
 
+    const getBusinessPartnerBank = () => {
+        return RESTClientService.buildRequest({
+            endpoint: '/v1/api/bank-business-partner/bank',
+            method: 'GET',
+            options: {
+                baseURL: envConfig.ENDPOINT_API_NODE
+            }
+        })
+    }
+
     return {
         queryKey,
         createBooking,
         getRoomInfo,
-        getDiscountRoom
+        getDiscountRoom,
+        getBusinessPartnerBank
     }
 }
 
