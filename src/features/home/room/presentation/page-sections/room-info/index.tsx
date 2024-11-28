@@ -18,6 +18,7 @@ import useGetRating from 'features/home/room/hooks/useGetRating'
 import dayjs from 'dayjs'
 import UpdateRatingModal from '../modal-rating-update'
 import useAuth from 'features/authorization/hooks/useAuth'
+import { TYPE_ACCOUNT_LOGIN } from 'contexts/Authentication'
 
 const RoomInfo = () => {
   const [open, setOpen] = useState<boolean>(false)
@@ -25,7 +26,7 @@ const RoomInfo = () => {
   const [openUpdateRating, setOpenUpdateRating] = useState<boolean>(false)
 
   const [dataUpdate, setDataUpdate] = useState({ id: 0, comment: '', rate: 5 })
-  const { authState } = useAuth()
+  const { authState, type } = useAuth()
 
   const { id } = useParams()
   const { roomInfo } = useGetInfoRoom({ id: id as string })
@@ -138,7 +139,7 @@ const RoomInfo = () => {
               )}{' '}
               ₫
             </Tiny>
-            {authState === 'IS_AUTHENTICATED' && <Button onClick={() => {
+            {authState === 'IS_AUTHENTICATED' && type === TYPE_ACCOUNT_LOGIN.TOURIST && <Button onClick={() => {
               navigate(`/room/booking/${id}`)
             }} style={{ background: '#2067da', color: 'white' }}> Đặt phòng</Button>}
 

@@ -42,7 +42,7 @@ const AdminUser = () => {
   const newActions = useMemo(() => {
     if (showAdd) return actions;
 
-    return actions.filter((item) => item.key !== 'delete')
+    return actions.filter((item) => item.key !== 'delete' && item.key !== 'edit')
   }, [showAdd])
   const { useTableReturn } = useRoleTemplateTable({ search: { searchName: search } });
   const { columnTable } = useBuildColumnTable({
@@ -66,7 +66,7 @@ const AdminUser = () => {
           </Box>
           <Box>
             {showAdd && <ButtonBase icon={<PlusOutlined />} onClick={() => setOpenCreate(true)}>
-              Add a new role template
+              Add a new business partner
             </ButtonBase>}
           </Box>
         </FlexBox>
