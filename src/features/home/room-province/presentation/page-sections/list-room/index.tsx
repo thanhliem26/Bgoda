@@ -257,7 +257,7 @@ const ListRoom = () => {
                       </Row>
                     </Box>
                   </FlexBox>
-                  <FlexBox className="room__item-description">
+                  <FlexBox className="room__item-description" style={{width: '70%'}}>
                     <H3>{room?.name}</H3>
                     <FlexBox style={{ gap: '8px', flexDirection: 'column' }}>
                       <FlexBox style={{ gap: '8px', flexDirection: 'column' }}>
