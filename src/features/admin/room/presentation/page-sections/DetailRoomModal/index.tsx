@@ -33,6 +33,13 @@ const TinyValue = styled(Tiny)`
     color: rgb(11, 14, 30);
 `
 
+const BoxDescription = styled(Box)`
+
+  & img {
+    width: 100%
+  }
+`
+
 function DetailRoomModal({ open, setOpen, id }: IDetailRoomModal) {
   const { room } = useDetailRoom({ id });
 
@@ -193,12 +200,13 @@ function DetailRoomModal({ open, setOpen, id }: IDetailRoomModal) {
               alignContent: 'center',
               marginTop: 8,
               flexDirection: 'column',
-              flex: 1
+              flex: 1,
+              width: '100%'
             }}
           >
             <SpanField>Description</SpanField>
-            <Box dangerouslySetInnerHTML={{ __html: room?.description }}>
-            </Box>
+            <BoxDescription style={{width: '100%'}} dangerouslySetInnerHTML={{ __html: room?.description }}>
+            </BoxDescription>
           </FlexBox>
 
         </FlexBox>
