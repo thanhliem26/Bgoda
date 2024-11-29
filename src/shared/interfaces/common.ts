@@ -55,7 +55,8 @@ export enum MODLUE_QUERY_KEY {
     APPLICATION_LIST_DISCOUNT = 'application_list_discount',
     APPLICATION_BOOKING = 'application_booking',
     APPLICATION_BOOKED = 'application_booked',
-    APPLICATION_RATING = 'application_rating'
+    APPLICATION_RATING = 'application_rating',
+    ACTIVE_EMAIL = 'active_email'
 }
 
 export type IOption =  {
