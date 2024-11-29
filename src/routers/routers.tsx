@@ -72,6 +72,8 @@ const SystemLoginPage = Loadable(lazy(() => import('../pages/admin/system-login/
 
 const BookedPage = Loadable(lazy(() => import('../pages/home/booked/index')))
 
+const AuthorEmail = Loadable(lazy(() => import('../features/home/author-email')))
+
 const RegisterPage = Loadable(
   lazy(() => import('../pages/home/register/index'))
 )
@@ -88,6 +90,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <MainPage />,
+      },
+      {
+        path: '/active-email',
+        element: <AuthorEmail />,
       },
       {
         path: '/city/:id',
